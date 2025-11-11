@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정규식 테스터 - 개발자 유틸리티</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .match-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .regex-flags {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .regex-flags label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎯 정규식 테스터</h1>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        
+        <div class="tool-panel">
+            <div class="form-group">
+                <label for="regexInput">정규표현식</label>
+                <input type="text" id="regexInput" placeholder="^\d{3}-\d{4}-\d{4}$">
+                <div class="regex-flags">
+                    <label><input type="checkbox" id="flagG" checked> g (전역 검색)</label>
+                    <label><input type="checkbox" id="flagI"> i (대소문자 구분 안함)</label>
+                    <label><input type="checkbox" id="flagM"> m (여러 줄)</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="testString">테스트 문자열</label>
+                <textarea id="testString" placeholder="010-1234-5678"></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-action" onclick="testRegex()">테스트</button>
+                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
+            </div>
+            
+            <div id="result" style="display: none;">
+                <h3>결과</h3>
+                <div id="matchCount" class="result-box"></div>
+                <div class="form-group">
+                    <label>매칭 결과</label>
+                    <div id="matchResult" class="result-box"></div>
+                </div>
+                <div class="form-group">
+                    <label>매칭 상세</label>
+                    <div id="matchDetails" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tool-panel">
+            <h3>ℹ️ 자주 사용하는 정규식</h3>
+            <div class="result-box">
+                <strong>이메일:</strong> ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$<br>
+                <strong>전화번호:</strong> ^\d{2,3}-\d{3,4}-\d{4}$<br>
+                <strong>URL:</strong> ^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b<br>
+                <strong>IP 주소:</strong> ^(\d{1,3}\.){3}\d{1,3}$<br>
+                <strong>날짜 (YYYY-MM-DD):</strong> ^\d{4}-\d{2}-\d{2}$
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function testRegex() {
+            const regexStr = $('#regexInput').val();
+            const testStr = $('#testString').val();
+            const result = $('#result');
+            const matchCount = $('#matchCount');
+            const matchResult = $('#matchResult');
+            const matchDetails = $('#matchDetails');
+            
+            if (!regexStr) {
+                alert('정규표현식을 입력해주세요.');
+                return;
+            }
+            
+            if (!testStr) {
+                alert('테스트 문자열을 입력해주세요.');
+                return;
+            }
+            
+            try {
+                // 플래그 수집
+                let flags = '';
+                if ($('#flagG').is(':checked')) flags += 'g';
+                if ($('#flagI').is(':checked')) flags += 'i';
+                if ($('#flagM').is(':checked')) flags += 'm';
+                
+                const regex = new RegExp(regexStr, flags);
+                const matches = testStr.matchAll(regex);
+                const matchArray = Array.from(matches);
+                
+                result.show();
+                
+                if (matchArray.length > 0) {
+                    // 매칭 개수
+                    matchCount.removeClass('error').addClass('success');
+                    matchCount.html(`✅ <strong>${matchArray.length}개</strong>의 매칭이 발견되었습니다.`);
+                    
+                    // 하이라이트된 결과
+                    let highlighted = testStr;
+                    let offset = 0;
+                    matchArray.forEach(match => {
+                        const startPos = match.index + offset;
+                        const endPos = startPos + match[0].length;
+                        const before = highlighted.substring(0, startPos);
+                        const matched = highlighted.substring(startPos, endPos);
+                        const after = highlighted.substring(endPos);
+                        highlighted = before + '<span class="match-highlight">' + matched + '</span>' + after;
+                        offset += '<span class="match-highlight">'.length + '</span>'.length;
+                    });
+                    matchResult.html(highlighted);
+                    
+                    // 매칭 상세 정보
+                    let details = '';
+                    matchArray.forEach((match, index) => {
+                        details += `<strong>매칭 ${index + 1}:</strong> "${match[0]}" (위치: ${match.index})\n`;
+                        if (match.length > 1) {
+                            for (let i = 1; i < match.length; i++) {
+                                details += `  그룹 ${i}: "${match[i]}"\n`;
+                            }
+                        }
+                    });
+                    matchDetails.text(details);
+                } else {
+                    matchCount.removeClass('success').addClass('error');
+                    matchCount.html('❌ 매칭되는 결과가 없습니다.');
+                    matchResult.text(testStr);
+                    matchDetails.text('매칭 결과가 없습니다.');
+                }
+            } catch (e) {
+                result.show();
+                matchCount.removeClass('success').addClass('error');
+                matchCount.html('❌ 올바르지 않은 정규표현식입니다: ' + e.message);
+                matchResult.text('');
+                matchDetails.text('');
+            }
+        }
+        
+        function clearAll() {
+            $('#regexInput').val('');
+            $('#testString').val('');
+            $('#result').hide();
+        }
+    </script>
+</body>
+</html>

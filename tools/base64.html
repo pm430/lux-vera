@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 인코더 - 개발자 유틸리티</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔐 Base64 인코더/디코더</h1>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        
+        <div class="tool-panel">
+            <div class="form-group">
+                <label for="textInput">텍스트 입력</label>
+                <textarea id="textInput" placeholder="인코딩할 텍스트를 입력하세요"></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-action" onclick="encodeBase64()">인코딩</button>
+                <button class="btn btn-action" onclick="decodeBase64()">디코딩</button>
+                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
+                <button class="btn btn-secondary" onclick="copyResult()">결과 복사</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="resultOutput">결과</label>
+                <textarea id="resultOutput" readonly></textarea>
+            </div>
+            
+            <div id="message" class="result-box" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function encodeBase64() {
+            const input = $('#textInput').val();
+            const output = $('#resultOutput');
+            const message = $('#message');
+            
+            if (!input) {
+                message.show();
+                Utils.showError(message, '❌ 텍스트를 입력해주세요.');
+                return;
+            }
+            
+            try {
+                const encoded = btoa(unescape(encodeURIComponent(input)));
+                output.val(encoded);
+                message.show();
+                Utils.showSuccess(message, '✅ Base64 인코딩이 완료되었습니다.');
+            } catch (e) {
+                message.show();
+                Utils.showError(message, '❌ 인코딩 중 오류가 발생했습니다: ' + e.message);
+            }
+        }
+        
+        function decodeBase64() {
+            const input = $('#textInput').val().trim();
+            const output = $('#resultOutput');
+            const message = $('#message');
+            
+            if (!input) {
+                message.show();
+                Utils.showError(message, '❌ Base64 문자열을 입력해주세요.');
+                return;
+            }
+            
+            try {
+                const decoded = decodeURIComponent(escape(atob(input)));
+                output.val(decoded);
+                message.show();
+                Utils.showSuccess(message, '✅ Base64 디코딩이 완료되었습니다.');
+            } catch (e) {
+                message.show();
+                Utils.showError(message, '❌ 올바르지 않은 Base64 문자열입니다: ' + e.message);
+            }
+        }
+        
+        function clearAll() {
+            $('#textInput').val('');
+            $('#resultOutput').val('');
+            $('#message').hide();
+        }
+        
+        function copyResult() {
+            const result = $('#resultOutput').val();
+            if (result) {
+                Utils.copyToClipboard(result);
+            } else {
+                alert('복사할 결과가 없습니다.');
+            }
+        }
+    </script>
+</body>
+</html>

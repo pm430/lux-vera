@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해시 생성기 - 개발자 유틸리티</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔒 해시 생성기</h1>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        
+        <div class="tool-panel">
+            <div class="form-group">
+                <label for="textInput">텍스트 입력</label>
+                <textarea id="textInput" placeholder="해시를 생성할 텍스트를 입력하세요"></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-action" onclick="generateHashes()">해시 생성</button>
+                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
+            </div>
+        </div>
+
+        <div id="results" style="display: none;">
+            <div class="tool-panel">
+                <h3>MD5</h3>
+                <div class="result-box" id="md5Result"></div>
+                <button class="btn btn-secondary" onclick="copyHash('md5')">복사</button>
+            </div>
+
+            <div class="tool-panel">
+                <h3>SHA-1</h3>
+                <div class="result-box" id="sha1Result"></div>
+                <button class="btn btn-secondary" onclick="copyHash('sha1')">복사</button>
+            </div>
+
+            <div class="tool-panel">
+                <h3>SHA-256</h3>
+                <div class="result-box" id="sha256Result"></div>
+                <button class="btn btn-secondary" onclick="copyHash('sha256')">복사</button>
+            </div>
+
+            <div class="tool-panel">
+                <h3>SHA-512</h3>
+                <div class="result-box" id="sha512Result"></div>
+                <button class="btn btn-secondary" onclick="copyHash('sha512')">복사</button>
+            </div>
+        </div>
+
+        <div class="tool-panel">
+            <h3>ℹ️ 해시 알고리즘 설명</h3>
+            <div class="result-box">
+                <strong>MD5:</strong> 128비트 해시. 빠르지만 보안에는 취약합니다.<br>
+                <strong>SHA-1:</strong> 160비트 해시. MD5보다 안전하지만 더 이상 권장되지 않습니다.<br>
+                <strong>SHA-256:</strong> 256비트 해시. 현재 널리 사용되는 안전한 해시입니다.<br>
+                <strong>SHA-512:</strong> 512비트 해시. SHA-256보다 더 긴 해시를 생성합니다.
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const hashResults = {};
+        
+        function generateHashes() {
+            const input = $('#textInput').val();
+            
+            if (!input) {
+                alert('텍스트를 입력해주세요.');
+                return;
+            }
+            
+            try {
+                // MD5
+                hashResults.md5 = CryptoJS.MD5(input).toString();
+                $('#md5Result').text(hashResults.md5);
+                
+                // SHA-1
+                hashResults.sha1 = CryptoJS.SHA1(input).toString();
+                $('#sha1Result').text(hashResults.sha1);
+                
+                // SHA-256
+                hashResults.sha256 = CryptoJS.SHA256(input).toString();
+                $('#sha256Result').text(hashResults.sha256);
+                
+                // SHA-512
+                hashResults.sha512 = CryptoJS.SHA512(input).toString();
+                $('#sha512Result').text(hashResults.sha512);
+                
+                $('#results').show();
+            } catch (e) {
+                alert('해시 생성 중 오류가 발생했습니다: ' + e.message);
+            }
+        }
+        
+        function copyHash(type) {
+            if (hashResults[type]) {
+                Utils.copyToClipboard(hashResults[type]);
+            } else {
+                alert('복사할 해시가 없습니다.');
+            }
+        }
+        
+        function clearAll() {
+            $('#textInput').val('');
+            $('#results').hide();
+            hashResults = {};
+        }
+    </script>
+</body>
+</html>

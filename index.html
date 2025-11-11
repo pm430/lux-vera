@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개발자 유틸리티 모음</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🛠️ 개발자 유틸리티</h1>
+            <p class="subtitle">개발에 필요한 편리한 도구들을 모았습니다</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 유틸리티 카드 목록 -->
+        <div class="utils-grid">
+            <div class="util-card" data-tool="json">
+                <div class="util-icon">📝</div>
+                <h3>JSON 포맷터</h3>
+                <p>JSON 데이터를 포맷팅하고 검증합니다</p>
+                <button class="btn-primary" onclick="location.href='tools/json-formatter.html'">사용하기</button>
+            </div>
+
+            <div class="util-card" data-tool="base64">
+                <div class="util-icon">🔐</div>
+                <h3>Base64 인코더</h3>
+                <p>텍스트를 Base64로 인코딩/디코딩합니다</p>
+                <button class="btn-primary" onclick="location.href='tools/base64.html'">사용하기</button>
+            </div>
+
+            <div class="util-card" data-tool="timestamp">
+                <div class="util-icon">⏰</div>
+                <h3>타임스탬프 변환</h3>
+                <p>Unix 타임스탬프와 날짜를 변환합니다</p>
+                <button class="btn-primary" onclick="location.href='tools/timestamp.html'">사용하기</button>
+            </div>
+
+            <div class="util-card" data-tool="url">
+                <div class="util-icon">🔗</div>
+                <h3>URL 인코더</h3>
+                <p>URL을 인코딩/디코딩합니다</p>
+                <button class="btn-primary" onclick="location.href='tools/url-encoder.html'">사용하기</button>
+            </div>
+
+            <div class="util-card" data-tool="regex">
+                <div class="util-icon">🎯</div>
+                <h3>정규식 테스터</h3>
+                <p>정규표현식을 테스트하고 매칭 결과를 확인합니다</p>
+                <button class="btn-primary" onclick="location.href='tools/regex-tester.html'">사용하기</button>
+            </div>
+
+            <div class="util-card" data-tool="hash">
+                <div class="util-icon">🔒</div>
+                <h3>해시 생성기</h3>
+                <p>MD5, SHA-256 등 다양한 해시를 생성합니다</p>
+                <button class="btn-primary" onclick="location.href='tools/hash-generator.html'">사용하기</button>
+            </div>
+        </div>
+
+        <!-- 후원 섹션 -->
+        <section class="sponsor-section">
+            <h2>☕ 후원하기</h2>
+            <p>이 도구들이 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <div class="sponsor-buttons">
+                <button class="btn-sponsor toss" onclick="openSponsor('toss')">
+                    <span class="sponsor-icon">💳</span>
+                    토스로 후원
+                </button>
+                <button class="btn-sponsor kakaopay" onclick="openSponsor('kakaopay')">
+                    <span class="sponsor-icon">💛</span>
+                    카카오페이로 후원
+                </button>
+                <button class="btn-sponsor github" onclick="openSponsor('github')">
+                    <span class="sponsor-icon">❤️</span>
+                    GitHub Sponsors
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Dev Utils. Made with ❤️ for developers</p>
+            <p>
+                <a href="https://github.com/yourusername/dev-utils" target="_blank">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

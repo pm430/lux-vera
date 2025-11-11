@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타임스탬프 변환 - 개발자 유틸리티</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>⏰ 타임스탬프 변환</h1>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        
+        <div class="tool-panel">
+            <h3>현재 시간</h3>
+            <div class="result-box">
+                <div id="currentTimestamp"></div>
+                <div id="currentDate"></div>
+            </div>
+        </div>
+
+        <div class="tool-panel">
+            <h3>타임스탬프 → 날짜</h3>
+            <div class="form-group">
+                <label for="timestampInput">Unix 타임스탬프 (초 또는 밀리초)</label>
+                <input type="number" id="timestampInput" placeholder="1609459200">
+            </div>
+            <button class="btn btn-action" onclick="convertToDate()">변환</button>
+            <div id="dateResult" class="result-box" style="display: none;"></div>
+        </div>
+
+        <div class="tool-panel">
+            <h3>날짜 → 타임스탬프</h3>
+            <div class="form-group">
+                <label for="dateInput">날짜 및 시간</label>
+                <input type="datetime-local" id="dateInput">
+            </div>
+            <button class="btn btn-action" onclick="convertToTimestamp()">변환</button>
+            <button class="btn btn-secondary" onclick="setNow()">현재 시간 입력</button>
+            <div id="timestampResult" class="result-box" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function updateCurrentTime() {
+            const now = new Date();
+            const timestamp = Math.floor(now.getTime() / 1000);
+            const dateStr = now.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            
+            $('#currentTimestamp').html(`<strong>Unix 타임스탬프:</strong> ${timestamp} (초)<br><strong>밀리초:</strong> ${now.getTime()}`);
+            $('#currentDate').html(`<strong>날짜:</strong> ${dateStr}`);
+        }
+        
+        function convertToDate() {
+            let timestamp = parseInt($('#timestampInput').val());
+            const result = $('#dateResult');
+            
+            if (isNaN(timestamp)) {
+                result.show();
+                Utils.showError(result, '❌ 올바른 타임스탬프를 입력해주세요.');
+                return;
+            }
+            
+            // 밀리초 단위면 초 단위로 변환
+            if (timestamp > 10000000000) {
+                timestamp = Math.floor(timestamp / 1000);
+            }
+            
+            const date = new Date(timestamp * 1000);
+            const dateStr = date.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            
+            const isoStr = date.toISOString();
+            
+            result.show();
+            Utils.showResult(result, 
+                `날짜: ${dateStr}\n` +
+                `ISO 8601: ${isoStr}\n` +
+                `UTC: ${date.toUTCString()}`
+            );
+        }
+        
+        function convertToTimestamp() {
+            const dateValue = $('#dateInput').val();
+            const result = $('#timestampResult');
+            
+            if (!dateValue) {
+                result.show();
+                Utils.showError(result, '❌ 날짜를 선택해주세요.');
+                return;
+            }
+            
+            const date = new Date(dateValue);
+            const timestamp = Math.floor(date.getTime() / 1000);
+            const milliseconds = date.getTime();
+            
+            result.show();
+            Utils.showResult(result,
+                `Unix 타임스탬프 (초): ${timestamp}\n` +
+                `밀리초: ${milliseconds}\n` +
+                `ISO 8601: ${date.toISOString()}`
+            );
+        }
+        
+        function setNow() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const dateTimeStr = `${year}-${month}-${day}T${hours}:${minutes}`;
+            $('#dateInput').val(dateTimeStr);
+        }
+        
+        // 페이지 로드 시 현재 시간 표시
+        $(document).ready(function() {
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+        });
+    </script>
+</body>
+</html>
