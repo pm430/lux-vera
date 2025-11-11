@@ -51,6 +51,58 @@
     --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 다크모드 변수 */
+[data-theme="dark"],
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        /* 배경색 */
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #1a1a1a;
+        --bg-tertiary: #2d2d2d;
+
+        /* 텍스트 색상 */
+        --text-primary: #f5f5f5;
+        --text-secondary: #a3a3a3;
+        --text-tertiary: #737373;
+
+        /* 보더 */
+        --border-color: #2d2d2d;
+        --border-color-hover: #f5f5f5;
+
+        /* 그림자 - 다크모드용 */
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+        --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
+    }
+}
+
+[data-theme="dark"] {
+    /* 배경색 */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #2d2d2d;
+
+    /* 텍스트 색상 */
+    --text-primary: #f5f5f5;
+    --text-secondary: #a3a3a3;
+    --text-tertiary: #737373;
+
+    /* 보더 */
+    --border-color: #2d2d2d;
+    --border-color-hover: #f5f5f5;
+
+    /* 그림자 - 다크모드용 */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .loading-overlay {
+    background: rgba(10, 10, 10, 0.8);
+}
+
 /* 기본 리셋 */
 * {
     margin: 0;
@@ -136,12 +188,38 @@ header h1 {
     letter-spacing: -0.01em;
 }
 
+.theme-toggle {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    font-size: 1.25rem;
+}
+
+.theme-toggle:hover {
+    border-color: var(--border-color-hover);
+    transform: rotate(15deg) scale(1.05);
+}
+
+header .container {
+    position: relative;
+}
+
 /* ==================== */
 /*      메인 영역       */
 /* ==================== */
 
 main {
-    padding: 72px 0;
+    padding: 100px 0 72px;
     min-height: calc(100vh - 300px);
 }
 
@@ -552,7 +630,7 @@ footer a:hover {
     }
 
     main {
-        padding: 48px 0;
+        padding: 72px 0 48px;
     }
 
     .container {
@@ -610,7 +688,7 @@ footer a:hover {
     }
 
     main {
-        padding: 40px 0;
+        padding: 56px 0 40px;
     }
 
     .utils-grid {
@@ -650,6 +728,128 @@ footer a:hover {
     .tool-panel {
         padding: 28px 20px;
     }
+}
+
+/* ==================== */
+/*   토스트 알림         */
+/* ==================== */
+
+.toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    min-width: 280px;
+    max-width: 400px;
+    font-size: 0.9375rem;
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(100px);
+    animation: toastSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.toast.toast-success {
+    background: var(--color-black);
+    border-left: 3px solid #10b981;
+}
+
+.toast.toast-error {
+    background: var(--color-black);
+    border-left: 3px solid #ef4444;
+}
+
+.toast.toast-hiding {
+    animation: toastSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toastSlideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+/* ==================== */
+/*   로딩 스피너         */
+/* ==================== */
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--color-gray-200);
+    border-top-color: var(--color-black);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==================== */
+/*   후원 섹션 인라인    */
+/* ==================== */
+
+.sponsor-inline {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.sponsor-inline p {
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
 }
 
 /* ==================== */

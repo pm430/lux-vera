@@ -29,6 +29,7 @@
 <body>
     <header>
         <div class="container">
+            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
             <h1>정규식 테스터</h1>
             <p class="subtitle">정규표현식을 테스트하고 매칭 결과를 확인합니다</p>
         </div>
@@ -84,8 +85,8 @@
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
-        <div style="text-align: center; margin: 30px 0;">
-            <p style="margin-bottom: 15px; color: #666;">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+        <div class="sponsor-inline">
+            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
@@ -170,11 +171,7 @@
             }
         }
         
-        function clearAll() {
-            $('#regexInput').val('');
-            $('#testString').val('');
-            $('#result').hide();
-        }
+        // clearAll은 main.js에서 제공
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->

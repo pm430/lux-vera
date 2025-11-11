@@ -10,6 +10,7 @@
 <body>
     <header>
         <div class="container">
+            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
             <h1>URL 인코더/디코더</h1>
             <p class="subtitle">URL을 인코딩/디코딩합니다</p>
         </div>
@@ -48,8 +49,8 @@
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
-        <div style="text-align: center; margin: 30px 0;">
-            <p style="margin-bottom: 15px; color: #666;">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+        <div class="sponsor-inline">
+            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
@@ -102,20 +103,7 @@
             }
         }
         
-        function clearAll() {
-            $('#urlInput').val('');
-            $('#urlOutput').val('');
-            $('#message').hide();
-        }
-        
-        function copyResult() {
-            const result = $('#urlOutput').val();
-            if (result) {
-                Utils.copyToClipboard(result);
-            } else {
-                alert('복사할 결과가 없습니다.');
-            }
-        }
+        // clearAll과 copyResult는 main.js에서 제공
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->
