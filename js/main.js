@@ -203,16 +203,6 @@ $(document).ready(function() {
 
     // 키보드 단축키 초기화
     KeyboardShortcuts.init();
-
-    // 카드 애니메이션 (메인 페이지에만)
-    if ($('.util-card').length > 0) {
-        $('.util-card').each(function(index) {
-            $(this).css('opacity', '0');
-            $(this).delay(index * 100).animate({
-                opacity: 1
-            }, 500);
-        });
-    }
 });
 
 // ==================== //

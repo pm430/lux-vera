@@ -99,6 +99,32 @@
     --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
+[data-theme="dark"] .btn-primary {
+    background: var(--color-gray-100);
+    color: var(--color-black);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+}
+
+[data-theme="dark"] .spinner {
+    border: 3px solid var(--color-gray-800);
+    border-top-color: var(--color-gray-200);
+}
+
 [data-theme="dark"] .loading-overlay {
     background: rgba(10, 10, 10, 0.8);
 }
@@ -167,7 +193,7 @@ body {
 header {
     background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
-    padding: 80px 0 70px;
+    padding: 80px 0;
     text-align: center;
     animation: fadeInUp 0.6s ease-out;
 }
@@ -219,7 +245,7 @@ header .container {
 /* ==================== */
 
 main {
-    padding: 100px 0 72px;
+    padding: 80px 0;
     min-height: calc(100vh - 300px);
 }
 
@@ -246,27 +272,10 @@ main {
     overflow: hidden;
 }
 
-.util-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-black), var(--color-gray-700));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--transition-base);
-}
-
 .util-card:hover {
     border-color: var(--border-color-hover);
     box-shadow: var(--shadow-hover);
-    transform: translateY(-4px);
-}
-
-.util-card:hover::before {
-    transform: scaleX(1);
+    transform: translateY(-5px);
 }
 
 .util-icon {
