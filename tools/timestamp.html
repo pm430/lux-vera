@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>타임스탬프 변환 - 개발자 유틸리티</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>

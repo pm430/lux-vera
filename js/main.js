@@ -117,17 +117,7 @@ const Utils = {
 
 const ThemeManager = {
     init: function() {
-        // 저장된 테마 불러오기 또는 시스템 설정 따르기
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        } else if (prefersDark) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-
-        // 토글 버튼 이벤트
+        // 토글 버튼 아이콘 초기화 및 이벤트 핸들러 연결
         const toggleBtn = document.querySelector('.theme-toggle');
         if (toggleBtn) {
             this.updateToggleIcon();
@@ -136,8 +126,10 @@ const ThemeManager = {
 
         // 시스템 테마 변경 감지
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            // 사용자가 수동으로 테마를 설정하지 않은 경우에만 시스템 설정을 따름
             if (!localStorage.getItem('theme')) {
-                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                const newTheme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
                 this.updateToggleIcon();
             }
         });
