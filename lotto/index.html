@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 생성기 - Lux Vera</title>
+    <meta name="description" content="행운의 로또 번호를 생성하세요. 1부터 45까지의 숫자 중 6개를 무작위로 선택합니다.">
+    <meta property="og:title" content="로또 번호 생성기 - Lux Vera">
+    <meta property="og:description" content="행운의 로또 번호를 생성하세요. 1부터 45까지의 숫자 중 6개를 무작위로 선택합니다.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .lotto-numbers {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 24px 0;
+        }
+
+        .lotto-ball {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .lotto-ball:hover {
+            transform: scale(1.1);
+        }
+
+        .lotto-ball.yellow { background: linear-gradient(135deg, #ffd700, #ffed4e); }
+        .lotto-ball.blue { background: linear-gradient(135deg, #4169e1, #6495ed); }
+        .lotto-ball.red { background: linear-gradient(135deg, #dc143c, #ff6347); }
+        .lotto-ball.gray { background: linear-gradient(135deg, #708090, #a9a9a9); }
+        .lotto-ball.green { background: linear-gradient(135deg, #32cd32, #90ee90); }
+
+        .lotto-set {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lotto-set-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .control-group label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .control-group select {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .lotto-ball {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
+            <h1>🎱 로또 번호 생성기</h1>
+            <p class="subtitle">행운의 번호를 생성하세요</p>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+
+        <div class="tool-panel">
+            <div class="control-group">
+                <label for="setCount">생성 개수:</label>
+                <select id="setCount">
+                    <option value="1">1개</option>
+                    <option value="3">3개</option>
+                    <option value="5" selected>5개</option>
+                    <option value="10">10개</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-action" onclick="generateNumbers()">번호 생성</button>
+                <button class="btn btn-secondary" onclick="saveNumbers()">번호 저장</button>
+                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
+            </div>
+
+            <div id="results"></div>
+
+            <div id="savedNumbers" style="display: none; margin-top: 32px;">
+                <h3 style="margin-bottom: 16px; text-align: center;">💾 저장된 번호</h3>
+                <div id="savedList"></div>
+            </div>
+        </div>
+
+        <!-- Buy Me a Coffee 버튼 -->
+        <div class="sponsor-inline">
+            <p>이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <a href="https://buymeacoffee.com/pm430" target="_blank">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+            </a>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 로또 번호 색상 결정
+        function getBallColor(num) {
+            if (num <= 10) return 'yellow';
+            if (num <= 20) return 'blue';
+            if (num <= 30) return 'red';
+            if (num <= 40) return 'gray';
+            return 'green';
+        }
+
+        // 로또 번호 생성
+        function generateLottoSet() {
+            const numbers = [];
+            while (numbers.length < 6) {
+                const num = Math.floor(Math.random() * 45) + 1;
+                if (!numbers.includes(num)) {
+                    numbers.push(num);
+                }
+            }
+            return numbers.sort((a, b) => a - b);
+        }
+
+        // 번호 표시
+        function displayNumbers(numbers, setNumber) {
+            const html = `
+                <div class="lotto-set">
+                    <div class="lotto-set-title">${setNumber}번째 추천 번호</div>
+                    <div class="lotto-numbers">
+                        ${numbers.map(num => `
+                            <div class="lotto-ball ${getBallColor(num)}">${num}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            return html;
+        }
+
+        // 번호 생성 실행
+        function generateNumbers() {
+            const setCount = parseInt($('#setCount').val());
+            const results = $('#results');
+            results.empty();
+
+            for (let i = 1; i <= setCount; i++) {
+                const numbers = generateLottoSet();
+                results.append(displayNumbers(numbers, i));
+            }
+
+            Utils.toast('🎲 로또 번호가 생성되었습니다!');
+        }
+
+        // 번호 저장
+        function saveNumbers() {
+            const sets = [];
+            $('.lotto-set').each(function() {
+                const numbers = [];
+                $(this).find('.lotto-ball').each(function() {
+                    numbers.push(parseInt($(this).text()));
+                });
+                if (numbers.length > 0) {
+                    sets.push(numbers);
+                }
+            });
+
+            if (sets.length === 0) {
+                Utils.toast('⚠️ 저장할 번호를 먼저 생성해주세요.');
+                return;
+            }
+
+            const saved = JSON.parse(localStorage.getItem('lottoNumbers') || '[]');
+            const timestamp = new Date().toLocaleString('ko-KR');
+            saved.push({
+                timestamp: timestamp,
+                sets: sets
+            });
+
+            // 최대 10개까지만 저장
+            if (saved.length > 10) {
+                saved.shift();
+            }
+
+            localStorage.setItem('lottoNumbers', JSON.stringify(saved));
+            loadSavedNumbers();
+            Utils.toast('💾 번호가 저장되었습니다!');
+        }
+
+        // 저장된 번호 불러오기
+        function loadSavedNumbers() {
+            const saved = JSON.parse(localStorage.getItem('lottoNumbers') || '[]');
+            const savedList = $('#savedList');
+            const savedNumbers = $('#savedNumbers');
+
+            if (saved.length === 0) {
+                savedNumbers.hide();
+                return;
+            }
+
+            savedNumbers.show();
+            savedList.empty();
+
+            saved.reverse().forEach((item, index) => {
+                const html = `
+                    <div class="lotto-set">
+                        <div class="lotto-set-title">
+                            ${item.timestamp}
+                            <button class="btn btn-secondary" style="font-size: 12px; padding: 4px 12px; margin-left: 12px;" onclick="deleteSaved(${saved.length - 1 - index})">삭제</button>
+                        </div>
+                        ${item.sets.map((numbers, setIndex) => `
+                            <div style="margin: 8px 0;">
+                                <div class="lotto-numbers">
+                                    ${numbers.map(num => `
+                                        <div class="lotto-ball ${getBallColor(num)}">${num}</div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                savedList.append(html);
+            });
+        }
+
+        // 저장된 번호 삭제
+        function deleteSaved(index) {
+            const saved = JSON.parse(localStorage.getItem('lottoNumbers') || '[]');
+            saved.splice(index, 1);
+            localStorage.setItem('lottoNumbers', JSON.stringify(saved));
+            loadSavedNumbers();
+            Utils.toast('🗑️ 번호가 삭제되었습니다.');
+        }
+
+        // 초기화
+        function clearAll() {
+            $('#results').empty();
+            Utils.toast('🧹 초기화되었습니다.');
+        }
+
+        // 페이지 로드 시 저장된 번호 표시
+        $(document).ready(function() {
+            loadSavedNumbers();
+        });
+    </script>
+
+    <!-- Buy Me a Coffee 플로팅 위젯 -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>

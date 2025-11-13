@@ -1,0 +1,90 @@
+{
+  "common": {
+    "home": "Back to Home",
+    "theme_toggle": "Toggle dark mode",
+    "sponsor_message": "If you found this service useful, please buy me a coffee!",
+    "sponsor_widget_message": "Thank you!"
+  },
+  "home": {
+    "title": "Lux Vera",
+    "subtitle": "Useful tools for your daily life",
+    "description": "Collection of free online tools to help your life"
+  },
+  "lotto": {
+    "title": "Lotto Number Generator",
+    "subtitle": "Generate your lucky numbers",
+    "description": "Generate lucky lotto numbers. Randomly selects 6 numbers from 1 to 45.",
+    "generate_count": "Count:",
+    "count_1": "1 set",
+    "count_3": "3 sets",
+    "count_5": "5 sets",
+    "count_10": "10 sets",
+    "btn_generate": "Generate",
+    "btn_save": "Save",
+    "btn_clear": "Clear",
+    "saved_title": "💾 Saved Numbers",
+    "set_number": "Recommended Set"
+  },
+  "bible": {
+    "title": "Daily Verse",
+    "subtitle": "Daily Bible Verse",
+    "description": "Start your day with a new Bible verse. Messages that give strength to your daily life.",
+    "instruction": "Think of your question and press the button below.",
+    "btn_new": "Another Verse",
+    "btn_copy": "Copy Verse"
+  },
+  "lunch": {
+    "title": "Lunch Menu Picker",
+    "subtitle": "What to eat for lunch?",
+    "description": "What to eat for lunch? Don't worry, just pick randomly!",
+    "btn_select": "Pick Menu!",
+    "btn_reset": "Reset",
+    "add_menu_title": "Add Menu",
+    "add_placeholder": "Enter menu name",
+    "btn_add": "Add",
+    "menu_list_title": "Menu List",
+    "menu_count": "items"
+  },
+  "answers": {
+    "title": "The Book of Answers",
+    "subtitle": "The Book of Answers",
+    "description": "Think of a question and press the button. The Book of Answers will give you an answer.",
+    "instruction": "Think of your question in your mind<br>and press the button below.",
+    "btn_answer": "Answer",
+    "recent_answers": "Recent Answers",
+    "btn_clear_history": "Clear History"
+  },
+  "focus": {
+    "title": "Focus",
+    "subtitle": "Free Timer without Ads",
+    "description": "Free focus timer and white noise without ads - Boost your productivity with Pomodoro timer"
+  },
+  "dev": {
+    "title": "Developer Tools",
+    "subtitle": "Useful online tools for developers",
+    "json": {
+      "title": "JSON Formatter",
+      "description": "Format and validate JSON data"
+    },
+    "base64": {
+      "title": "Base64 Encoder",
+      "description": "Encode/decode text to Base64"
+    },
+    "timestamp": {
+      "title": "Timestamp Converter",
+      "description": "Convert Unix timestamp and date"
+    },
+    "url": {
+      "title": "URL Encoder",
+      "description": "Encode and decode URLs"
+    },
+    "regex": {
+      "title": "Regex Tester",
+      "description": "Test regular expressions and check matches"
+    },
+    "hash": {
+      "title": "Hash Generator",
+      "description": "Generate MD5, SHA-1, SHA-256, SHA-512 hashes"
+    }
+  }
+}

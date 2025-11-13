@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하루 한구절 성경 - Lux Vera</title>
+    <meta name="description" content="매일 새로운 성경 구절로 하루를 시작하세요. 일상에 힘이 되는 말씀을 전합니다.">
+    <meta property="og:title" content="하루 한구절 성경 - Lux Vera">
+    <meta property="og:description" content="매일 새로운 성경 구절로 하루를 시작하세요.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .verse-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .verse-date {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .verse-text {
+            font-size: 20px;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .verse-reference {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .verse-actions {
+            margin-top: 32px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .verse-container {
+                padding: 24px;
+                margin: 20px;
+            }
+
+            .verse-text {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
+            <h1>📖 하루 한구절</h1>
+            <p class="subtitle">매일의 성경 말씀</p>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+
+        <div class="verse-container" id="verseContainer">
+            <div class="verse-date" id="verseDate"></div>
+            <div class="verse-text" id="verseText">말씀을 불러오는 중...</div>
+            <div class="verse-reference" id="verseReference"></div>
+
+            <div class="verse-actions">
+                <button class="btn btn-action" onclick="getNewVerse()">다른 말씀 보기</button>
+                <button class="btn btn-secondary" onclick="copyVerse()">말씀 복사</button>
+            </div>
+        </div>
+
+        <!-- Buy Me a Coffee 버튼 -->
+        <div class="sponsor-inline">
+            <p>이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <a href="https://buymeacoffee.com/pm430" target="_blank">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+            </a>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let verses = [];
+        let currentVerse = null;
+
+        // 날짜 기반 시드 생성
+        function getDateSeed() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            return year * 10000 + month * 100 + day;
+        }
+
+        // 시드 기반 랜덤 생성 (매일 같은 구절)
+        function seededRandom(seed) {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        }
+
+        // 오늘의 구절 가져오기
+        function getTodayVerse() {
+            if (verses.length === 0) return null;
+            const seed = getDateSeed();
+            const index = Math.floor(seededRandom(seed) * verses.length);
+            return verses[index];
+        }
+
+        // 랜덤 구절 가져오기
+        function getRandomVerse() {
+            if (verses.length === 0) return null;
+            const index = Math.floor(Math.random() * verses.length);
+            return verses[index];
+        }
+
+        // 구절 표시
+        function displayVerse(verse) {
+            if (!verse) return;
+
+            currentVerse = verse;
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            });
+
+            $('#verseDate').text(dateStr);
+            $('#verseText').text(verse.text);
+            $('#verseReference').text('- ' + verse.reference + ' -');
+        }
+
+        // 새로운 구절 가져오기
+        function getNewVerse() {
+            const verse = getRandomVerse();
+            displayVerse(verse);
+        }
+
+        // 구절 복사
+        function copyVerse() {
+            if (!currentVerse) return;
+
+            const text = `${currentVerse.text}\n\n- ${currentVerse.reference} -`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    Utils.toast('📋 말씀이 복사되었습니다!');
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        // 복사 대체 방법
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                Utils.toast('📋 말씀이 복사되었습니다!');
+            } catch (err) {
+                Utils.toast('❌ 복사에 실패했습니다.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // 초기화
+        $(document).ready(function() {
+            // verses.json 로드
+            $.getJSON('verses.json')
+                .done(function(data) {
+                    verses = data;
+                    const todayVerse = getTodayVerse();
+                    displayVerse(todayVerse);
+                })
+                .fail(function() {
+                    $('#verseText').text('말씀을 불러오는데 실패했습니다.');
+                    Utils.toast('❌ 데이터를 불러올 수 없습니다.');
+                });
+        });
+    </script>
+
+    <!-- Buy Me a Coffee 플로팅 위젯 -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>
