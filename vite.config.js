@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/lux-vera-site/',
+  base: '/lux-vera/',
   build: {
     rollupOptions: {
       input: {
