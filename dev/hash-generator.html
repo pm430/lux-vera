@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>해시 생성기 - 개발자 유틸리티</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title data-i18n="dev.hash.page_title">해시 생성기 - 개발자 유틸리티</title>
+    <meta name="description" data-i18n="dev.hash.description" data-i18n-attr="content" content="MD5, SHA-256 등 다양한 해시를 생성합니다">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -19,87 +20,109 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        .match-highlight {
+            background-color: #ffd700;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .regex-flags {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .regex-flags label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: normal;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>해시 생성기</h1>
-            <p class="subtitle">MD5, SHA-256 등 다양한 해시를 생성합니다</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.hash.title">해시 생성기</h1>
+            <p class="subtitle" data-i18n="dev.hash.subtitle">MD5, SHA-256 등 다양한 해시를 생성합니다</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
         
         <div class="tool-panel">
             <div class="form-group">
-                <label for="textInput">텍스트 입력</label>
-                <textarea id="textInput" placeholder="해시를 생성할 텍스트를 입력하세요"></textarea>
+                <label for="textInput" data-i18n="dev.hash.text_input_label">텍스트 입력</label>
+                <textarea id="textInput" data-i18n="dev.hash.text_input_placeholder" data-i18n-attr="placeholder" placeholder="해시를 생성할 텍스트를 입력하세요"></textarea>
             </div>
             
             <div class="button-group">
-                <button class="btn btn-action" onclick="generateHashes()">해시 생성</button>
-                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
+                <button class="btn btn-action" onclick="generateHashes()" data-i18n="dev.hash.btn_generate">해시 생성</button>
+                <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.hash.btn_clear">초기화</button>
             </div>
         </div>
 
         <div id="results" style="display: none;">
             <div class="tool-panel">
-                <h3>MD5</h3>
+                <h3 data-i18n="dev.hash.md5_title">MD5</h3>
                 <div class="result-box" id="md5Result"></div>
-                <button class="btn btn-secondary" onclick="copyHash('md5')">복사</button>
+                <button class="btn btn-secondary" onclick="copyHash('md5')" data-i18n="dev.hash.btn_copy">복사</button>
             </div>
 
             <div class="tool-panel">
-                <h3>SHA-1</h3>
+                <h3 data-i18n="dev.hash.sha1_title">SHA-1</h3>
                 <div class="result-box" id="sha1Result"></div>
-                <button class="btn btn-secondary" onclick="copyHash('sha1')">복사</button>
+                <button class="btn btn-secondary" onclick="copyHash('sha1')" data-i18n="dev.hash.btn_copy">복사</button>
             </div>
 
             <div class="tool-panel">
-                <h3>SHA-256</h3>
+                <h3 data-i18n="dev.hash.sha256_title">SHA-256</h3>
                 <div class="result-box" id="sha256Result"></div>
-                <button class="btn btn-secondary" onclick="copyHash('sha256')">복사</button>
+                <button class="btn btn-secondary" onclick="copyHash('sha256')" data-i18n="dev.hash.btn_copy">복사</button>
             </div>
 
             <div class="tool-panel">
-                <h3>SHA-512</h3>
+                <h3 data-i18n="dev.hash.sha512_title">SHA-512</h3>
                 <div class="result-box" id="sha512Result"></div>
-                <button class="btn btn-secondary" onclick="copyHash('sha512')">복사</button>
+                <button class="btn btn-secondary" onclick="copyHash('sha512')" data-i18n="dev.hash.btn_copy">복사</button>
             </div>
         </div>
 
         <div class="tool-panel">
-            <h3>ℹ️ 해시 알고리즘 설명</h3>
+            <h3 data-i18n="dev.hash.algo_info_title">ℹ️ 해시 알고리즘 설명</h3>
             <div class="result-box">
-                <strong>MD5:</strong> 128비트 해시. 빠르지만 보안에는 취약합니다.<br>
-                <strong>SHA-1:</strong> 160비트 해시. MD5보다 안전하지만 더 이상 권장되지 않습니다.<br>
-                <strong>SHA-256:</strong> 256비트 해시. 현재 널리 사용되는 안전한 해시입니다.<br>
-                <strong>SHA-512:</strong> 512비트 해시. SHA-256보다 더 긴 해시를 생성합니다.
+                <span data-i18n="dev.hash.algo_md5"><strong>MD5:</strong> 128비트 해시. 빠르지만 보안에는 취약합니다.</span><br>
+                <span data-i18n="dev.hash.algo_sha1"><strong>SHA-1:</strong> 160비트 해시. MD5보다 안전하지만 더 이상 권장되지 않습니다.</span><br>
+                <span data-i18n="dev.hash.algo_sha256"><strong>SHA-256:</strong> 256비트 해시. 현재 널리 사용되는 안전한 해시입니다.</span><br>
+                <span data-i18n="dev.hash.algo_sha512"><strong>SHA-512:</strong> 512비트 해시. SHA-256보다 더 긴 해시를 생성합니다.</span>
             </div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+        import CryptoJS from 'crypto-js';
+
         const hashResults = {};
         
-        function generateHashes() {
+        window.generateHashes = function() {
             const input = $('#textInput').val();
             
             if (!input) {
-                alert('텍스트를 입력해주세요.');
+                alert(I18n.t('dev.hash.alert_no_text'));
                 return;
             }
             
@@ -122,25 +145,29 @@
                 
                 $('#results').show();
             } catch (e) {
-                alert('해시 생성 중 오류가 발생했습니다: ' + e.message);
+                alert(I18n.t('dev.hash.alert_error').replace('{error}', e.message));
             }
         }
         
-        function copyHash(type) {
+        window.copyHash = function(type) {
             if (hashResults[type]) {
                 Utils.copyToClipboard(hashResults[type]);
             } else {
-                alert('복사할 해시가 없습니다.');
+                alert(I18n.t('dev.hash.alert_no_hash'));
             }
         }
         
-        function clearAll() {
+        window.clearAll = function() {
             $('#textInput').val('');
             $('#results').hide();
             for (let key in hashResults) {
                 delete hashResults[key];
             }
         }
+
+        $(document).ready(function() {
+            I18n.init();
+        });
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->

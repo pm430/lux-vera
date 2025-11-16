@@ -3,391 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="광고 없는 무료 집중 타이머와 백색소음 - 뽀모도로 타이머로 생산성을 높이세요">
-    <meta name="keywords" content="집중타이머, 뽀모도로, 백색소음, 공부타이머, 무료타이머">
-    <title>집중 - 광고 없는 무료 타이머</title>
+    <meta name="description" data-i18n="focus.description" data-i18n-attr="content" content="광고 없는 무료 집중 타이머와 백색소음 - 뽀모도로 타이머로 생산성을 높이세요">
+    <meta name="keywords" data-i18n="focus.keywords" data-i18n-attr="content" content="집중타이머, 뽀모도로, 백색소음, 공부타이머, 무료타이머">
+    <title data-i18n="focus.page_title">집중 - 광고 없는 무료 타이머</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --text-primary: #212529;
-            --text-secondary: #6c757d;
-            --accent: #4a90e2;
-            --accent-hover: #357abd;
-            --border: #dee2e6;
-            --success: #28a745;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode {
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --text-primary: #e9ecef;
-            --text-secondary: #adb5bd;
-            --border: #495057;
-            --shadow: rgba(255, 255, 255, 0.05);
-        }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            transition: background 0.3s, color 0.3s;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .dark-mode-toggle {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            color: var(--text-primary);
-            transition: all 0.3s;
-        }
-
-        .dark-mode-toggle:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        .container {
-            flex: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            width: 100%;
-        }
-
-        .main-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        @media (max-width: 768px) {
-            .main-section {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: var(--bg-secondary);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 6px var(--shadow);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--accent);
-        }
-
-        .timer-display {
-            font-size: 72px;
-            font-weight: 300;
-            text-align: center;
-            margin: 40px 0;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        .btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border);
-        }
-
-        .timer-presets {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .preset-btn {
-            background: var(--bg-primary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .preset-btn:hover, .preset-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        .sound-grid {
-            display: grid;
-            gap: 12px;
-        }
-
-        .sound-item {
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            padding: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .sound-item:hover {
-            border-color: var(--accent);
-            background: var(--accent);
-            color: white;
-        }
-
-        .sound-item.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        .sound-name {
-            font-weight: 500;
-        }
-
-        .volume-control {
-            margin-top: 24px;
-        }
-
-        .volume-slider {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: var(--border);
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--accent);
-            cursor: pointer;
-        }
-
-        .volume-slider::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--accent);
-            cursor: pointer;
-            border: none;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .support-section {
-            margin-bottom: 20px;
-        }
-
-        .support-text {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-
-        .coffee-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #FFDD00;
-            color: #000000;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .coffee-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .footer-note {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-top: 20px;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--text-secondary);
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-        }
-
-        .status-indicator.playing {
-            background: var(--success);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .info-text {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="/src/css/focus-timer.css">
 </head>
 <body>
     <header class="header">
-        <div class="logo">🎯 집중</div>
-        <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 다크모드</button>
+        <div class="logo" data-i18n="focus.title">🎯 집중</div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()" data-i18n="focus.dark_mode_toggle">🌙 다크모드</button>
     </header>
 
     <div class="container">
         <div class="main-section">
             <!-- 타이머 섹션 -->
             <div class="card">
-                <h2 class="card-title">⏱️ 뽀모도로 타이머</h2>
+                <h2 class="card-title" data-i18n="focus.pomodoro_timer_title">⏱️ 뽀모도로 타이머</h2>
                 <div class="timer-display" id="timerDisplay">25:00</div>
                 <div class="timer-controls">
-                    <button class="btn" onclick="toggleTimer()" id="startBtn">시작</button>
-                    <button class="btn btn-secondary" onclick="resetTimer()">리셋</button>
+                    <button class="btn" onclick="toggleTimer()" id="startBtn" data-i18n="focus.btn_start">시작</button>
+                    <button class="btn btn-secondary" onclick="resetTimer()" data-i18n="focus.btn_reset">리셋</button>
                 </div>
                 <div class="timer-presets">
-                    <button class="preset-btn active" onclick="setTimer(25)">25분</button>
-                    <button class="preset-btn" onclick="setTimer(15)">15분</button>
-                    <button class="preset-btn" onclick="setTimer(45)">45분</button>
-                    <button class="preset-btn" onclick="setTimer(60)">60분</button>
+                    <button class="preset-btn active" onclick="setTimer(25)" data-i18n="focus.minutes_25">25분</button>
+                    <button class="preset-btn" onclick="setTimer(15)" data-i18n="focus.minutes_15">15분</button>
+                    <button class="preset-btn" onclick="setTimer(45)" data-i18n="focus.minutes_45">45분</button>
+                    <button class="preset-btn" onclick="setTimer(60)" data-i18n="focus.minutes_60">60분</button>
                 </div>
-                <p class="info-text">집중 시간을 설정하고 목표를 달성하세요</p>
+                <p class="info-text" data-i18n="focus.timer_info_text">집중 시간을 설정하고 목표를 달성하세요</p>
             </div>
 
             <!-- 백색소음 섹션 -->
             <div class="card">
-                <h2 class="card-title">🎵 백색소음</h2>
+                <h2 class="card-title" data-i18n="focus.white_noise_title">🎵 백색소음</h2>
                 <div class="sound-grid">
                     <div class="sound-item" onclick="toggleSound('rain')">
-                        <span class="sound-name">☔ 빗소리</span>
+                        <span class="sound-name" data-i18n="focus.sound_rain">☔ 빗소리</span>
                         <span class="status-indicator" id="status-rain"></span>
                     </div>
                     <div class="sound-item" onclick="toggleSound('wave')">
-                        <span class="sound-name">🌊 파도 소리</span>
+                        <span class="sound-name" data-i18n="focus.sound_wave">🌊 파도 소리</span>
                         <span class="status-indicator" id="status-wave"></span>
                     </div>
                     <div class="sound-item" onclick="toggleSound('cafe')">
-                        <span class="sound-name">☕ 카페 소음</span>
+                        <span class="sound-name" data-i18n="focus.sound_cafe">☕ 카페 소음</span>
                         <span class="status-indicator" id="status-cafe"></span>
                     </div>
                     <div class="sound-item" onclick="toggleSound('white')">
-                        <span class="sound-name">⚪ 화이트 노이즈</span>
+                        <span class="sound-name" data-i18n="focus.sound_white">⚪ 화이트 노이즈</span>
                         <span class="status-indicator" id="status-white"></span>
                     </div>
                 </div>
                 <div class="volume-control">
-                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">볼륨</label>
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);" data-i18n="focus.volume_label">볼륨</label>
                     <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" oninput="changeVolume(this.value)">
                 </div>
-                <p class="info-text">배경음으로 집중력을 높여보세요</p>
+                <p class="info-text" data-i18n="focus.noise_info_text">배경음으로 집중력을 높여보세요</p>
             </div>
         </div>
     </div>
 
     <footer class="footer">
         <div class="support-section">
-            <p class="support-text">이 사이트가 도움이 되셨나요? ☕</p>
-            <a href="https://www.buymeacoffee.com/yourname" class="coffee-btn" target="_blank">
+            <p class="support-text" data-i18n="focus.support_text">이 사이트가 도움이 되셨나요? ☕</p>
+            <a href="https://www.buymeacoffee.com/yourname" class="coffee-btn" target="_blank" data-i18n="focus.buy_coffee_btn">
                 ☕ 커피 한잔 사주기
             </a>
         </div>
-        <p class="footer-note">
+        <p class="footer-note" data-i18n="focus.footer_note">
             광고 없는 무료 서비스 | 모든 오디오는 Web Audio API로 생성됩니다<br>
             문의: your@email.com
         </p>
     </footer>
 
-    <script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
         // 타이머 변수
         let timerInterval = null;
         let timeLeft = 25 * 60; // 초 단위
@@ -399,7 +94,7 @@
         let sounds = {};
 
         // 다크모드
-        function toggleDarkMode() {
+        window.toggleDarkMode = function() {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         }
@@ -417,11 +112,11 @@
                 `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        function toggleTimer() {
+        window.toggleTimer = function() {
             const btn = document.getElementById('startBtn');
             if (isRunning) {
                 clearInterval(timerInterval);
-                btn.textContent = '시작';
+                btn.textContent = I18n.t('focus.btn_start');
                 isRunning = false;
             } else {
                 timerInterval = setInterval(() => {
@@ -431,30 +126,30 @@
                     } else {
                         clearInterval(timerInterval);
                         playTimerEndSound();
-                        btn.textContent = '시작';
+                        btn.textContent = I18n.t('focus.btn_start');
                         isRunning = false;
-                        alert('⏰ 시간이 완료되었습니다!');
+                        alert(I18n.t('focus.alert_time_complete'));
                     }
                 }, 1000);
-                btn.textContent = '일시정지';
+                btn.textContent = I18n.t('focus.btn_pause');
                 isRunning = true;
             }
         }
 
-        function resetTimer() {
+        window.resetTimer = function() {
             clearInterval(timerInterval);
             timeLeft = selectedMinutes * 60;
             updateDisplay();
-            document.getElementById('startBtn').textContent = '시작';
+            document.getElementById('startBtn').textContent = I18n.t('focus.btn_start');
             isRunning = false;
         }
 
-        function setTimer(minutes) {
+        window.setTimer = function(minutes) {
             selectedMinutes = minutes;
             clearInterval(timerInterval);
             timeLeft = minutes * 60;
             updateDisplay();
-            document.getElementById('startBtn').textContent = '시작';
+            document.getElementById('startBtn').textContent = I18n.t('focus.btn_start');
             isRunning = false;
 
             // 프리셋 버튼 활성화 상태 변경
@@ -592,7 +287,7 @@
             return { source: noise, gain: gainNode };
         }
 
-        function toggleSound(type) {
+        window.toggleSound = function(type) {
             initAudio();
             
             if (sounds[type]) {
@@ -627,7 +322,7 @@
             }
         }
 
-        function changeVolume(value) {
+        window.changeVolume = function(value) {
             const volume = value / 100;
             for (let type in sounds) {
                 if (sounds[type].gain) {
@@ -642,6 +337,10 @@
                 if (sounds[type].source) sounds[type].source.stop();
                 if (sounds[type].lfo) sounds[type].lfo.stop();
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            I18n.init();
         });
     </script>
 </body>

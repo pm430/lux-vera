@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개발자 도구 - Lux Vera</title>
-    <meta name="description" content="개발자를 위한 유용한 온라인 도구 모음 - JSON 포맷터, Base64 인코더, 타임스탬프 변환기 등">
-    <link rel="stylesheet" href="../css/style.css">
+    <title data-i18n="dev.title">개발자 도구 - Lux Vera</title>
+    <meta name="description" data-i18n="dev.subtitle" data-i18n-attr="content" content="개발자를 위한 유용한 온라인 도구 모음 - JSON 포맷터, Base64 인코더, 타임스탬프 변환기 등">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -24,69 +24,70 @@
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>개발자 도구</h1>
-            <p class="subtitle">개발자를 위한 유용한 온라인 도구 모음</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.title">개발자 도구</h1>
+            <p class="subtitle" data-i18n="dev.subtitle">개발자를 위한 유용한 온라인 도구 모음</p>
         </div>
     </header>
 
     <div class="container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
 
         <div class="util-grid">
             <div class="util-card">
                 <div class="util-icon">📋</div>
-                <h3>JSON 포맷터</h3>
-                <p>JSON 데이터를 포맷팅하고 검증합니다</p>
-                <button class="btn btn-primary" onclick="location.href='json-formatter.html'">사용하기</button>
+                <h3 data-i18n="dev.json.title">JSON 포맷터</h3>
+                <p data-i18n="dev.json.description">JSON 데이터를 포맷팅하고 검증합니다</p>
+                <button class="btn btn-primary" onclick="location.href='json-formatter.html'" data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">🔐</div>
-                <h3>Base64 인코더</h3>
-                <p>텍스트를 Base64로 인코딩/디코딩합니다</p>
-                <button class="btn btn-primary" onclick="location.href='base64.html'">사용하기</button>
+                <h3 data-i18n="dev.base64.title">Base64 인코더</h3>
+                <p data-i18n="dev.base64.description">텍스트를 Base64로 인코딩/디코딩합니다</p>
+                <button class="btn btn-primary" onclick="location.href='base64.html'" data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">⏰</div>
-                <h3>타임스탬프 변환기</h3>
-                <p>Unix 타임스탬프와 날짜를 변환합니다</p>
-                <button class="btn btn-primary" onclick="location.href='timestamp.html'">사용하기</button>
+                <h3 data-i18n="dev.timestamp.title">타임스탬프 변환기</h3>
+                <p data-i18n="dev.timestamp.description">Unix 타임스탬프와 날짜를 변환합니다</p>
+                <button class="btn btn-primary" onclick="location.href='timestamp.html'" data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">🔗</div>
-                <h3>URL 인코더</h3>
-                <p>URL을 인코딩하고 디코딩합니다</p>
-                <button class="btn btn-primary" onclick="location.href='url-encoder.html'">사용하기</button>
+                <h3 data-i18n="dev.url.title">URL 인코더</h3>
+                <p data-i18n="dev.url.description">URL을 인코딩하고 디코딩합니다</p>
+                <button class="btn btn-primary" onclick="location.href='url-encoder.html'" data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">🔍</div>
-                <h3>정규식 테스터</h3>
-                <p>정규 표현식을 테스트하고 매칭 결과를 확인합니다</p>
-                <button class="btn btn-primary" onclick="location.href='regex-tester.html'">사용하기</button>
+                <h3 data-i18n="dev.regex.title">정규식 테스터</h3>
+                <p data-i18n="dev.regex.description">정규 표현식을 테스트하고 매칭 결과를 확인합니다</p>
+                <button class="btn btn-primary" onclick="location.href='regex-tester.html'" data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">🔒</div>
-                <h3>해시 생성기</h3>
-                <p>MD5, SHA-1, SHA-256, SHA-512 해시를 생성합니다</p>
-                <button class="btn btn-primary" onclick="location.href='hash-generator.html'">사용하기</button>
+                <h3 data-i18n="dev.hash.title">해시 생성기</h3>
+                <p data-i18n="dev.hash.description">MD5, SHA-1, SHA-256, SHA-512 해시를 생성합니다</p>
+                <button class="btn btn-primary" onclick="location.href='hash-generator.html'" data-i18n="home.card_btn">사용하기</button>
             </div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
+    <script type="module" src="/src/js/main.js"></script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->
     <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>

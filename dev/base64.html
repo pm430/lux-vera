@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base64 인코더 - 개발자 유틸리티</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title data-i18n="dev.base64.page_title">Base64 인코더 - 개발자 유틸리티</title>
+    <meta name="description" data-i18n="dev.base64.description" data-i18n-attr="content" content="텍스트를 Base64로 인코딩/디코딩합니다">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -19,35 +20,35 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>Base64 인코더/디코더</h1>
-            <p class="subtitle">텍스트를 Base64로 인코딩/디코딩합니다</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.base64.title">Base64 인코더/디코더</h1>
+            <p class="subtitle" data-i18n="dev.base64.subtitle">텍스트를 Base64로 인코딩/디코딩합니다</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
         
         <div class="tool-panel">
             <div class="form-group">
-                <label for="textInput">텍스트 입력</label>
-                <textarea id="textInput" placeholder="인코딩할 텍스트를 입력하세요"></textarea>
+                <label for="textInput" data-i18n="dev.base64.text_input_label">텍스트 입력</label>
+                <textarea id="textInput" data-i18n="dev.base64.text_input_placeholder" data-i18n-attr="placeholder" placeholder="인코딩할 텍스트를 입력하세요"></textarea>
             </div>
             
             <div class="button-group">
-                <button class="btn btn-action" onclick="encodeBase64()">인코딩</button>
-                <button class="btn btn-action" onclick="decodeBase64()">디코딩</button>
-                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
-                <button class="btn btn-secondary" onclick="copyResult()">결과 복사</button>
+                <button class="btn btn-action" onclick="encodeBase64()" data-i18n="dev.base64.btn_encode">인코딩</button>
+                <button class="btn btn-action" onclick="decodeBase64()" data-i18n="dev.base64.btn_decode">디코딩</button>
+                <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.base64.btn_clear">초기화</button>
+                <button class="btn btn-secondary" onclick="copyResult()" data-i18n="dev.base64.btn_copy">결과 복사</button>
             </div>
             
             <div class="form-group">
-                <label for="resultOutput">결과</label>
+                <label for="resultOutput" data-i18n="dev.base64.result_label">결과</label>
                 <textarea id="resultOutput" readonly></textarea>
             </div>
             
@@ -56,23 +57,26 @@
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
-        function encodeBase64() {
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
+        window.encodeBase64 = function() {
             const input = $('#textInput').val();
             const output = $('#resultOutput');
             const message = $('#message');
             
             if (!input) {
                 message.show();
-                Utils.showError(message, '❌ 텍스트를 입력해주세요.');
+                Utils.showError(message, I18n.t('dev.base64.toast_no_text'));
                 return;
             }
             
@@ -80,21 +84,21 @@
                 const encoded = btoa(unescape(encodeURIComponent(input)));
                 output.val(encoded);
                 message.show();
-                Utils.showSuccess(message, '✅ Base64 인코딩이 완료되었습니다.');
+                Utils.showSuccess(message, I18n.t('dev.base64.toast_encode_success'));
             } catch (e) {
                 message.show();
-                Utils.showError(message, '❌ 인코딩 중 오류가 발생했습니다: ' + e.message);
+                Utils.showError(message, I18n.t('dev.base64.toast_encode_fail').replace('{error}', e.message));
             }
         }
         
-        function decodeBase64() {
+        window.decodeBase64 = function() {
             const input = $('#textInput').val().trim();
             const output = $('#resultOutput');
             const message = $('#message');
             
             if (!input) {
                 message.show();
-                Utils.showError(message, '❌ Base64 문자열을 입력해주세요.');
+                Utils.showError(message, I18n.t('dev.base64.toast_no_base64'));
                 return;
             }
             
@@ -102,14 +106,12 @@
                 const decoded = decodeURIComponent(escape(atob(input)));
                 output.val(decoded);
                 message.show();
-                Utils.showSuccess(message, '✅ Base64 디코딩이 완료되었습니다.');
+                Utils.showSuccess(message, I18n.t('dev.base64.toast_decode_success'));
             } catch (e) {
                 message.show();
-                Utils.showError(message, '❌ 올바르지 않은 Base64 문자열입니다: ' + e.message);
+                Utils.showError(message, I18n.t('dev.base64.toast_decode_fail').replace('{error}', e.message));
             }
         }
-        
-        // clearAll과 copyResult는 main.js에서 제공
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->

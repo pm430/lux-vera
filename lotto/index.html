@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로또 번호 생성기 - Lux Vera</title>
-    <meta name="description" content="행운의 로또 번호를 생성하세요. 1부터 45까지의 숫자 중 6개를 무작위로 선택합니다.">
-    <meta property="og:title" content="로또 번호 생성기 - Lux Vera">
-    <meta property="og:description" content="행운의 로또 번호를 생성하세요. 1부터 45까지의 숫자 중 6개를 무작위로 선택합니다.">
+    <title data-i18n="lotto.page_title">로또 번호 생성기 - Lux Vera</title>
+    <meta name="description" data-i18n="lotto.description" data-i18n-attr="content" content="행운의 로또 번호를 생성하세요. 1부터 45까지의 숫자 중 6개를 무작위로 선택합니다.">
+    <meta property="og:title" data-i18n="lotto.page_title" data-i18n-attr="content" content="로또 번호 생성기 - Lux Vera">
+    <meta property="og:description" data-i18n="lotto.description" data-i18n-attr="content" content="행운의 로또 번호를 생성하세요. 1부터 45까지의 숫자 중 6개를 무작위로 선택합니다.">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -23,273 +23,313 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .lotto-numbers {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 24px 0;
+        .lotto-container {
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
         }
 
-        .lotto-ball {
-            width: 60px;
-            height: 60px;
+        .number-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            min-height: 100px;
+            align-items: center;
+        }
+
+        .lotto-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--bg-secondary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            font-weight: 700;
-            color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
+            font-weight: bold;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: popIn 0.3s ease-out forwards;
         }
 
-        .lotto-ball:hover {
-            transform: scale(1.1);
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
         }
 
-        .lotto-ball.yellow { background: linear-gradient(135deg, #ffd700, #ffed4e); }
-        .lotto-ball.blue { background: linear-gradient(135deg, #4169e1, #6495ed); }
-        .lotto-ball.red { background: linear-gradient(135deg, #dc143c, #ff6347); }
-        .lotto-ball.gray { background: linear-gradient(135deg, #708090, #a9a9a9); }
-        .lotto-ball.green { background: linear-gradient(135deg, #32cd32, #90ee90); }
+        .lotto-number.yellow { background-color: #fdd835; color: #333; }
+        .lotto-number.blue { background-color: #2196f3; color: #fff; }
+        .lotto-number.red { background-color: #ef5350; color: #fff; }
+        .lotto-number.gray { background-color: #9e9e9e; color: #fff; }
+        .lotto-number.green { background-color: #4caf50; color: #fff; }
 
-        .lotto-set {
+        .saved-numbers-container {
+            margin-top: 50px;
+            text-align: left;
             background: var(--bg-secondary);
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 16px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .lotto-set-title {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            text-align: center;
+        .saved-numbers-list {
+            margin-top: 15px;
         }
 
-        .control-group {
+        .saved-set {
             display: flex;
-            gap: 12px;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .control-group label {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .control-group select {
-            padding: 8px 16px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: var(--bg-primary);
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            background: var(--bg-primary);
+            justify-content: space-between;
+        }
+
+        .saved-set-numbers {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .saved-lotto-number {
+            width: 35px;
+            height: 35px;
+            background-color: var(--bg-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
             color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .saved-set-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .saved-set-actions button {
+            padding: 5px 10px;
             font-size: 14px;
         }
 
-        @media (max-width: 480px) {
-            .lotto-ball {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>🎱 로또 번호 생성기</h1>
-            <p class="subtitle">행운의 번호를 생성하세요</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="lotto.title">로또 번호 생성기</h1>
+            <p class="subtitle" data-i18n="lotto.subtitle">행운의 번호를 생성하세요</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
 
-        <div class="tool-panel">
-            <div class="control-group">
-                <label for="setCount">생성 개수:</label>
-                <select id="setCount">
-                    <option value="1">1개</option>
-                    <option value="3">3개</option>
-                    <option value="5" selected>5개</option>
-                    <option value="10">10개</option>
-                </select>
+        <div class="lotto-container">
+            <div class="tool-panel">
+                <div class="form-group">
+                    <label for="generateCount" data-i18n="lotto.generate_count">생성 개수:</label>
+                    <select id="generateCount">
+                        <option value="1" data-i18n="lotto.count_1">1개</option>
+                        <option value="3" data-i18n="lotto.count_3">3개</option>
+                        <option value="5" data-i18n="lotto.count_5">5개</option>
+                        <option value="10" data-i18n="lotto.count_10">10개</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-action" onclick="generateLottoNumbers()" data-i18n="lotto.btn_generate">번호 생성</button>
+                    <button class="btn btn-secondary" onclick="saveNumbers()" data-i18n="lotto.btn_save">번호 저장</button>
+                </div>
+                <div id="currentNumbers" class="number-display">
+                    <!-- 생성된 로또 번호가 여기에 표시됩니다 -->
+                </div>
             </div>
 
-            <div class="button-group">
-                <button class="btn btn-action" onclick="generateNumbers()">번호 생성</button>
-                <button class="btn btn-secondary" onclick="saveNumbers()">번호 저장</button>
-                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
-            </div>
-
-            <div id="results"></div>
-
-            <div id="savedNumbers" style="display: none; margin-top: 32px;">
-                <h3 style="margin-bottom: 16px; text-align: center;">💾 저장된 번호</h3>
-                <div id="savedList"></div>
+            <div class="saved-numbers-container">
+                <h3 data-i18n="lotto.saved_title">💾 저장된 번호</h3>
+                <div class="button-group" style="margin-bottom: 15px;">
+                    <button class="btn btn-secondary" onclick="clearSavedNumbers()" data-i18n="lotto.btn_clear">초기화</button>
+                </div>
+                <div id="savedNumbersList" class="saved-numbers-list">
+                    <!-- 저장된 로또 번호 세트가 여기에 표시됩니다 -->
+                </div>
             </div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
-        // 로또 번호 색상 결정
-        function getBallColor(num) {
-            if (num <= 10) return 'yellow';
-            if (num <= 20) return 'blue';
-            if (num <= 30) return 'red';
-            if (num <= 40) return 'gray';
-            return 'green';
-        }
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
+        let currentLottoNumbers = [];
+        let savedLottoNumbers = [];
 
         // 로또 번호 생성
-        function generateLottoSet() {
-            const numbers = [];
-            while (numbers.length < 6) {
-                const num = Math.floor(Math.random() * 45) + 1;
-                if (!numbers.includes(num)) {
-                    numbers.push(num);
-                }
-            }
-            return numbers.sort((a, b) => a - b);
-        }
+        function generateLottoNumbers() {
+            const count = parseInt($('#generateCount').val());
+            $('#currentNumbers').empty();
+            currentLottoNumbers = [];
 
-        // 번호 표시
-        function displayNumbers(numbers, setNumber) {
-            const html = `
-                <div class="lotto-set">
-                    <div class="lotto-set-title">${setNumber}번째 추천 번호</div>
-                    <div class="lotto-numbers">
-                        ${numbers.map(num => `
-                            <div class="lotto-ball ${getBallColor(num)}">${num}</div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            return html;
-        }
-
-        // 번호 생성 실행
-        function generateNumbers() {
-            const setCount = parseInt($('#setCount').val());
-            const results = $('#results');
-            results.empty();
-
-            for (let i = 1; i <= setCount; i++) {
-                const numbers = generateLottoSet();
-                results.append(displayNumbers(numbers, i));
-            }
-
-            Utils.toast('🎲 로또 번호가 생성되었습니다!');
-        }
-
-        // 번호 저장
-        function saveNumbers() {
-            const sets = [];
-            $('.lotto-set').each(function() {
+            for (let i = 0; i < count; i++) {
                 const numbers = [];
-                $(this).find('.lotto-ball').each(function() {
-                    numbers.push(parseInt($(this).text()));
-                });
-                if (numbers.length > 0) {
-                    sets.push(numbers);
+                while (numbers.length < 6) {
+                    const randomNumber = Math.floor(Math.random() * 45) + 1;
+                    if (!numbers.includes(randomNumber)) {
+                        numbers.push(randomNumber);
+                    }
                 }
-            });
-
-            if (sets.length === 0) {
-                Utils.toast('⚠️ 저장할 번호를 먼저 생성해주세요.');
-                return;
+                numbers.sort((a, b) => a - b);
+                currentLottoNumbers.push(numbers);
+                renderLottoNumbers(numbers, '#currentNumbers');
             }
-
-            const saved = JSON.parse(localStorage.getItem('lottoNumbers') || '[]');
-            const timestamp = new Date().toLocaleString('ko-KR');
-            saved.push({
-                timestamp: timestamp,
-                sets: sets
-            });
-
-            // 최대 10개까지만 저장
-            if (saved.length > 10) {
-                saved.shift();
-            }
-
-            localStorage.setItem('lottoNumbers', JSON.stringify(saved));
-            loadSavedNumbers();
-            Utils.toast('💾 번호가 저장되었습니다!');
         }
 
-        // 저장된 번호 불러오기
+        // 로또 번호 렌더링
+        function renderLottoNumbers(numbers, targetElementId) {
+            const display = $(targetElementId);
+            const setContainer = $('<div>').addClass('number-set');
+            numbers.forEach(num => {
+                const numDiv = $('<div>')
+                    .addClass('lotto-number')
+                    .addClass(getNumberColorClass(num))
+                    .text(num);
+                setContainer.append(numDiv);
+            });
+            display.append(setContainer);
+        }
+
+        // 번호 색상 클래스 반환
+        function getNumberColorClass(num) {
+            if (num >= 1 && num <= 10) return 'yellow';
+            if (num >= 11 && num <= 20) return 'blue';
+            if (num >= 21 && num <= 30) return 'red';
+            if (num >= 31 && num <= 40) return 'gray';
+            if (num >= 41 && num <= 45) return 'green';
+            return '';
+        }
+
+        // 저장된 번호 로드
         function loadSavedNumbers() {
-            const saved = JSON.parse(localStorage.getItem('lottoNumbers') || '[]');
-            const savedList = $('#savedList');
-            const savedNumbers = $('#savedNumbers');
+            const saved = localStorage.getItem('lottoSavedNumbers');
+            if (saved) {
+                savedLottoNumbers = JSON.parse(saved);
+            }
+            renderSavedNumbers();
+        }
 
-            if (saved.length === 0) {
-                savedNumbers.hide();
+        // 저장된 번호 렌더링
+        function renderSavedNumbers() {
+            const list = $('#savedNumbersList');
+            list.empty();
+
+            if (savedLottoNumbers.length === 0) {
+                list.html('<div class="empty-state" data-i18n="lotto.empty_state">' + I18n.t('lotto.empty_state') + '</div>');
                 return;
             }
 
-            savedNumbers.show();
-            savedList.empty();
+            savedLottoNumbers.forEach((set, index) => {
+                const setDiv = $('<div>').addClass('saved-set');
+                const numbersDiv = $('<div>').addClass('saved-set-numbers');
+                set.forEach(num => {
+                    const numSpan = $('<span>')
+                        .addClass('saved-lotto-number')
+                        .addClass(getNumberColorClass(num))
+                        .text(num);
+                    numbersDiv.append(numSpan);
+                });
+                setDiv.append(numbersDiv);
 
-            saved.reverse().forEach((item, index) => {
-                const html = `
-                    <div class="lotto-set">
-                        <div class="lotto-set-title">
-                            ${item.timestamp}
-                            <button class="btn btn-secondary" style="font-size: 12px; padding: 4px 12px; margin-left: 12px;" onclick="deleteSaved(${saved.length - 1 - index})">삭제</button>
-                        </div>
-                        ${item.sets.map((numbers, setIndex) => `
-                            <div style="margin: 8px 0;">
-                                <div class="lotto-numbers">
-                                    ${numbers.map(num => `
-                                        <div class="lotto-ball ${getBallColor(num)}">${num}</div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                savedList.append(html);
+                const actionsDiv = $('<div>').addClass('saved-set-actions');
+                const copyBtn = $('<button>')
+                    .addClass('btn btn-sm btn-primary')
+                    .text(I18n.t('lotto.btn_copy'))
+                    .on('click', () => copySavedSet(index));
+                const deleteBtn = $('<button>')
+                    .addClass('btn btn-sm btn-secondary')
+                    .text('×')
+                    .on('click', () => deleteSavedSet(index));
+                actionsDiv.append(copyBtn, deleteBtn);
+                setDiv.append(actionsDiv);
+
+                list.append(setDiv);
             });
         }
 
-        // 저장된 번호 삭제
-        function deleteSaved(index) {
-            const saved = JSON.parse(localStorage.getItem('lottoNumbers') || '[]');
-            saved.splice(index, 1);
-            localStorage.setItem('lottoNumbers', JSON.stringify(saved));
-            loadSavedNumbers();
-            Utils.toast('🗑️ 번호가 삭제되었습니다.');
+        // 현재 생성된 번호 저장
+        window.saveNumbers = function() {
+            if (currentLottoNumbers.length === 0) {
+                Utils.toast(I18n.t('lotto.toast_no_numbers_to_save'));
+                return;
+            }
+            savedLottoNumbers = savedLottoNumbers.concat(currentLottoNumbers);
+            localStorage.setItem('lottoSavedNumbers', JSON.stringify(savedLottoNumbers));
+            renderSavedNumbers();
+            Utils.toast(I18n.t('lotto.toast_saved'));
         }
 
-        // 초기화
-        function clearAll() {
-            $('#results').empty();
-            Utils.toast('🧹 초기화되었습니다.');
+        // 저장된 번호 세트 복사
+        function copySavedSet(index) {
+            const set = savedLottoNumbers[index];
+            if (set) {
+                Utils.copyToClipboard(set.join(', '));
+            } else {
+                Utils.toast(I18n.t('lotto.toast_copy_fail'));
+            }
         }
 
-        // 페이지 로드 시 저장된 번호 표시
+        // 저장된 번호 세트 삭제
+        function deleteSavedSet(index) {
+            savedLottoNumbers.splice(index, 1);
+            localStorage.setItem('lottoSavedNumbers', JSON.stringify(savedLottoNumbers));
+            renderSavedNumbers();
+        }
+
+        // 저장된 번호 초기화
+        window.clearSavedNumbers = function() {
+            if (savedLottoNumbers.length === 0) {
+                Utils.toast(I18n.t('lotto.toast_no_saved_numbers'));
+                return;
+            }
+            if (confirm(I18n.t('lotto.confirm_clear'))) {
+                savedLottoNumbers = [];
+                localStorage.removeItem('lottoSavedNumbers');
+                renderSavedNumbers();
+                Utils.toast(I18n.t('lotto.toast_cleared'));
+            }
+        }
+
+        // 페이지 로드 시
         $(document).ready(function() {
-            loadSavedNumbers();
+            I18n.init().then(() => {
+                loadSavedNumbers();
+            });
         });
     </script>
 

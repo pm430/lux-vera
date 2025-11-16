@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내 인생의 해답 - Lux Vera</title>
-    <meta name="description" content="질문을 떠올리고 버튼을 누르세요. The Book of Answers가 당신에게 답을 줄 것입니다.">
-    <meta property="og:title" content="내 인생의 해답 - Lux Vera">
-    <meta property="og:description" content="질문을 떠올리고 버튼을 누르세요. The Book of Answers가 당신에게 답을 줄 것입니다.">
+    <title data-i18n="answers.page_title">내 인생의 해답 - Lux Vera</title>
+    <meta name="description" data-i18n="answers.description" data-i18n-attr="content" content="질문을 떠올리고 버튼을 누르세요. The Book of Answers가 당신에게 답을 줄 것입니다.">
+    <meta property="og:title" data-i18n="answers.page_title" data-i18n-attr="content" content="내 인생의 해답 - Lux Vera">
+    <meta property="og:description" data-i18n="answers.description" data-i18n-attr="content" content="질문을 떠올리고 버튼을 누르세요. The Book of Answers가 당신에게 답을 줄 것입니다.">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -23,7 +23,6 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .book-container {
             max-width: 600px;
@@ -196,17 +195,18 @@
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>📚 내 인생의 해답</h1>
-            <p class="subtitle">The Book of Answers</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="answers.title">📚 내 인생의 해답</h1>
+            <p class="subtitle" data-i18n="answers.subtitle">The Book of Answers</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
 
         <div class="book-container">
-            <div class="instruction">
+            <div class="instruction" data-i18n="answers.instruction">
                 질문을 마음속으로 떠올리고<br>
                 아래 버튼을 눌러주세요.
             </div>
@@ -217,26 +217,29 @@
                 <div class="answer-translation" id="answerTranslation"></div>
             </div>
 
-            <button class="ask-button" onclick="getAnswer()">Answer</button>
+            <button class="ask-button" onclick="getAnswer()" data-i18n="answers.btn_answer">Answer</button>
 
             <div class="history-section" id="historySection" style="display: none;">
-                <h3 style="margin-bottom: 16px;">최근 답변</h3>
+                <h3 style="margin-bottom: 16px;" data-i18n="answers.recent_answers">최근 답변</h3>
                 <div id="historyList"></div>
-                <button class="btn btn-secondary" style="margin-top: 12px; width: 100%;" onclick="clearHistory()">히스토리 삭제</button>
+                <button class="btn btn-secondary" style="margin-top: 12px; width: 100%;" onclick="clearHistory()" data-i18n="answers.btn_clear_history">히스토리 삭제</button>
             </div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
         let answers = [];
         let history = [];
 
@@ -247,7 +250,7 @@
                     answers = data;
                 })
                 .fail(function() {
-                    Utils.toast('❌ 답변 데이터를 불러올 수 없습니다.');
+                    Utils.toast(I18n.t('answers.toast_load_fail'));
                 });
         }
 
@@ -279,7 +282,7 @@
             history.slice().reverse().forEach((item) => {
                 const itemHtml = `
                     <div class="history-item">
-                        <span class="history-answer ${item.type}">${item.answer}</span>
+                        <span class="history-answer ${item.type}">${I18n.getCurrentLanguage() === 'ko' ? item.answer : item.translation}</span>
                         <span class="history-time">${item.time}</span>
                     </div>
                 `;
@@ -288,9 +291,9 @@
         }
 
         // 답변 가져오기
-        function getAnswer() {
+        window.getAnswer = function() {
             if (answers.length === 0) {
-                Utils.toast('⚠️ 답변 데이터를 불러오는 중입니다...');
+                Utils.toast(I18n.t('answers.toast_loading'));
                 return;
             }
 
@@ -348,19 +351,23 @@
         }
 
         // 히스토리 삭제
-        function clearHistory() {
-            if (confirm('답변 히스토리를 삭제하시겠습니까?')) {
+        window.clearHistory = function() {
+            if (confirm(I18n.t('answers.confirm_clear'))) {
                 history = [];
                 saveHistory();
                 renderHistory();
-                Utils.toast('🗑️ 히스토리가 삭제되었습니다.');
+                Utils.toast(I18n.t('answers.toast_cleared'));
             }
         }
 
         // 페이지 로드
         $(document).ready(function() {
-            loadAnswers();
-            loadHistory();
+            I18n.init().then(() => {
+                loadAnswers();
+                loadHistory();
+                // Also update history text on language change
+                window.addEventListener('languageChanged', renderHistory);
+            });
         });
     </script>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON 포맷터 - 개발자 유틸리티</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -19,11 +19,11 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
         <div class="container">
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
             <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
             <h1>JSON 포맷터</h1>
             <p class="subtitle">JSON 데이터를 포맷팅하고 검증합니다</p>
@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
+    <script type="module" src="/src/js/main.js"></script>
     <script>
         function formatJSON() {
             const input = $('#jsonInput').val().trim();

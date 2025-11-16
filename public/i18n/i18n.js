@@ -65,23 +65,30 @@ const I18n = (function() {
 
     // 페이지 컨텐츠 업데이트
     function updatePageContent() {
-        // data-i18n 속성을 가진 모든 요소 업데이트
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
             const translation = t(key);
+            const attrs = element.getAttribute('data-i18n-attr'); // e.g., "title,aria-label"
 
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = translation;
+            if (attrs) {
+                attrs.split(',').forEach(attr => {
+                    element.setAttribute(attr.trim(), translation);
+                });
             } else {
-                element.innerHTML = translation;
+                // Default behavior: update innerHTML or placeholder
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translation;
+                } else {
+                    element.innerHTML = translation;
+                }
             }
         });
 
-        // data-i18n-title 속성을 가진 모든 요소 업데이트
-        document.querySelectorAll('[data-i18n-title]').forEach(element => {
-            const key = element.getAttribute('data-i18n-title');
-            element.title = t(key);
-        });
+        // Special handling for document title, as it's in the <head>
+        const titleElement = document.querySelector('title[data-i18n]');
+        if (titleElement) {
+            document.title = t(titleElement.getAttribute('data-i18n'));
+        }
 
         // HTML lang 속성 업데이트
         document.documentElement.lang = currentLang;

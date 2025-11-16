@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>점심 메뉴 선택기 - Lux Vera</title>
-    <meta name="description" content="오늘 점심 뭐 먹지? 고민하지 말고 랜덤으로 선택하세요!">
-    <meta property="og:title" content="점심 메뉴 선택기 - Lux Vera">
-    <meta property="og:description" content="오늘 점심 뭐 먹지? 고민하지 말고 랜덤으로 선택하세요!">
+    <title data-i18n="lunch.page_title">점심 메뉴 선택기 - Lux Vera</title>
+    <meta name="description" data-i18n="lunch.description" data-i18n-attr="content" content="오늘 점심 뭐 먹지? 고민하지 말고 랜덤으로 선택하세요!">
+    <meta property="og:title" data-i18n="lunch.page_title" data-i18n-attr="content" content="점심 메뉴 선택기 - Lux Vera">
+    <meta property="og:description" data-i18n="lunch.description" data-i18n-attr="content" content="오늘 점심 뭐 먹지? 고민하지 말고 랜덤으로 선택하세요!">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -23,7 +23,6 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .roulette-container {
             max-width: 500px;
@@ -146,14 +145,15 @@
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>🍽️ 점심 메뉴 선택기</h1>
-            <p class="subtitle">오늘 점심 뭐 먹지?</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="lunch.title">🍽️ 점심 메뉴 선택기</h1>
+            <p class="subtitle" data-i18n="lunch.subtitle">오늘 점심 뭐 먹지?</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
 
         <div class="roulette-container">
             <div class="result-display">
@@ -161,33 +161,37 @@
             </div>
 
             <div class="button-group">
-                <button class="btn btn-action" onclick="selectMenu()">메뉴 선택!</button>
-                <button class="btn btn-secondary" onclick="resetMenu()">초기화</button>
+                <button class="btn btn-action" onclick="selectMenu()" data-i18n="lunch.btn_select">메뉴 선택!</button>
+                <button class="btn btn-secondary" onclick="resetMenu()" data-i18n="lunch.btn_reset">초기화</button>
             </div>
         </div>
 
         <div class="tool-panel">
-            <h3 style="margin-bottom: 16px;">메뉴 추가하기</h3>
+            <h3 style="margin-bottom: 16px;" data-i18n="lunch.add_menu_title">메뉴 추가하기</h3>
             <div class="add-menu-form">
-                <input type="text" id="newMenu" placeholder="메뉴 이름을 입력하세요" onkeypress="if(event.key==='Enter') addMenu()">
-                <button class="btn btn-primary" onclick="addMenu()">추가</button>
+                <input type="text" id="newMenu" data-i18n="lunch.add_placeholder" data-i18n-attr="placeholder" placeholder="메뉴 이름을 입력하세요" onkeypress="if(event.key==='Enter') addMenu()">
+                <button class="btn btn-primary" onclick="addMenu()" data-i18n="lunch.btn_add">추가</button>
             </div>
 
-            <h3 style="margin-bottom: 16px;">메뉴 목록 (<span id="menuCount">0</span>개)</h3>
+            <h3 style="margin-bottom: 16px;" data-i18n="lunch.menu_list_title">메뉴 목록</h3>
+            (<span id="menuCount">0</span><span data-i18n="lunch.menu_count">개</span>)
             <div class="menu-list" id="menuList"></div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
         const DEFAULT_MENUS = [
             '🍕 피자', '🍔 햄버거', '🍜 라면', '🍱 도시락',
             '🍛 카레', '🍝 파스타', '🥗 샐러드', '🌮 타코',
@@ -222,7 +226,7 @@
             menuCount.text(menus.length);
 
             if (menus.length === 0) {
-                menuList.html('<div class="empty-state">메뉴가 없습니다.<br>메뉴를 추가해주세요!</div>');
+                menuList.html(`<div class="empty-state" data-i18n="lunch.empty_state">${I18n.t('lunch.empty_state')}</div>`);
                 return;
             }
 
@@ -239,17 +243,17 @@
         }
 
         // 메뉴 추가
-        function addMenu() {
+        window.addMenu = function() {
             const input = $('#newMenu');
             const menuName = input.val().trim();
 
             if (!menuName) {
-                Utils.toast('⚠️ 메뉴 이름을 입력해주세요.');
+                Utils.toast(I18n.t('lunch.toast_enter_name'));
                 return;
             }
 
             if (menus.includes(menuName)) {
-                Utils.toast('⚠️ 이미 존재하는 메뉴입니다.');
+                Utils.toast(I18n.t('lunch.toast_already_exists'));
                 return;
             }
 
@@ -257,24 +261,24 @@
             saveMenus();
             renderMenus();
             input.val('');
-            Utils.toast('✅ 메뉴가 추가되었습니다!');
+            Utils.toast(I18n.t('lunch.toast_added'));
         }
 
         // 메뉴 삭제
-        function deleteMenu(index) {
+        window.deleteMenu = function(index) {
             const menuName = menus[index];
-            if (confirm(`'${menuName}'을(를) 삭제하시겠습니까?`)) {
+            if (confirm(I18n.t('lunch.confirm_delete').replace('{menuName}', menuName))) {
                 menus.splice(index, 1);
                 saveMenus();
                 renderMenus();
-                Utils.toast('🗑️ 메뉴가 삭제되었습니다.');
+                Utils.toast(I18n.t('lunch.toast_deleted'));
             }
         }
 
         // 메뉴 선택
-        function selectMenu() {
+        window.selectMenu = function() {
             if (menus.length === 0) {
-                Utils.toast('⚠️ 선택할 메뉴가 없습니다. 메뉴를 추가해주세요!');
+                Utils.toast(I18n.t('lunch.toast_no_menu'));
                 return;
             }
 
@@ -296,26 +300,29 @@
                     // 최종 선택
                     const selected = menus[Math.floor(Math.random() * menus.length)];
                     resultText.text(selected);
+                    resultText.removeClass('spinning'); // Stop spinning animation
 
-                    Utils.toast('🎉 메뉴가 선택되었습니다!');
+                    Utils.toast(I18n.t('lunch.toast_selected'));
                 }
             }, 100);
         }
 
         // 초기화
-        function resetMenu() {
-            if (confirm('기본 메뉴로 초기화하시겠습니까?')) {
+        window.resetMenu = function() {
+            if (confirm(I18n.t('lunch.confirm_reset'))) {
                 menus = [...DEFAULT_MENUS];
                 saveMenus();
                 renderMenus();
                 $('#resultText').text('🎲');
-                Utils.toast('🔄 메뉴가 초기화되었습니다.');
+                Utils.toast(I18n.t('lunch.toast_reset'));
             }
         }
 
         // 페이지 로드
         $(document).ready(function() {
-            loadMenus();
+            I18n.init().then(() => {
+                loadMenus();
+            });
         });
     </script>
 

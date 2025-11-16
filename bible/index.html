@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>하루 한구절 성경 - Lux Vera</title>
-    <meta name="description" content="매일 새로운 성경 구절로 하루를 시작하세요. 일상에 힘이 되는 말씀을 전합니다.">
-    <meta property="og:title" content="하루 한구절 성경 - Lux Vera">
-    <meta property="og:description" content="매일 새로운 성경 구절로 하루를 시작하세요.">
+    <title data-i18n="bible.page_title">하루 한구절 성경 - Lux Vera</title>
+    <meta name="description" data-i18n="bible.description" data-i18n-attr="content" content="매일 새로운 성경 구절로 하루를 시작하세요. 일상에 힘이 되는 말씀을 전합니다.">
+    <meta property="og:title" data-i18n="bible.page_title" data-i18n-attr="content" content="하루 한구절 성경 - Lux Vera">
+    <meta property="og:description" data-i18n="bible.description" data-i18n-attr="content" content="매일 새로운 성경 구절로 하루를 시작하세요.">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -23,7 +23,6 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .verse-container {
             max-width: 700px;
@@ -83,37 +82,41 @@
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>📖 하루 한구절</h1>
-            <p class="subtitle">매일의 성경 말씀</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="bible.title">📖 하루 한구절</h1>
+            <p class="subtitle" data-i18n="bible.subtitle">매일의 성경 말씀</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
 
         <div class="verse-container" id="verseContainer">
             <div class="verse-date" id="verseDate"></div>
-            <div class="verse-text" id="verseText">말씀을 불러오는 중...</div>
+            <div class="verse-text" id="verseText" data-i18n="bible.loading">말씀을 불러오는 중...</div>
             <div class="verse-reference" id="verseReference"></div>
 
             <div class="verse-actions">
-                <button class="btn btn-action" onclick="getNewVerse()">다른 말씀 보기</button>
-                <button class="btn btn-secondary" onclick="copyVerse()">말씀 복사</button>
+                <button class="btn btn-action" onclick="getNewVerse()" data-i18n="bible.btn_new">다른 말씀 보기</button>
+                <button class="btn btn-secondary" onclick="copyVerse()" data-i18n="bible.btn_copy">말씀 복사</button>
             </div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
         let verses = [];
         let currentVerse = null;
 
@@ -153,7 +156,7 @@
 
             currentVerse = verse;
             const now = new Date();
-            const dateStr = now.toLocaleDateString('ko-KR', {
+            const dateStr = now.toLocaleDateString(I18n.getCurrentLanguage(), {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
@@ -166,26 +169,9 @@
         }
 
         // 새로운 구절 가져오기
-        function getNewVerse() {
+        window.getNewVerse = function() {
             const verse = getRandomVerse();
             displayVerse(verse);
-        }
-
-        // 구절 복사
-        function copyVerse() {
-            if (!currentVerse) return;
-
-            const text = `${currentVerse.text}\n\n- ${currentVerse.reference} -`;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    Utils.toast('📋 말씀이 복사되었습니다!');
-                }).catch(() => {
-                    fallbackCopy(text);
-                });
-            } else {
-                fallbackCopy(text);
-            }
         }
 
         // 복사 대체 방법
@@ -198,26 +184,48 @@
             textarea.select();
             try {
                 document.execCommand('copy');
-                Utils.toast('📋 말씀이 복사되었습니다!');
+                Utils.toast(I18n.t('bible.toast_copied'));
             } catch (err) {
-                Utils.toast('❌ 복사에 실패했습니다.');
+                Utils.toast(I18n.t('bible.toast_copy_fail'));
             }
             document.body.removeChild(textarea);
         }
 
+        // 구절 복사
+        window.copyVerse = function() {
+            if (!currentVerse) return;
+
+            const text = `${currentVerse.text}\n\n- ${currentVerse.reference} -`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    Utils.toast(I18n.t('bible.toast_copied'));
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
         // 초기화
         $(document).ready(function() {
-            // verses.json 로드
-            $.getJSON('verses.json')
-                .done(function(data) {
-                    verses = data;
-                    const todayVerse = getTodayVerse();
-                    displayVerse(todayVerse);
-                })
-                .fail(function() {
-                    $('#verseText').text('말씀을 불러오는데 실패했습니다.');
-                    Utils.toast('❌ 데이터를 불러올 수 없습니다.');
+            I18n.init().then(() => {
+                $.getJSON('verses.json')
+                    .done(function(data) {
+                        verses = data;
+                        const todayVerse = getTodayVerse();
+                        displayVerse(todayVerse);
+                    })
+                    .fail(function() {
+                        $('#verseText').text(I18n.t('bible.loading'));
+                        Utils.toast(I18n.t('bible.toast_load_fail'));
+                    });
+                
+                window.addEventListener('languageChanged', () => {
+                    displayVerse(currentVerse);
                 });
+            });
         });
     </script>
 

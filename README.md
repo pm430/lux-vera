@@ -1,51 +1,83 @@
-# 개발자 유틸리티 모음
+# Lux Vera - 당신의 일상을 위한 유용한 도구들
 
-개발에 필요한 편리한 웹 기반 도구들을 모아놓은 사이트입니다.
+Lux Vera는 일상생활과 개발 작업에 유용한 다양한 웹 기반 도구들을 모아놓은 사이트입니다. 광고 없이 무료로 제공되며, 빠르고 직관적인 사용자 경험을 제공합니다.
 
-## 🛠️ 포함된 도구
+## ✨ 주요 기능
 
-1. **JSON 포맷터** - JSON 데이터 포맷팅, 압축, 검증
-2. **Base64 인코더** - Base64 인코딩/디코딩
-3. **타임스탬프 변환** - Unix 타임스탬프와 날짜 변환
-4. **URL 인코더** - URL 인코딩/디코딩
-5. **정규식 테스터** - 정규표현식 테스트 및 매칭 확인
-6. **해시 생성기** - MD5, SHA-1, SHA-256, SHA-512 해시 생성
+-   **로또 번호 생성기**: 행운의 로또 번호를 생성합니다.
+-   **하루 한구절 성경**: 매일 새로운 성경 구절로 하루를 시작하세요.
+-   **점심 메뉴 선택기**: 오늘 점심 메뉴 고민을 해결해 드립니다.
+-   **내 인생의 해답**: 질문에 대한 영감을 주는 답변을 얻으세요.
+-   **집중 타이머**: 뽀모도로 타이머와 백색소음으로 집중력을 높여보세요.
+-   **개발자 도구**: JSON 포맷터, Base64 인코더, 타임스탬프 변환기, URL 인코더, 정규식 테스터, 해시 생성기 등.
 
-## 🚀 GitHub Pages로 배포하기
+## 🚀 시작하기
 
-### 1. GitHub 저장소 생성
+이 프로젝트는 [Vite](https://vitejs.dev/)를 사용하여 빌드되며, GitHub Pages에 최적화되어 있습니다.
 
-1. GitHub에 로그인
-2. 새 저장소 생성 (예: `dev-utils`)
-3. Public으로 설정
+### 개발 환경 설정
 
-### 2. 파일 업로드
+1.  저장소를 클론합니다:
+    ```bash
+    git clone https://github.com/your-username/lux-vera-site.git
+    cd lux-vera-site
+    ```
+2.  의존성을 설치합니다:
+    ```bash
+    npm install
+    ```
+3.  개발 서버를 시작합니다:
+    ```bash
+    npm run dev
+    ```
+    브라우저에서 `http://localhost:5173` (또는 Vite가 지정한 포트)로 접속하여 개발 중인 사이트를 확인할 수 있습니다.
 
-터미널에서 다음 명령어 실행:
+### 프로덕션 빌드
 
+프로젝트를 배포할 준비가 되면 다음 명령어를 사용하여 프로덕션 빌드를 생성합니다:
 ```bash
-cd dev-utils-site
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/your-username/dev-utils.git
-git push -u origin main
+npm run build
 ```
+빌드된 파일은 `dist/` 디렉토리에 생성됩니다.
 
-### 3. GitHub Pages 설정
+### GitHub Pages 배포
 
-1. 저장소 페이지에서 Settings 클릭
-2. 왼쪽 메뉴에서 Pages 클릭
-3. Source에서 `main` 브랜치 선택
-4. 루트 (`/`) 디렉토리 선택
-5. Save 클릭
+`gh-pages` 라이브러리를 사용하여 빌드된 프로젝트를 GitHub Pages에 쉽게 배포할 수 있습니다.
+```bash
+npm run deploy
+```
+이 명령어는 `dist` 디렉토리의 내용을 `gh-pages` 브랜치에 푸시하고, GitHub Pages 설정을 통해 사이트를 배포합니다. `vite.config.js` 파일에 GitHub Pages의 `base` 경로가 `/lux-vera-site/`로 설정되어 있습니다.
 
-약 1-2분 후 `https://your-username.github.io/dev-utils/` 에서 접속 가능합니다.
+## 🎨 커스터마이징
+
+### 새로운 페이지 추가
+
+1.  `public/` 또는 적절한 하위 디렉토리에 새 HTML 파일을 생성합니다.
+2.  `vite.config.js` 파일의 `rollupOptions.input` 객체에 새 페이지의 경로를 추가합니다.
+3.  필요한 경우 `src/js/main.js` 또는 다른 스크립트에서 새 페이지를 참조하도록 업데이트합니다.
+
+### 다국어 (i18n) 지원
+
+`public/i18n/ko.json` 및 `public/i18n/en.json` 파일을 수정하여 새로운 텍스트를 추가하거나 기존 번역을 업데이트할 수 있습니다. HTML 요소에 `data-i18n="your.key"` 속성을 추가하고, JavaScript에서는 `I18n.t('your.key')`를 사용하여 번역된 텍스트를 가져옵니다.
+
+### 스타일 변경
+
+주요 스타일은 `src/css/style.css`에 정의되어 있습니다. 각 도구별 고유 스타일은 해당 도구의 CSS 파일 (예: `src/css/focus-timer.css`)에 있습니다. 이 파일들을 수정하여 사이트의 디자인을 변경할 수 있습니다.
+
+## 🔧 기술 스택
+
+-   **프론트엔드**: HTML5, CSS3, JavaScript (ES Modules)
+-   **빌드 도구**: Vite
+-   **라이브러리**: jQuery, CryptoJS (필요한 도구에 한해)
+-   **다국어**: 커스텀 i18n 구현
+
+## 📱 반응형 디자인
+
+모든 도구는 모바일, 태블릿, 데스크톱 등 다양한 기기에서 최적화된 사용자 경험을 제공합니다.
 
 ## ☕ 후원 링크 설정
 
-`js/main.js` 파일을 열어 다음 부분을 수정하세요:
+`src/js/main.js` 파일을 열어 다음 부분을 수정하세요:
 
 ```javascript
 const links = {
@@ -67,48 +99,6 @@ const links = {
 3. 송금 → QR코드
 4. 링크 공유
 
-## 📝 커스터마이징
-
-### 도구 추가하기
-
-1. `tools` 폴더에 새 HTML 파일 생성
-2. `index.html`의 유틸리티 그리드에 카드 추가:
-
-```html
-<div class="util-card">
-    <div class="util-icon">🔧</div>
-    <h3>새 도구</h3>
-    <p>설명</p>
-    <button class="btn-primary" onclick="location.href='tools/new-tool.html'">사용하기</button>
-</div>
-```
-
-### 스타일 변경
-
-`css/style.css` 파일에서 색상 변경:
-
-```css
-/* 메인 색상 */
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-/* 버튼 색상 */
-.btn-primary {
-    background: #667eea;
-}
-```
-
-## 🔧 기술 스택
-
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-- jQuery 3.6.0
-- CryptoJS 4.1.1
-
-## 📱 반응형 디자인
-
-모든 도구는 모바일, 태블릿, 데스크톱에서 최적화되어 동작합니다.
-
 ## 📄 라이센스
 
 MIT License - 자유롭게 사용, 수정, 배포 가능합니다.
@@ -119,4 +109,4 @@ MIT License - 자유롭게 사용, 수정, 배포 가능합니다.
 
 ---
 
-Made with ❤️ for developers
+Made with ❤️ for everyone.

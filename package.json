@@ -1,0 +1,24 @@
+{
+  "name": "lux-vera-site",
+  "version": "1.0.0",
+  "description": "개발에 필요한 편리한 웹 기반 도구들을 모아놓은 사이트입니다.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "deploy": "gh-pages -d dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^3.5.33",
+    "gh-pages": "^6.1.1",
+    "vite": "^6.4.1"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "jquery": "^3.7.1"
+  }
+}

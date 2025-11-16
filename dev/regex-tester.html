@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>정규식 테스터 - 개발자 유틸리티</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title data-i18n="dev.regex.page_title">정규식 테스터 - 개발자 유틸리티</title>
+    <meta name="description" data-i18n="dev.regex.description" data-i18n-attr="content" content="정규 표현식을 테스트하고 매칭 결과를 확인합니다">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -19,7 +20,6 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .match-highlight {
             background-color: #ffd700;
@@ -43,73 +43,77 @@
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>정규식 테스터</h1>
-            <p class="subtitle">정규표현식을 테스트하고 매칭 결과를 확인합니다</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.regex.title">정규식 테스터</h1>
+            <p class="subtitle" data-i18n="dev.regex.subtitle">정규표현식을 테스트하고 매칭 결과를 확인합니다</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
         
         <div class="tool-panel">
             <div class="form-group">
-                <label for="regexInput">정규표현식</label>
-                <input type="text" id="regexInput" placeholder="^\d{3}-\d{4}-\d{4}$">
+                <label for="regexInput" data-i18n="dev.regex.regex_label">정규표현식</label>
+                <input type="text" id="regexInput" data-i18n="dev.regex.regex_placeholder" data-i18n-attr="placeholder" placeholder="^\d{3}-\d{4}-\d{4}$">
                 <div class="regex-flags">
-                    <label><input type="checkbox" id="flagG" checked> g (전역 검색)</label>
-                    <label><input type="checkbox" id="flagI"> i (대소문자 구분 안함)</label>
-                    <label><input type="checkbox" id="flagM"> m (여러 줄)</label>
+                    <label><input type="checkbox" id="flagG" checked> <span data-i18n="dev.regex.flag_g">g (전역 검색)</span></label>
+                    <label><input type="checkbox" id="flagI"> <span data-i18n="dev.regex.flag_i">i (대소문자 구분 안함)</span></label>
+                    <label><input type="checkbox" id="flagM"> <span data-i18n="dev.regex.flag_m">m (여러 줄)</span></label>
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="testString">테스트 문자열</label>
-                <textarea id="testString" placeholder="010-1234-5678"></textarea>
+                <label for="testString" data-i18n="dev.regex.test_string_label">테스트 문자열</label>
+                <textarea id="testString" data-i18n="dev.regex.test_string_placeholder" data-i18n-attr="placeholder" placeholder="010-1234-5678"></textarea>
             </div>
             
             <div class="button-group">
-                <button class="btn btn-action" onclick="testRegex()">테스트</button>
-                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
+                <button class="btn btn-action" onclick="testRegex()" data-i18n="dev.regex.btn_test">테스트</button>
+                <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.regex.btn_clear">초기화</button>
             </div>
             
             <div id="result" style="display: none;">
-                <h3>결과</h3>
+                <h3 data-i18n="dev.regex.results_title">결과</h3>
                 <div id="matchCount" class="result-box"></div>
                 <div class="form-group">
-                    <label>매칭 결과</label>
+                    <label data-i18n="dev.regex.match_result_label">매칭 결과</label>
                     <div id="matchResult" class="result-box"></div>
                 </div>
                 <div class="form-group">
-                    <label>매칭 상세</label>
+                    <label data-i18n="dev.regex.match_details_label">매칭 상세</label>
                     <div id="matchDetails" class="result-box"></div>
                 </div>
             </div>
         </div>
 
         <div class="tool-panel">
-            <h3>ℹ️ 자주 사용하는 정규식</h3>
+            <h3 data-i18n="dev.regex.common_regex_title">ℹ️ 자주 사용하는 정규식</h3>
             <div class="result-box">
-                <strong>이메일:</strong> ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$<br>
-                <strong>전화번호:</strong> ^\d{2,3}-\d{3,4}-\d{4}$<br>
-                <strong>URL:</strong> ^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b<br>
-                <strong>IP 주소:</strong> ^(\d{1,3}\.){3}\d{1,3}$<br>
-                <strong>날짜 (YYYY-MM-DD):</strong> ^\d{4}-\d{2}-\d{2}$
+                <span data-i18n="dev.regex.common_email"><strong>이메일:</strong> ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</span><br>
+                <span data-i18n="dev.regex.common_phone"><strong>전화번호:</strong> ^\d{2,3}-\d{3,4}-\d{4}$</span><br>
+                <span data-i18n="dev.regex.common_url"><strong>URL:</strong> ^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b</span><br>
+                <span data-i18n="dev.regex.common_ip"><strong>IP 주소:</strong> ^(\d{1,3}\.){3}\d{1,3}$</span><br>
+                <span data-i18n="dev.regex.common_date"><strong>날짜 (YYYY-MM-DD):</strong> ^\d{4}-\d{2}-\d{2}$</span>
             </div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
-        function testRegex() {
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
+        window.testRegex = function() {
             const regexStr = $('#regexInput').val();
             const testStr = $('#testString').val();
             const result = $('#result');
@@ -118,12 +122,12 @@
             const matchDetails = $('#matchDetails');
             
             if (!regexStr) {
-                alert('정규표현식을 입력해주세요.');
+                alert(I18n.t('dev.regex.alert_no_regex'));
                 return;
             }
             
             if (!testStr) {
-                alert('테스트 문자열을 입력해주세요.');
+                alert(I18n.t('dev.regex.alert_no_test_string'));
                 return;
             }
             
@@ -143,7 +147,7 @@
                 if (matchArray.length > 0) {
                     // 매칭 개수
                     matchCount.removeClass('error').addClass('success');
-                    matchCount.html(`✅ <strong>${matchArray.length}개</strong>의 매칭이 발견되었습니다.`);
+                    matchCount.html(I18n.t('dev.regex.match_count_success').replace('{count}', matchArray.length));
                     
                     // 하이라이트된 결과
                     let highlighted = testStr;
@@ -162,30 +166,34 @@
                     // 매칭 상세 정보
                     let details = '';
                     matchArray.forEach((match, index) => {
-                        details += `<strong>매칭 ${index + 1}:</strong> "${match[0]}" (위치: ${match.index})\n`;
+                        details += I18n.t('dev.regex.match_detail_item').replace('{index}', index + 1).replace('{match}', match[0]).replace('{position}', match.index) + '\n';
                         if (match.length > 1) {
                             for (let i = 1; i < match.length; i++) {
-                                details += `  그룹 ${i}: "${match[i]}"\n`;
+                                details += I18n.t('dev.regex.match_group_item').replace('{group_index}', i).replace('{group_match}', match[i]) + '\n';
                             }
                         }
                     });
                     matchDetails.text(details);
                 } else {
                     matchCount.removeClass('success').addClass('error');
-                    matchCount.html('❌ 매칭되는 결과가 없습니다.');
+                    matchCount.html(I18n.t('dev.regex.match_count_fail'));
                     matchResult.text(testStr);
-                    matchDetails.text('매칭 결과가 없습니다.');
+                    matchDetails.text(I18n.t('dev.regex.no_match_result'));
                 }
             } catch (e) {
                 result.show();
                 matchCount.removeClass('success').addClass('error');
-                matchCount.html('❌ 올바르지 않은 정규표현식입니다: ' + e.message);
+                matchCount.html(I18n.t('dev.regex.alert_invalid_regex').replace('{error}', e.message));
                 matchResult.text('');
                 matchDetails.text('');
             }
         }
         
-        // clearAll은 main.js에서 제공
+        window.clearAll = function() {
+            $('#regexInput').val('');
+            $('#testString').val('');
+            $('#result').hide();
+        }
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->

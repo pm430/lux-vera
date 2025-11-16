@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>타임스탬프 변환 - 개발자 유틸리티</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title data-i18n="dev.timestamp.page_title">타임스탬프 변환 - 개발자 유틸리티</title>
+    <meta name="description" data-i18n="dev.timestamp.description" data-i18n-attr="content" content="Unix 타임스탬프와 날짜를 변환합니다">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -19,22 +20,22 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>타임스탬프 변환</h1>
-            <p class="subtitle">Unix 타임스탬프와 날짜를 변환합니다</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.timestamp.title">타임스탬프 변환</h1>
+            <p class="subtitle" data-i18n="dev.timestamp.subtitle">Unix 타임스탬프와 날짜를 변환합니다</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
         
         <div class="tool-panel">
-            <h3>현재 시간</h3>
+            <h3 data-i18n="dev.timestamp.current_time_title">현재 시간</h3>
             <div class="result-box">
                 <div id="currentTimestamp"></div>
                 <div id="currentDate"></div>
@@ -42,41 +43,45 @@
         </div>
 
         <div class="tool-panel">
-            <h3>타임스탬프 → 날짜</h3>
+            <h3 data-i18n="dev.timestamp.ts_to_date_title">타임스탬프 → 날짜</h3>
             <div class="form-group">
-                <label for="timestampInput">Unix 타임스탬프 (초 또는 밀리초)</label>
+                <label for="timestampInput" data-i18n="dev.timestamp.ts_input_label">Unix 타임스탬프 (초 또는 밀리초)</label>
                 <input type="number" id="timestampInput" placeholder="1609459200">
             </div>
-            <button class="btn btn-action" onclick="convertToDate()">변환</button>
+            <button class="btn btn-action" onclick="convertToDate()" data-i18n="dev.timestamp.btn_convert">변환</button>
             <div id="dateResult" class="result-box" style="display: none;"></div>
         </div>
 
         <div class="tool-panel">
-            <h3>날짜 → 타임스탬프</h3>
+            <h3 data-i18n="dev.timestamp.date_to_ts_title">날짜 → 타임스탬프</h3>
             <div class="form-group">
-                <label for="dateInput">날짜 및 시간</label>
+                <label for="dateInput" data-i18n="dev.timestamp.date_input_label">날짜 및 시간</label>
                 <input type="datetime-local" id="dateInput">
             </div>
-            <button class="btn btn-action" onclick="convertToTimestamp()">변환</button>
-            <button class="btn btn-secondary" onclick="setNow()">현재 시간 입력</button>
+            <button class="btn btn-action" onclick="convertToTimestamp()" data-i18n="dev.timestamp.btn_convert">변환</button>
+            <button class="btn btn-secondary" onclick="setNow()" data-i18n="dev.timestamp.btn_set_now">현재 시간 입력</button>
             <div id="timestampResult" class="result-box" style="display: none;"></div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
         function updateCurrentTime() {
             const now = new Date();
             const timestamp = Math.floor(now.getTime() / 1000);
-            const dateStr = now.toLocaleString('ko-KR', {
+            const milliseconds = now.getTime();
+            const dateStr = now.toLocaleString(I18n.getCurrentLanguage(), {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
@@ -86,17 +91,20 @@
                 hour12: false
             });
             
-            $('#currentTimestamp').html(`<strong>Unix 타임스탬프:</strong> ${timestamp} (초)<br><strong>밀리초:</strong> ${now.getTime()}`);
-            $('#currentDate').html(`<strong>날짜:</strong> ${dateStr}`);
+            $('#currentTimestamp').html(I18n.t('dev.timestamp.current_timestamp_display')
+                .replace('{timestamp}', timestamp)
+                .replace('{milliseconds}', milliseconds));
+            $('#currentDate').html(I18n.t('dev.timestamp.current_date_display')
+                .replace('{dateStr}', dateStr));
         }
         
-        function convertToDate() {
+        window.convertToDate = function() {
             let timestamp = parseInt($('#timestampInput').val());
             const result = $('#dateResult');
             
             if (isNaN(timestamp)) {
                 result.show();
-                Utils.showError(result, '❌ 올바른 타임스탬프를 입력해주세요.');
+                Utils.showError(result, I18n.t('dev.timestamp.toast_invalid_ts'));
                 return;
             }
             
@@ -106,7 +114,7 @@
             }
             
             const date = new Date(timestamp * 1000);
-            const dateStr = date.toLocaleString('ko-KR', {
+            const dateStr = date.toLocaleString(I18n.getCurrentLanguage(), {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
@@ -120,19 +128,20 @@
             
             result.show();
             Utils.showResult(result, 
-                `날짜: ${dateStr}\n` +
-                `ISO 8601: ${isoStr}\n` +
-                `UTC: ${date.toUTCString()}`
+                I18n.t('dev.timestamp.date_result_display')
+                .replace('{dateStr}', dateStr)
+                .replace('{isoStr}', isoStr)
+                .replace('{utcStr}', date.toUTCString())
             );
         }
         
-        function convertToTimestamp() {
+        window.convertToTimestamp = function() {
             const dateValue = $('#dateInput').val();
             const result = $('#timestampResult');
             
             if (!dateValue) {
                 result.show();
-                Utils.showError(result, '❌ 날짜를 선택해주세요.');
+                Utils.showError(result, I18n.t('dev.timestamp.toast_no_date'));
                 return;
             }
             
@@ -142,13 +151,14 @@
             
             result.show();
             Utils.showResult(result,
-                `Unix 타임스탬프 (초): ${timestamp}\n` +
-                `밀리초: ${milliseconds}\n` +
-                `ISO 8601: ${date.toISOString()}`
+                I18n.t('dev.timestamp.ts_result_display')
+                .replace('{timestamp}', timestamp)
+                .replace('{milliseconds}', milliseconds)
+                .replace('{isoStr}', date.toISOString())
             );
         }
         
-        function setNow() {
+        window.setNow = function() {
             const now = new Date();
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -162,8 +172,11 @@
         
         // 페이지 로드 시 현재 시간 표시
         $(document).ready(function() {
-            updateCurrentTime();
-            setInterval(updateCurrentTime, 1000);
+            I18n.init().then(() => {
+                updateCurrentTime();
+                setInterval(updateCurrentTime, 1000);
+                window.addEventListener('languageChanged', updateCurrentTime);
+            });
         });
     </script>
 

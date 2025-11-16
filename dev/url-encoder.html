@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL 인코더 - 개발자 유틸리티</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title data-i18n="dev.url.page_title">URL 인코더 - 개발자 유틸리티</title>
+    <meta name="description" data-i18n="dev.url.description" data-i18n-attr="content" content="URL을 인코딩하고 디코딩합니다">
+    <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
@@ -19,35 +20,35 @@
         }
       })();
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
         <div class="container">
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>URL 인코더/디코더</h1>
-            <p class="subtitle">URL을 인코딩/디코딩합니다</p>
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.url.title">URL 인코더/디코더</h1>
+            <p class="subtitle" data-i18n="dev.url.subtitle">URL을 인코딩/디코딩합니다</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
         
         <div class="tool-panel">
             <div class="form-group">
-                <label for="urlInput">URL 또는 텍스트 입력</label>
-                <textarea id="urlInput" placeholder="https://example.com/검색?query=테스트"></textarea>
+                <label for="urlInput" data-i18n="dev.url.input_label">URL 또는 텍스트 입력</label>
+                <textarea id="urlInput" data-i18n="dev.url.input_placeholder" data-i18n-attr="placeholder" placeholder="https://example.com/검색?query=테스트"></textarea>
             </div>
             
             <div class="button-group">
-                <button class="btn btn-action" onclick="encodeURL()">인코딩</button>
-                <button class="btn btn-action" onclick="decodeURL()">디코딩</button>
-                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
-                <button class="btn btn-secondary" onclick="copyResult()">결과 복사</button>
+                <button class="btn btn-action" onclick="encodeURL()" data-i18n="dev.url.btn_encode">인코딩</button>
+                <button class="btn btn-action" onclick="decodeURL()" data-i18n="dev.url.btn_decode">디코딩</button>
+                <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.url.btn_clear">초기화</button>
+                <button class="btn btn-secondary" onclick="copyResult()" data-i18n="dev.url.btn_copy">결과 복사</button>
             </div>
             
             <div class="form-group">
-                <label for="urlOutput">결과</label>
+                <label for="urlOutput" data-i18n="dev.url.output_label">결과</label>
                 <textarea id="urlOutput" readonly></textarea>
             </div>
             
@@ -55,32 +56,35 @@
         </div>
 
         <div class="tool-panel">
-            <h3>ℹ️ 사용 예시</h3>
+            <h3 data-i18n="dev.url.example_title">ℹ️ 사용 예시</h3>
             <div class="result-box">
-                <strong>원본:</strong> https://example.com/검색?query=테스트 값<br>
-                <strong>인코딩:</strong> https%3A%2F%2Fexample.com%2F%EA%B2%80%EC%83%89%3Fquery%3D%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B0%92
+                <p><span data-i18n="dev.url.example_original"><strong>원본:</strong></span> <code>https://example.com/path with spaces/file.txt?param=value with spaces</code></p>
+                <p><span data-i18n="dev.url.example_encoded"><strong>인코딩:</strong></span> <code>https%3A%2F%2Fexample.com%2Fpath%20with%20spaces%2Ffile.txt%3Fparam%3Dvalue%20with%20spaces</code></p>
             </div>
         </div>
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
-        function encodeURL() {
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
+        window.encodeURL = function() {
             const input = $('#urlInput').val();
             const output = $('#urlOutput');
             const message = $('#message');
             
             if (!input) {
                 message.show();
-                Utils.showError(message, '❌ URL 또는 텍스트를 입력해주세요.');
+                Utils.showError(message, I18n.t('dev.url.toast_no_input'));
                 return;
             }
             
@@ -88,21 +92,21 @@
                 const encoded = encodeURIComponent(input);
                 output.val(encoded);
                 message.show();
-                Utils.showSuccess(message, '✅ URL 인코딩이 완료되었습니다.');
+                Utils.showSuccess(message, I18n.t('dev.url.toast_encode_success'));
             } catch (e) {
                 message.show();
-                Utils.showError(message, '❌ 인코딩 중 오류가 발생했습니다: ' + e.message);
+                Utils.showError(message, I18n.t('dev.url.toast_encode_fail').replace('{error}', e.message));
             }
         }
         
-        function decodeURL() {
+        window.decodeURL = function() {
             const input = $('#urlInput').val().trim();
             const output = $('#urlOutput');
             const message = $('#message');
             
             if (!input) {
                 message.show();
-                Utils.showError(message, '❌ 인코딩된 URL을 입력해주세요.');
+                Utils.showError(message, I18n.t('dev.url.toast_no_encoded_input'));
                 return;
             }
             
@@ -110,14 +114,29 @@
                 const decoded = decodeURIComponent(input);
                 output.val(decoded);
                 message.show();
-                Utils.showSuccess(message, '✅ URL 디코딩이 완료되었습니다.');
+                Utils.showSuccess(message, I18n.t('dev.url.toast_decode_success'));
             } catch (e) {
                 message.show();
-                Utils.showError(message, '❌ 올바르지 않은 URL 인코딩입니다: ' + e.message);
+                Utils.showError(message, I18n.t('dev.url.toast_decode_fail').replace('{error}', e.message));
             }
         }
         
-        // clearAll과 copyResult는 main.js에서 제공
+        window.clearAll = function() {
+            $('#urlInput').val('');
+            $('#urlOutput').val('');
+            $('#message').hide();
+        }
+        
+        window.copyResult = function() {
+            const output = $('#urlOutput');
+            if (output.val()) {
+                Utils.copyToClipboard(output.val());
+            }
+        }
+
+        $(document).ready(function() {
+            I18n.init();
+        });
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->
