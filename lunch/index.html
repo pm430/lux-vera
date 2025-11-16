@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="lunch.page_title">점심 메뉴 선택기 - Lux Vera</title>
+    <meta name="description" data-i18n="lunch.description" data-i18n-attr="content" content="오늘 점심 뭐 먹지? 고민하지 말고 랜덤으로 선택하세요!">
+    <meta property="og:title" data-i18n="lunch.page_title" data-i18n-attr="content" content="점심 메뉴 선택기 - Lux Vera">
+    <meta property="og:description" data-i18n="lunch.description" data-i18n-attr="content" content="오늘 점심 뭐 먹지? 고민하지 말고 랜덤으로 선택하세요!">
+    <meta property="og:type" content="website">
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
+    <style>
+        .roulette-container {
+            max-width: 500px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .result-display {
+            min-height: 200px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-text {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .result-text.spinning {
+            animation: spin 0.5s linear infinite;
+        }
+
+        .menu-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 32px 0;
+        }
+
+        .menu-item {
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-name {
+            font-size: 16px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .delete-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            font-size: 18px;
+            transition: color 0.2s;
+        }
+
+        .delete-btn:hover {
+            color: #dc143c;
+        }
+
+        .add-menu-form {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .add-menu-form input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 480px) {
+            .result-text {
+                font-size: 36px;
+            }
+
+            .menu-list {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/lux-vera/assets/lunch-DaPJ9oQ1.js"></script>
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/i18n-BsEoFYnQ.js">
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/main-Bc7M-j3O.js">
+  <link rel="stylesheet" crossorigin href="/lux-vera/assets/main-fJvvqIBv.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="lunch.title">🍽️ 점심 메뉴 선택기</h1>
+            <p class="subtitle" data-i18n="lunch.subtitle">오늘 점심 뭐 먹지?</p>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
+
+        <div class="roulette-container">
+            <div class="result-display">
+                <div class="result-text" id="resultText">🎲</div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-action" onclick="selectMenu()" data-i18n="lunch.btn_select">메뉴 선택!</button>
+                <button class="btn btn-secondary" onclick="resetMenu()" data-i18n="lunch.btn_reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="tool-panel">
+            <h3 style="margin-bottom: 16px;" data-i18n="lunch.add_menu_title">메뉴 추가하기</h3>
+            <div class="add-menu-form">
+                <input type="text" id="newMenu" data-i18n="lunch.add_placeholder" data-i18n-attr="placeholder" placeholder="메뉴 이름을 입력하세요" onkeypress="if(event.key==='Enter') addMenu()">
+                <button class="btn btn-primary" onclick="addMenu()" data-i18n="lunch.btn_add">추가</button>
+            </div>
+
+            <h3 style="margin-bottom: 16px;" data-i18n="lunch.menu_list_title">메뉴 목록</h3>
+            (<span id="menuCount">0</span><span data-i18n="lunch.menu_count">개</span>)
+            <div class="menu-list" id="menuList"></div>
+        </div>
+
+        <!-- Buy Me a Coffee 버튼 -->
+        <div class="sponsor-inline">
+            <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <a href="https://buymeacoffee.com/pm430" target="_blank">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Buy Me a Coffee 플로팅 위젯 -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>

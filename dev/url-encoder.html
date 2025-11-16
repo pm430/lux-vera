@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="dev.url.page_title">URL 인코더 - 개발자 유틸리티</title>
+    <meta name="description" data-i18n="dev.url.description" data-i18n-attr="content" content="URL을 인코딩하고 디코딩합니다">
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
+  <script type="module" crossorigin src="/lux-vera/assets/dev_url_encoder-BEVv9_02.js"></script>
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/i18n-BsEoFYnQ.js">
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/main-Bc7M-j3O.js">
+  <link rel="stylesheet" crossorigin href="/lux-vera/assets/main-fJvvqIBv.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.url.title">URL 인코더/디코더</h1>
+            <p class="subtitle" data-i18n="dev.url.subtitle">URL을 인코딩/디코딩합니다</p>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
+        
+        <div class="tool-panel">
+            <div class="form-group">
+                <label for="urlInput" data-i18n="dev.url.input_label">URL 또는 텍스트 입력</label>
+                <textarea id="urlInput" data-i18n="dev.url.input_placeholder" data-i18n-attr="placeholder" placeholder="https://example.com/검색?query=테스트"></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-action" onclick="encodeURL()" data-i18n="dev.url.btn_encode">인코딩</button>
+                <button class="btn btn-action" onclick="decodeURL()" data-i18n="dev.url.btn_decode">디코딩</button>
+                <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.url.btn_clear">초기화</button>
+                <button class="btn btn-secondary" onclick="copyResult()" data-i18n="dev.url.btn_copy">결과 복사</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="urlOutput" data-i18n="dev.url.output_label">결과</label>
+                <textarea id="urlOutput" readonly></textarea>
+            </div>
+            
+            <div id="message" class="result-box" style="display: none;"></div>
+        </div>
+
+        <div class="tool-panel">
+            <h3 data-i18n="dev.url.example_title">ℹ️ 사용 예시</h3>
+            <div class="result-box">
+                <p><span data-i18n="dev.url.example_original"><strong>원본:</strong></span> <code>https://example.com/path with spaces/file.txt?param=value with spaces</code></p>
+                <p><span data-i18n="dev.url.example_encoded"><strong>인코딩:</strong></span> <code>https%3A%2F%2Fexample.com%2Fpath%20with%20spaces%2Ffile.txt%3Fparam%3Dvalue%20with%20spaces</code></p>
+            </div>
+        </div>
+
+        <!-- Buy Me a Coffee 버튼 -->
+        <div class="sponsor-inline">
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <a href="https://buymeacoffee.com/pm430" target="_blank">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Buy Me a Coffee 플로팅 위젯 -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>

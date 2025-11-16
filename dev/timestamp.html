@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="dev.timestamp.page_title">타임스탬프 변환 - 개발자 유틸리티</title>
+    <meta name="description" data-i18n="dev.timestamp.description" data-i18n-attr="content" content="Unix 타임스탬프와 날짜를 변환합니다">
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
+  <script type="module" crossorigin src="/lux-vera/assets/dev_timestamp-DbIrkymx.js"></script>
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/i18n-BsEoFYnQ.js">
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/main-Bc7M-j3O.js">
+  <link rel="stylesheet" crossorigin href="/lux-vera/assets/main-fJvvqIBv.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.timestamp.title">타임스탬프 변환</h1>
+            <p class="subtitle" data-i18n="dev.timestamp.subtitle">Unix 타임스탬프와 날짜를 변환합니다</p>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
+        
+        <div class="tool-panel">
+            <h3 data-i18n="dev.timestamp.current_time_title">현재 시간</h3>
+            <div class="result-box">
+                <div id="currentTimestamp"></div>
+                <div id="currentDate"></div>
+            </div>
+        </div>
+
+        <div class="tool-panel">
+            <h3 data-i18n="dev.timestamp.ts_to_date_title">타임스탬프 → 날짜</h3>
+            <div class="form-group">
+                <label for="timestampInput" data-i18n="dev.timestamp.ts_input_label">Unix 타임스탬프 (초 또는 밀리초)</label>
+                <input type="number" id="timestampInput" placeholder="1609459200">
+            </div>
+            <button class="btn btn-action" onclick="convertToDate()" data-i18n="dev.timestamp.btn_convert">변환</button>
+            <div id="dateResult" class="result-box" style="display: none;"></div>
+        </div>
+
+        <div class="tool-panel">
+            <h3 data-i18n="dev.timestamp.date_to_ts_title">날짜 → 타임스탬프</h3>
+            <div class="form-group">
+                <label for="dateInput" data-i18n="dev.timestamp.date_input_label">날짜 및 시간</label>
+                <input type="datetime-local" id="dateInput">
+            </div>
+            <button class="btn btn-action" onclick="convertToTimestamp()" data-i18n="dev.timestamp.btn_convert">변환</button>
+            <button class="btn btn-secondary" onclick="setNow()" data-i18n="dev.timestamp.btn_set_now">현재 시간 입력</button>
+            <div id="timestampResult" class="result-box" style="display: none;"></div>
+        </div>
+
+        <!-- Buy Me a Coffee 버튼 -->
+        <div class="sponsor-inline">
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <a href="https://buymeacoffee.com/pm430" target="_blank">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Buy Me a Coffee 플로팅 위젯 -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>

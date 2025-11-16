@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" data-i18n="focus.description" data-i18n-attr="content" content="광고 없는 무료 집중 타이머와 백색소음 - 뽀모도로 타이머로 생산성을 높이세요">
+    <meta name="keywords" data-i18n="focus.keywords" data-i18n-attr="content" content="집중타이머, 뽀모도로, 백색소음, 공부타이머, 무료타이머">
+    <title data-i18n="focus.page_title">집중 - 광고 없는 무료 타이머</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/lux-vera/assets/focus_timer-xkeo8Cjq.js"></script>
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/i18n-BsEoFYnQ.js">
+  <link rel="stylesheet" crossorigin href="/lux-vera/assets/focus_timer-DQwTpWom.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo" data-i18n="focus.title">🎯 집중</div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()" data-i18n="focus.dark_mode_toggle">🌙 다크모드</button>
+    </header>
+
+    <div class="container">
+        <div class="main-section">
+            <!-- 타이머 섹션 -->
+            <div class="card">
+                <h2 class="card-title" data-i18n="focus.pomodoro_timer_title">⏱️ 뽀모도로 타이머</h2>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="toggleTimer()" id="startBtn" data-i18n="focus.btn_start">시작</button>
+                    <button class="btn btn-secondary" onclick="resetTimer()" data-i18n="focus.btn_reset">리셋</button>
+                </div>
+                <div class="timer-presets">
+                    <button class="preset-btn active" onclick="setTimer(25)" data-i18n="focus.minutes_25">25분</button>
+                    <button class="preset-btn" onclick="setTimer(15)" data-i18n="focus.minutes_15">15분</button>
+                    <button class="preset-btn" onclick="setTimer(45)" data-i18n="focus.minutes_45">45분</button>
+                    <button class="preset-btn" onclick="setTimer(60)" data-i18n="focus.minutes_60">60분</button>
+                </div>
+                <p class="info-text" data-i18n="focus.timer_info_text">집중 시간을 설정하고 목표를 달성하세요</p>
+            </div>
+
+            <!-- 백색소음 섹션 -->
+            <div class="card">
+                <h2 class="card-title" data-i18n="focus.white_noise_title">🎵 백색소음</h2>
+                <div class="sound-grid">
+                    <div class="sound-item" onclick="toggleSound('rain')">
+                        <span class="sound-name" data-i18n="focus.sound_rain">☔ 빗소리</span>
+                        <span class="status-indicator" id="status-rain"></span>
+                    </div>
+                    <div class="sound-item" onclick="toggleSound('wave')">
+                        <span class="sound-name" data-i18n="focus.sound_wave">🌊 파도 소리</span>
+                        <span class="status-indicator" id="status-wave"></span>
+                    </div>
+                    <div class="sound-item" onclick="toggleSound('cafe')">
+                        <span class="sound-name" data-i18n="focus.sound_cafe">☕ 카페 소음</span>
+                        <span class="status-indicator" id="status-cafe"></span>
+                    </div>
+                    <div class="sound-item" onclick="toggleSound('white')">
+                        <span class="sound-name" data-i18n="focus.sound_white">⚪ 화이트 노이즈</span>
+                        <span class="status-indicator" id="status-white"></span>
+                    </div>
+                </div>
+                <div class="volume-control">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);" data-i18n="focus.volume_label">볼륨</label>
+                    <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" oninput="changeVolume(this.value)">
+                </div>
+                <p class="info-text" data-i18n="focus.noise_info_text">배경음으로 집중력을 높여보세요</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="support-section">
+            <p class="support-text" data-i18n="focus.support_text">이 사이트가 도움이 되셨나요? ☕</p>
+            <a href="https://www.buymeacoffee.com/yourname" class="coffee-btn" target="_blank" data-i18n="focus.buy_coffee_btn">
+                ☕ 커피 한잔 사주기
+            </a>
+        </div>
+        <p class="footer-note" data-i18n="focus.footer_note">
+            광고 없는 무료 서비스 | 모든 오디오는 Web Audio API로 생성됩니다<br>
+            문의: your@email.com
+        </p>
+    </footer>
+
+</body>
+</html>
