@@ -19,11 +19,14 @@ function detectLanguage() {
 // 번역 데이터 로드
 async function loadTranslations(lang) {
     try {
-        // Try multiple paths for i18n files (using relative paths)
+        // Get the base path (works both in dev and production)
+        const basePath = import.meta.env.BASE_URL || '/';
+
+        // Try multiple paths for i18n files
         const paths = [
+            `${basePath}i18n/${lang}.json`,
             `./i18n/${lang}.json`,
-            `../i18n/${lang}.json`,
-            `../../i18n/${lang}.json`
+            `../i18n/${lang}.json`
         ];
 
         let response;
