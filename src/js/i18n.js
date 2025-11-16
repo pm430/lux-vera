@@ -19,11 +19,11 @@ function detectLanguage() {
 // 번역 데이터 로드
 async function loadTranslations(lang) {
     try {
-        // Try multiple paths for i18n files
+        // Try multiple paths for i18n files (using relative paths)
         const paths = [
-            `/i18n/${lang}.json`,
             `./i18n/${lang}.json`,
-            `../i18n/${lang}.json`
+            `../i18n/${lang}.json`,
+            `../../i18n/${lang}.json`
         ];
 
         let response;
