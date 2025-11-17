@@ -34,7 +34,7 @@
     <header class="header">
         <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label" data-i18n-attr="aria-label" aria-label="언어 전환" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; color: var(--text-primary); margin-right: 10px;">🇰🇷 KO</button>
         <div class="logo" data-i18n="focus.title">🎯 집중</div>
-        <button class="dark-mode-toggle" onclick="toggleDarkMode()" data-i18n="focus.dark_mode_toggle">🌙 다크모드</button>
+        <button class="dark-mode-toggle" onclick="toggleTheme()" data-i18n="focus.dark_mode_toggle">🌙 다크모드</button>
     </header>
 
     <div class="container">
@@ -113,24 +113,32 @@
         let audioContext = null;
         let sounds = {};
 
-        // 다크모드
-        window.toggleDarkMode = function() {
-            document.body.classList.toggle('dark-mode');
+        // 테마 토글
+        window.toggleTheme = function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
             try {
-                localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+                localStorage.setItem('theme', newTheme);
             } catch (error) {
                 console.warn('localStorage unavailable:', error);
             }
+            updateThemeIcon();
         }
 
-        // 페이지 로드 시 다크모드 설정 복원
-        try {
-            if (localStorage.getItem('darkMode') === 'true') {
-                document.body.classList.add('dark-mode');
+        // 테마 아이콘 업데이트
+        function updateThemeIcon() {
+            const toggleBtn = document.querySelector('.dark-mode-toggle');
+            if (toggleBtn) {
+                const theme = document.documentElement.getAttribute('data-theme');
+                const text = theme === 'dark' ? '☀️ ' : '🌙 ';
+                const label = theme === 'dark' ? (I18n.getCurrentLanguage() === 'ko' ? '라이트모드' : 'Light Mode') : (I18n.getCurrentLanguage() === 'ko' ? '다크모드' : 'Dark Mode');
+                toggleBtn.textContent = text + label;
             }
-        } catch (error) {
-            console.warn('localStorage unavailable:', error);
         }
+
+        // 페이지 로드 시 테마 아이콘 업데이트
+        updateThemeIcon();
 
         // 타이머 함수들
         function updateDisplay() {
