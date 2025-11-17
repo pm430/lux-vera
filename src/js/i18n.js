@@ -3,9 +3,13 @@ let translations = {};
 
 // 언어 감지
 function detectLanguage() {
-    const saved = localStorage.getItem('language');
-    if (saved) {
-        return saved;
+    try {
+        const saved = localStorage.getItem('language');
+        if (saved) {
+            return saved;
+        }
+    } catch (error) {
+        console.warn('localStorage unavailable:', error);
     }
 
     const browserLang = navigator.language || navigator.userLanguage;
@@ -47,7 +51,11 @@ async function loadTranslations(lang) {
 
         translations = await response.json();
         currentLang = lang;
-        localStorage.setItem('language', lang);
+        try {
+            localStorage.setItem('language', lang);
+        } catch (error) {
+            console.warn('localStorage unavailable:', error);
+        }
         return true;
     } catch (error) {
         // Failed to load translations, use fallback

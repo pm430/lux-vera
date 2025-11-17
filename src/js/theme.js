@@ -10,10 +10,14 @@ const ThemeManager = {
         // 시스템 테마 변경 감지
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             // 사용자가 수동으로 테마를 설정하지 않은 경우에만 시스템 설정을 따름
-            if (!localStorage.getItem('theme')) {
-                const newTheme = e.matches ? 'dark' : 'light';
-                document.documentElement.setAttribute('data-theme', newTheme);
-                this.updateToggleIcon();
+            try {
+                if (!localStorage.getItem('theme')) {
+                    const newTheme = e.matches ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    this.updateToggleIcon();
+                }
+            } catch (error) {
+                console.warn('localStorage unavailable:', error);
             }
         });
     },
@@ -22,7 +26,11 @@ const ThemeManager = {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        try {
+            localStorage.setItem('theme', newTheme);
+        } catch (error) {
+            console.warn('localStorage unavailable:', error);
+        }
         this.updateToggleIcon();
     },
 

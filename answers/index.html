@@ -14,10 +14,15 @@
         function setTheme(theme) {
           document.documentElement.setAttribute('data-theme', theme);
         }
-        var savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-          setTheme(savedTheme);
-        } else {
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            setTheme(savedTheme);
+          } else {
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+          }
+        } catch (error) {
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           setTheme(prefersDark ? 'dark' : 'light');
         }
@@ -235,6 +240,12 @@
         </div>
     </div>
 
+    <footer>
+        <div class="container">
+            <p data-i18n="home.footer_text">&copy; 2025 Lux Vera. Made with ❤️</p>
+        </div>
+    </footer>
+
     <script type="module" src="/src/js/main.js"></script>
     <script type="module">
         import I18n from '/src/js/i18n.js';
@@ -256,16 +267,24 @@
 
         // 히스토리 로드
         function loadHistory() {
-            const saved = localStorage.getItem('answersHistory');
-            if (saved) {
-                history = JSON.parse(saved);
-                renderHistory();
+            try {
+                const saved = localStorage.getItem('answersHistory');
+                if (saved) {
+                    history = JSON.parse(saved);
+                    renderHistory();
+                }
+            } catch (error) {
+                console.warn('localStorage unavailable:', error);
             }
         }
 
         // 히스토리 저장
         function saveHistory() {
-            localStorage.setItem('answersHistory', JSON.stringify(history));
+            try {
+                localStorage.setItem('answersHistory', JSON.stringify(history));
+            } catch (error) {
+                console.warn('localStorage unavailable:', error);
+            }
         }
 
         // 히스토리 렌더링

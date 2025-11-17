@@ -77,28 +77,6 @@
     }
 }
 
-[data-theme="dark"] {
-    /* 배경색 */
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #1a1a1a;
-    --bg-tertiary: #2d2d2d;
-
-    /* 텍스트 색상 */
-    --text-primary: #f5f5f5;
-    --text-secondary: #a3a3a3;
-    --text-tertiary: #737373;
-
-    /* 보더 */
-    --border-color: #2d2d2d;
-    --border-color-hover: #f5f5f5;
-
-    /* 그림자 - 다크모드용 */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
-}
-
 [data-theme="dark"] .btn-primary {
     background: var(--color-gray-100);
     color: var(--color-black);
@@ -609,6 +587,19 @@ footer a:hover {
     border-color: #86efac;
 }
 
+/* 다크모드 - Error/Success 메시지 */
+[data-theme="dark"] .error {
+    color: #fca5a5;
+    background: #450a0a;
+    border-color: #7f1d1d;
+}
+
+[data-theme="dark"] .success {
+    color: #6ee7b7;
+    background: #022c22;
+    border-color: #065f46;
+}
+
 /* Regex Tester 스타일 */
 .match-highlight {
     background-color: #000000;
@@ -616,6 +607,12 @@ footer a:hover {
     padding: 2px 4px;
     border-radius: 2px;
     font-weight: 500;
+}
+
+/* 다크모드 - Regex Highlight */
+[data-theme="dark"] .match-highlight {
+    background-color: #fbbf24;
+    color: #000000;
 }
 
 .regex-flags {

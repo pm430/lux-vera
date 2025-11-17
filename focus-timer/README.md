@@ -55,18 +55,13 @@ git push -u origin main
 
 ## ☕ Buy Me a Coffee 연동
 
-`index.html` 파일의 다음 부분을 수정하세요:
+이 프로젝트는 `pm430` 계정으로 연동되어 있습니다:
 
 ```html
-<a href="https://www.buymeacoffee.com/yourname" class="coffee-btn" target="_blank">
+<a href="https://buymeacoffee.com/pm430" target="_blank">
 ```
 
-**Buy Me a Coffee 가입 방법:**
-1. https://www.buymeacoffee.com/ 접속
-2. **Start my page** 클릭
-3. 계정 생성 (이메일 또는 소셜 로그인)
-4. 사용자명 설정 (예: `yourname`)
-5. 프로필 URL: `https://www.buymeacoffee.com/yourname`
+**Buy Me a Coffee URL:** https://buymeacoffee.com/pm430
 
 ## 📊 커스터마이징
 
@@ -154,5 +149,5 @@ MIT License - 자유롭게 사용, 수정, 배포 가능
 
 ---
 
-**만든 이**: [@your-username](https://github.com/your-username)  
-**후원하기**: [Buy Me a Coffee ☕](https://www.buymeacoffee.com/yourname)
+**만든 이**: Lux Vera
+**후원하기**: [Buy Me a Coffee ☕](https://buymeacoffee.com/pm430)

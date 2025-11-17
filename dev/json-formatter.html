@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON 포맷터 - 개발자 유틸리티</title>
+    <title data-i18n="dev.json.page_title">JSON 포맷터 - 개발자 유틸리티</title>
     <link rel="stylesheet" href="/src/css/style.css">
     <script>
       (function() {
         function setTheme(theme) {
           document.documentElement.setAttribute('data-theme', theme);
         }
-        var savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-          setTheme(savedTheme);
-        } else {
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            setTheme(savedTheme);
+          } else {
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+          }
+        } catch (error) {
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           setTheme(prefersDark ? 'dark' : 'light');
         }
@@ -23,32 +28,32 @@
 <body>
     <header>
         <div class="container">
-            <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">🇰🇷 KO</button>
-            <button class="theme-toggle" aria-label="다크모드 토글">🌙</button>
-            <h1>JSON 포맷터</h1>
-            <p class="subtitle">JSON 데이터를 포맷팅하고 검증합니다</p>
+            <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label" data-i18n-attr="aria-label" aria-label="언어 전환">🇰🇷 KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <h1 data-i18n="dev.json.title">JSON 포맷터</h1>
+            <p class="subtitle" data-i18n="dev.json.subtitle">JSON 데이터를 포맷팅하고 검증합니다</p>
         </div>
     </header>
 
     <div class="tool-container">
-        <a href="../index.html" class="back-button">← 홈으로 돌아가기</a>
-        
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
+
         <div class="tool-panel">
             <div class="form-group">
-                <label for="jsonInput">JSON 입력</label>
-                <textarea id="jsonInput" placeholder='{"name": "홍길동", "age": 30}'></textarea>
+                <label for="jsonInput" data-i18n="dev.json.input_label">JSON 입력</label>
+                <textarea id="jsonInput" data-i18n="dev.json.input_placeholder" data-i18n-attr="placeholder" placeholder='{"name": "홍길동", "age": 30}'></textarea>
             </div>
-            
+
             <div class="button-group">
-                <button class="btn btn-action" onclick="formatJSON()">포맷팅</button>
-                <button class="btn btn-action" onclick="minifyJSON()">압축</button>
-                <button class="btn btn-action" onclick="validateJSON()">검증</button>
-                <button class="btn btn-secondary" onclick="clearAll()">초기화</button>
-                <button class="btn btn-secondary" onclick="copyResult()">결과 복사</button>
+                <button class="btn btn-action" onclick="formatJSON()" data-i18n="dev.json.btn_format">포맷팅</button>
+                <button class="btn btn-action" onclick="minifyJSON()" data-i18n="dev.json.btn_minify">압축</button>
+                <button class="btn btn-action" onclick="validateJSON()" data-i18n="dev.json.btn_validate">검증</button>
+                <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.json.btn_clear">초기화</button>
+                <button class="btn btn-secondary" onclick="copyResult()" data-i18n="dev.json.btn_copy">결과 복사</button>
             </div>
-            
+
             <div class="form-group">
-                <label for="jsonOutput">결과</label>
+                <label for="jsonOutput" data-i18n="dev.json.output_label">결과</label>
                 <textarea id="jsonOutput" readonly></textarea>
             </div>
             
@@ -57,84 +62,96 @@
 
         <!-- Buy Me a Coffee 버튼 -->
         <div class="sponsor-inline">
-            <p>이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+            <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
             </a>
         </div>
     </div>
 
+    <footer>
+        <div class="container">
+            <p data-i18n="home.footer_text">&copy; 2025 Lux Vera. Made with ❤️</p>
+        </div>
+    </footer>
+
     <script type="module" src="/src/js/main.js"></script>
-    <script>
-        function formatJSON() {
+    <script type="module">
+        import I18n from '/src/js/i18n.js';
+        import Utils from '/src/js/utils.js';
+
+        window.formatJSON = function() {
             const input = $('#jsonInput').val().trim();
             const output = $('#jsonOutput');
             const message = $('#message');
-            
+
             if (!input) {
                 message.show();
-                Utils.showError(message, '❌ JSON 데이터를 입력해주세요.');
+                Utils.showError(message, I18n.t('dev.json.toast_no_json'));
                 return;
             }
-            
+
             try {
                 const parsed = JSON.parse(input);
                 const formatted = JSON.stringify(parsed, null, 4);
                 output.val(formatted);
                 message.show();
-                Utils.showSuccess(message, '✅ JSON 포맷팅이 완료되었습니다.');
+                Utils.showSuccess(message, I18n.t('dev.json.toast_format_success'));
             } catch (e) {
                 message.show();
-                Utils.showError(message, '❌ 올바르지 않은 JSON 형식입니다: ' + e.message);
+                Utils.showError(message, I18n.t('dev.json.toast_invalid_json').replace('{error}', e.message));
                 output.val('');
             }
         }
-        
-        function minifyJSON() {
+
+        window.minifyJSON = function() {
             const input = $('#jsonInput').val().trim();
             const output = $('#jsonOutput');
             const message = $('#message');
-            
+
             if (!input) {
                 message.show();
-                Utils.showError(message, '❌ JSON 데이터를 입력해주세요.');
+                Utils.showError(message, I18n.t('dev.json.toast_no_json'));
                 return;
             }
-            
+
             try {
                 const parsed = JSON.parse(input);
                 const minified = JSON.stringify(parsed);
                 output.val(minified);
                 message.show();
-                Utils.showSuccess(message, '✅ JSON 압축이 완료되었습니다.');
+                Utils.showSuccess(message, I18n.t('dev.json.toast_minify_success'));
             } catch (e) {
                 message.show();
-                Utils.showError(message, '❌ 올바르지 않은 JSON 형식입니다: ' + e.message);
+                Utils.showError(message, I18n.t('dev.json.toast_invalid_json').replace('{error}', e.message));
                 output.val('');
             }
         }
-        
-        function validateJSON() {
+
+        window.validateJSON = function() {
             const input = $('#jsonInput').val().trim();
             const message = $('#message');
-            
+
             if (!input) {
                 message.show();
-                Utils.showError(message, '❌ JSON 데이터를 입력해주세요.');
+                Utils.showError(message, I18n.t('dev.json.toast_no_json'));
                 return;
             }
-            
+
             try {
                 JSON.parse(input);
                 message.show();
-                Utils.showSuccess(message, '✅ 올바른 JSON 형식입니다!');
+                Utils.showSuccess(message, I18n.t('dev.json.toast_validate_success'));
             } catch (e) {
                 message.show();
-                Utils.showError(message, '❌ 올바르지 않은 JSON 형식입니다: ' + e.message);
+                Utils.showError(message, I18n.t('dev.json.toast_invalid_json').replace('{error}', e.message));
             }
         }
-        
-        // clearAll과 copyResult는 main.js에서 제공
+
+        // 페이지 로드 시 i18n 초기화
+        $(document).ready(function() {
+            I18n.init();
+        });
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->

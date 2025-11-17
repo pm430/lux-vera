@@ -10,14 +10,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/css/focus-timer.css">
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            setTheme(savedTheme);
+          } else {
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+          }
+        } catch (error) {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
 </head>
 <body>
     <header class="header">
+        <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label" data-i18n-attr="aria-label" aria-label="언어 전환" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; color: var(--text-primary); margin-right: 10px;">🇰🇷 KO</button>
         <div class="logo" data-i18n="focus.title">🎯 집중</div>
         <button class="dark-mode-toggle" onclick="toggleDarkMode()" data-i18n="focus.dark_mode_toggle">🌙 다크모드</button>
     </header>
 
     <div class="container">
+        <a href="../index.html" style="display: inline-block; margin: 20px 0; color: var(--accent); text-decoration: none; font-size: 14px;" data-i18n="common.home">← 홈으로 돌아가기</a>
         <div class="main-section">
             <!-- 타이머 섹션 -->
             <div class="card">
@@ -28,10 +49,10 @@
                     <button class="btn btn-secondary" onclick="resetTimer()" data-i18n="focus.btn_reset">리셋</button>
                 </div>
                 <div class="timer-presets">
-                    <button class="preset-btn active" onclick="setTimer(25)" data-i18n="focus.minutes_25">25분</button>
-                    <button class="preset-btn" onclick="setTimer(15)" data-i18n="focus.minutes_15">15분</button>
-                    <button class="preset-btn" onclick="setTimer(45)" data-i18n="focus.minutes_45">45분</button>
-                    <button class="preset-btn" onclick="setTimer(60)" data-i18n="focus.minutes_60">60분</button>
+                    <button class="preset-btn active" onclick="setTimer(event, 25)" data-i18n="focus.minutes_25">25분</button>
+                    <button class="preset-btn" onclick="setTimer(event, 15)" data-i18n="focus.minutes_15">15분</button>
+                    <button class="preset-btn" onclick="setTimer(event, 45)" data-i18n="focus.minutes_45">45분</button>
+                    <button class="preset-btn" onclick="setTimer(event, 60)" data-i18n="focus.minutes_60">60분</button>
                 </div>
                 <p class="info-text" data-i18n="focus.timer_info_text">집중 시간을 설정하고 목표를 달성하세요</p>
             </div>
@@ -40,19 +61,19 @@
             <div class="card">
                 <h2 class="card-title" data-i18n="focus.white_noise_title">🎵 백색소음</h2>
                 <div class="sound-grid">
-                    <div class="sound-item" onclick="toggleSound('rain')">
+                    <div class="sound-item" onclick="toggleSound(event, 'rain')">
                         <span class="sound-name" data-i18n="focus.sound_rain">☔ 빗소리</span>
                         <span class="status-indicator" id="status-rain"></span>
                     </div>
-                    <div class="sound-item" onclick="toggleSound('wave')">
+                    <div class="sound-item" onclick="toggleSound(event, 'wave')">
                         <span class="sound-name" data-i18n="focus.sound_wave">🌊 파도 소리</span>
                         <span class="status-indicator" id="status-wave"></span>
                     </div>
-                    <div class="sound-item" onclick="toggleSound('cafe')">
+                    <div class="sound-item" onclick="toggleSound(event, 'cafe')">
                         <span class="sound-name" data-i18n="focus.sound_cafe">☕ 카페 소음</span>
                         <span class="status-indicator" id="status-cafe"></span>
                     </div>
-                    <div class="sound-item" onclick="toggleSound('white')">
+                    <div class="sound-item" onclick="toggleSound(event, 'white')">
                         <span class="sound-name" data-i18n="focus.sound_white">⚪ 화이트 노이즈</span>
                         <span class="status-indicator" id="status-white"></span>
                     </div>
@@ -66,17 +87,16 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="support-section">
-            <p class="support-text" data-i18n="focus.support_text">이 사이트가 도움이 되셨나요? ☕</p>
-            <a href="https://www.buymeacoffee.com/yourname" class="coffee-btn" target="_blank" data-i18n="focus.buy_coffee_btn">
-                ☕ 커피 한잔 사주기
-            </a>
-        </div>
-        <p class="footer-note" data-i18n="focus.footer_note">
-            광고 없는 무료 서비스 | 모든 오디오는 Web Audio API로 생성됩니다<br>
-            문의: your@email.com
-        </p>
+    <!-- Buy Me a Coffee 버튼 -->
+    <div style="text-align: center; padding: 40px 20px;">
+        <p data-i18n="common.sponsor_message" style="margin-bottom: 16px; color: var(--text-secondary);">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+        <a href="https://buymeacoffee.com/pm430" target="_blank">
+            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+        </a>
+    </div>
+
+    <footer style="text-align: center; padding: 20px; border-top: 1px solid var(--border); margin-top: 40px;">
+        <p data-i18n="home.footer_text" style="color: var(--text-secondary);">&copy; 2025 Lux Vera. Made with ❤️</p>
     </footer>
 
     <script type="module">
@@ -96,12 +116,20 @@
         // 다크모드
         window.toggleDarkMode = function() {
             document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            try {
+                localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            } catch (error) {
+                console.warn('localStorage unavailable:', error);
+            }
         }
 
         // 페이지 로드 시 다크모드 설정 복원
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
+        try {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        } catch (error) {
+            console.warn('localStorage unavailable:', error);
         }
 
         // 타이머 함수들
@@ -144,7 +172,7 @@
             isRunning = false;
         }
 
-        window.setTimer = function(minutes) {
+        window.setTimer = function(event, minutes) {
             selectedMinutes = minutes;
             clearInterval(timerInterval);
             timeLeft = minutes * 60;
@@ -287,16 +315,16 @@
             return { source: noise, gain: gainNode };
         }
 
-        window.toggleSound = function(type) {
+        window.toggleSound = function(event, type) {
             initAudio();
-            
+
             if (sounds[type]) {
                 // 사운드 중지
                 sounds[type].source.stop();
                 if (sounds[type].lfo) sounds[type].lfo.stop();
                 delete sounds[type];
                 document.getElementById(`status-${type}`).classList.remove('playing');
-                event.target.classList.remove('active');
+                event.currentTarget.classList.remove('active');
             } else {
                 // 사운드 시작
                 let sound;
@@ -318,7 +346,7 @@
                 sound.source.start();
                 sounds[type] = sound;
                 document.getElementById(`status-${type}`).classList.add('playing');
-                event.target.classList.add('active');
+                event.currentTarget.classList.add('active');
             }
         }
 
@@ -339,9 +367,18 @@
             }
         });
 
+        // 언어 토글
+        window.toggleLanguage = function() {
+            const newLang = I18n.getCurrentLanguage() === 'ko' ? 'en' : 'ko';
+            I18n.changeLanguage(newLang);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             I18n.init();
         });
     </script>
+
+    <!-- Buy Me a Coffee 플로팅 위젯 -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
 </html>

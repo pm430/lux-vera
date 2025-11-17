@@ -3,7 +3,7 @@
     "home": "Back to Home",
     "theme_toggle": "Toggle dark mode",
     "sponsor_message": "If you found this service useful, please buy me a coffee!",
-    "sponsor_widget_message": "Thank 감사합니다!"
+    "sponsor_widget_message": "Thank you!"
   },
   "home": {
     "page_title": "Lux Vera - Useful Tools for Your Daily Life",
@@ -35,6 +35,7 @@
     "title": "Lotto Number Generator",
     "subtitle": "Generate your lucky numbers",
     "description": "Generate lucky lotto numbers. Randomly selects 6 numbers from 1 to 45.",
+    "page_title": "Lotto Number Generator - Lux Vera",
     "generate_count": "Count:",
     "count_1": "1 set",
     "count_3": "3 sets",
@@ -43,8 +44,16 @@
     "btn_generate": "Generate",
     "btn_save": "Save",
     "btn_clear": "Clear",
+    "btn_copy": "Copy",
     "saved_title": "💾 Saved Numbers",
-    "set_number": "Recommended Set"
+    "set_number": "Recommended Set",
+    "empty_state": "No saved numbers.<br>Generate and save numbers!",
+    "toast_no_numbers_to_save": "⚠️ No numbers to save. Generate numbers first!",
+    "toast_saved": "✅ Numbers saved!",
+    "toast_copy_fail": "❌ Failed to copy.",
+    "confirm_clear": "Are you sure you want to clear all saved numbers?",
+    "toast_no_saved_numbers": "⚠️ No saved numbers.",
+    "toast_cleared": "🗑️ All saved numbers cleared."
   },
   "bible": {
     "page_title": "Daily Bible Verse - Lux Vera",
