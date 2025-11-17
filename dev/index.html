@@ -10,18 +10,23 @@
         function setTheme(theme) {
           document.documentElement.setAttribute('data-theme', theme);
         }
-        var savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-          setTheme(savedTheme);
-        } else {
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            setTheme(savedTheme);
+          } else {
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+          }
+        } catch (error) {
           var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           setTheme(prefersDark ? 'dark' : 'light');
         }
       })();
     </script>
-  <script type="module" crossorigin src="/lux-vera/assets/i18n-BudwFrmc.js"></script>
-  <script type="module" crossorigin src="/lux-vera/assets/main-Dh52Ws8Q.js"></script>
-  <link rel="stylesheet" crossorigin href="/lux-vera/assets/main-fJvvqIBv.css">
+  <script type="module" crossorigin src="/lux-vera/assets/i18n-kypyv4ol.js"></script>
+  <script type="module" crossorigin src="/lux-vera/assets/main-B1mhdLOB.js"></script>
+  <link rel="stylesheet" crossorigin href="/lux-vera/assets/main-C45G64tO.css">
 </head>
 <body>
     <header>
@@ -88,6 +93,12 @@
             </a>
         </div>
     </div>
+
+    <footer>
+        <div class="container">
+            <p data-i18n="home.footer_text">&copy; 2025 Lux Vera. Made with ❤️</p>
+        </div>
+    </footer>
 
 
     <!-- Buy Me a Coffee 플로팅 위젯 -->
