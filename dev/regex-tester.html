@@ -31,12 +31,6 @@
       })();
     </script>
     <style>
-        .match-highlight {
-            background-color: #ffd700;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
         .regex-flags {
             display: flex;
             gap: 15px;
@@ -84,7 +78,7 @@
                 <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.regex.btn_clear">초기화</button>
             </div>
             
-            <div id="result" style="display: none;">
+            <div id="result" class="hidden">
                 <h3 data-i18n="dev.regex.results_title">결과</h3>
                 <div id="matchCount" class="result-box"></div>
                 <div class="form-group">

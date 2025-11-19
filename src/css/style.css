@@ -650,11 +650,11 @@ footer a:hover {
 
 /* Regex Tester 스타일 */
 .match-highlight {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #fbbf24;
+    color: #000000;
     padding: 2px 4px;
-    border-radius: 2px;
-    font-weight: 500;
+    border-radius: 3px;
+    font-weight: 600;
 }
 
 /* 다크모드 - Regex Highlight */
@@ -1021,4 +1021,41 @@ footer a:hover {
 .language-toggle:hover {
     background: var(--bg-secondary);
     border-color: var(--border-color-hover);
+}
+
+/* ==================== */
+/*   유틸리티 클래스     */
+/* ==================== */
+
+.hidden {
+    display: none !important;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+}
+
+/* ==================== */
+/*   상태 색상 (다크모드) */
+/* ==================== */
+
+.text-positive {
+    color: #16a34a;
+}
+
+.text-negative {
+    color: #dc2626;
+}
+
+.text-neutral {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .text-positive {
+    color: #4ade80;
+}
+
+[data-theme="dark"] .text-negative {
+    color: #fca5a5;
 }
