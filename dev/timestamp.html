@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="dev.timestamp.page_title">타임스탬프 변환 - 개발자 유틸리티</title>
     <meta name="description" data-i18n="dev.timestamp.description" data-i18n-attr="content" content="Unix 타임스탬프와 날짜를 변환합니다">
-    <link rel="stylesheet" href="/src/css/style.css">
+    
+    <!-- Resource Hints: Preload critical resources -->
+    <link rel="preload" href="../src/js/main.js" as="script" crossorigin>
+    <link rel="prefetch" href="../index.html">
+    <link rel="prefetch" href="../dev/index.html">
+
     <script>
       (function() {
         function setTheme(theme) {
@@ -83,10 +88,10 @@
         </div>
     </footer>
 
-    <script type="module" src="/src/js/main.js"></script>
+    <script type="module" src="../src/js/main.js"></script>
     <script type="module">
-        import I18n from '/src/js/i18n.js';
-        import Utils from '/src/js/utils.js';
+        import I18n from '../src/js/i18n.js';
+        import Utils from '../src/js/utils.js';
 
         function updateCurrentTime() {
             const now = new Date();
@@ -191,7 +196,7 @@
         });
     </script>
 
-    <!-- Buy Me a Coffee 플로팅 위젯 -->
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    <!-- Buy Me a Coffee 플로팅 위젯 (async로 지연 로드) -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
 </body>
 </html>

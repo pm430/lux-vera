@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import '../css/style.css';
 import ThemeManager from './theme.js';
 import KeyboardShortcuts from './shortcuts.js';
 import I18n from './i18n.js';

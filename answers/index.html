@@ -8,7 +8,12 @@
     <meta property="og:title" data-i18n="answers.page_title" data-i18n-attr="content" content="내 인생의 해답 - Lux Vera">
     <meta property="og:description" data-i18n="answers.description" data-i18n-attr="content" content="질문을 떠올리고 버튼을 누르세요. The Book of Answers가 당신에게 답을 줄 것입니다.">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="/src/css/style.css">
+    
+    <!-- Resource Hints: Preload critical resources -->
+    <link rel="preload" href="../src/js/main.js" as="script" crossorigin>
+    <link rel="prefetch" href="../index.html">
+    <link rel="prefetch" href="answers.json" as="fetch" crossorigin>
+
     <script>
       (function() {
         function setTheme(theme) {
@@ -246,21 +251,22 @@
         </div>
     </footer>
 
-    <script type="module" src="/src/js/main.js"></script>
+    <script type="module" src="../src/js/main.js"></script>
     <script type="module">
-        import I18n from '/src/js/i18n.js';
-        import Utils from '/src/js/utils.js';
+        import I18n from '../src/js/i18n.js';
+        import Utils from '../src/js/utils.js';
+        import PathUtils from '../src/js/path-utils.js';
 
         let answers = [];
         let history = [];
 
         // 답변 로드
         function loadAnswers() {
-            $.getJSON('answers.json')
-                .done(function(data) {
+            PathUtils.loadJSON('answers.json')
+                .then(function(data) {
                     answers = data;
                 })
-                .fail(function() {
+                .catch(function() {
                     Utils.toast(I18n.t('answers.toast_load_fail'));
                 });
         }
@@ -390,7 +396,7 @@
         });
     </script>
 
-    <!-- Buy Me a Coffee 플로팅 위젯 -->
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    <!-- Buy Me a Coffee 플로팅 위젯 (async로 지연 로드) -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
 </body>
 </html>

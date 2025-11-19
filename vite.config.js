@@ -20,6 +20,37 @@ export default defineConfig({
         lotto: resolve(__dirname, 'lotto/index.html'),
         lunch: resolve(__dirname, 'lunch/index.html'),
       },
+      output: {
+        manualChunks: (id) => {
+          // vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('jquery')) {
+              return 'vendor-jquery';
+            }
+            if (id.includes('crypto-js')) {
+              return 'vendor-crypto';
+            }
+            return 'vendor';
+          }
+          
+          // i18n chunk (separate large i18n bundle)
+          if (id.includes('i18n.js') || id.includes('i18n/')) {
+            return 'i18n';
+          }
+          
+          // path-utils chunk
+          if (id.includes('path-utils.js')) {
+            return 'utils';
+          }
+        },
+        // 청크 크기 경고 임계값 (기본 500KB)
+        chunkSizeWarningLimit: 1000,
+      },
     },
+    // 빌드 최적화
+    minify: 'esbuild',
+    sourcemap: false,
+    // 청크 크기 최적화
+    chunkSizeWarningLimit: 1000,
   },
 });
