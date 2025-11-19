@@ -205,7 +205,6 @@ body {
 
 header {
     background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-color);
     padding: 56px 0;
     text-align: center;
     animation: fadeInUp 0.6s ease-out;
