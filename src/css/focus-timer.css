@@ -18,16 +18,9 @@
 .focus-card {
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: 40px;
     box-shadow: var(--shadow-sm);
-    transition: all var(--transition-base);
-}
-
-.focus-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--border-color-hover);
 }
 
 .focus-card-title {
@@ -67,7 +60,7 @@
     color: var(--text-secondary);
     border: 1px solid var(--border-color);
     padding: 8px 16px;
-    border-radius: 20px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: 500;
@@ -108,7 +101,6 @@
 .focus-sound-item:hover {
     border-color: var(--border-color-hover);
     background: var(--bg-primary);
-    transform: translateX(4px);
 }
 
 .focus-sound-item.active {
