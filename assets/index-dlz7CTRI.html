@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" data-i18n="focus.description" data-i18n-attr="content" content="광고 없는 무료 집중 타이머와 백색소음 - 뽀모도로 타이머로 생산성을 높이세요">
+    <meta name="keywords" data-i18n="focus.keywords" data-i18n-attr="content" content="집중타이머, 뽀모도로, 백색소음, 공부타이머, 무료타이머">
+    <title data-i18n="focus.page_title">집중 - 광고 없는 무료 타이머</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Resource Hints: Preload critical resources -->
+    <link rel="preload" href="../src/js/main.js" as="script" crossorigin>
+    <link rel="preload" href="../src/css/focus-timer.css" as="style">
+    <link rel="prefetch" href="../index.html">
+
+    <script>
+      (function() {
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            setTheme(savedTheme);
+          } else {
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+          }
+        } catch (error) {
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
+</head>
+<body>
+    <header class="header">
+        <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label" data-i18n-attr="aria-label" aria-label="언어 전환" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; color: var(--text-primary); margin-right: 10px;">🇰🇷 KO</button>
+        <div class="logo" data-i18n="focus.title">🎯 집중</div>
+        <button class="dark-mode-toggle" onclick="toggleTheme()" data-i18n="focus.dark_mode_toggle">🌙 다크모드</button>
+    </header>
+
+    <div class="container">
+        <a href="../index.html" style="display: inline-block; margin: 20px 0; color: var(--accent); text-decoration: none; font-size: 14px;" data-i18n="common.home">← 홈으로 돌아가기</a>
+        <div class="main-section">
+            <!-- 타이머 섹션 -->
+            <div class="card">
+                <h2 class="card-title" data-i18n="focus.pomodoro_timer_title">⏱️ 뽀모도로 타이머</h2>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="toggleTimer()" id="startBtn" data-i18n="focus.btn_start">시작</button>
+                    <button class="btn btn-secondary" onclick="resetTimer()" data-i18n="focus.btn_reset">리셋</button>
+                </div>
+                <div class="timer-presets">
+                    <button class="preset-btn active" onclick="setTimer(event, 25)" data-i18n="focus.minutes_25">25분</button>
+                    <button class="preset-btn" onclick="setTimer(event, 15)" data-i18n="focus.minutes_15">15분</button>
+                    <button class="preset-btn" onclick="setTimer(event, 45)" data-i18n="focus.minutes_45">45분</button>
+                    <button class="preset-btn" onclick="setTimer(event, 60)" data-i18n="focus.minutes_60">60분</button>
+                </div>
+                <p class="info-text" data-i18n="focus.timer_info_text">집중 시간을 설정하고 목표를 달성하세요</p>
+            </div>
+
+            <!-- 백색소음 섹션 -->
+            <div class="card">
+                <h2 class="card-title" data-i18n="focus.white_noise_title">🎵 백색소음</h2>
+                <div class="sound-grid">
+                    <div class="sound-item" onclick="toggleSound(event, 'rain')">
+                        <span class="sound-name" data-i18n="focus.sound_rain">☔ 빗소리</span>
+                        <span class="status-indicator" id="status-rain"></span>
+                    </div>
+                    <div class="sound-item" onclick="toggleSound(event, 'wave')">
+                        <span class="sound-name" data-i18n="focus.sound_wave">🌊 파도 소리</span>
+                        <span class="status-indicator" id="status-wave"></span>
+                    </div>
+                    <div class="sound-item" onclick="toggleSound(event, 'cafe')">
+                        <span class="sound-name" data-i18n="focus.sound_cafe">☕ 카페 소음</span>
+                        <span class="status-indicator" id="status-cafe"></span>
+                    </div>
+                    <div class="sound-item" onclick="toggleSound(event, 'white')">
+                        <span class="sound-name" data-i18n="focus.sound_white">⚪ 화이트 노이즈</span>
+                        <span class="status-indicator" id="status-white"></span>
+                    </div>
+                </div>
+                <div class="volume-control">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);" data-i18n="focus.volume_label">볼륨</label>
+                    <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" oninput="changeVolume(this.value)">
+                </div>
+                <p class="info-text" data-i18n="focus.noise_info_text">배경음으로 집중력을 높여보세요</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Me a Coffee 버튼 -->
+    <div style="text-align: center; padding: 40px 20px;">
+        <p data-i18n="common.sponsor_message" style="margin-bottom: 16px; color: var(--text-secondary);">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
+        <a href="https://buymeacoffee.com/pm430" target="_blank">
+            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+        </a>
+    </div>
+
+    <footer style="text-align: center; padding: 20px; border-top: 1px solid var(--border); margin-top: 40px;">
+        <p data-i18n="home.footer_text" style="color: var(--text-secondary);">&copy; 2025 Lux Vera. Made with ❤️</p>
+    </footer>
+
+    <script type="module">
+        import I18n from '../src/js/i18n.js';
+        import Utils from '../src/js/utils.js';
+        import '../src/css/focus-timer.css';
+
+        // 타이머 변수
+        let timerInterval = null;
+        let timeLeft = 25 * 60; // 초 단위
+        let isRunning = false;
+        let selectedMinutes = 25;
+
+        // 오디오 컨텍스트
+        let audioContext = null;
+        let sounds = {};
+
+        // 테마 토글
+        window.toggleTheme = function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            try {
+                localStorage.setItem('theme', newTheme);
+            } catch (error) {
+                console.warn('localStorage unavailable:', error);
+            }
+            updateThemeIcon();
+        }
+
+        // 테마 아이콘 업데이트
+        function updateThemeIcon() {
+            const toggleBtn = document.querySelector('.dark-mode-toggle');
+            if (toggleBtn) {
+                const theme = document.documentElement.getAttribute('data-theme');
+                const text = theme === 'dark' ? '☀️ ' : '🌙 ';
+                const label = theme === 'dark' ? (I18n.getCurrentLanguage() === 'ko' ? '라이트모드' : 'Light Mode') : (I18n.getCurrentLanguage() === 'ko' ? '다크모드' : 'Dark Mode');
+                toggleBtn.textContent = text + label;
+            }
+        }
+
+        // 페이지 로드 시 테마 아이콘 업데이트
+        updateThemeIcon();
+
+        // 타이머 함수들
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        window.toggleTimer = function() {
+            const btn = document.getElementById('startBtn');
+            if (isRunning) {
+                clearInterval(timerInterval);
+                btn.textContent = I18n.t('focus.btn_start');
+                isRunning = false;
+            } else {
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        playTimerEndSound();
+                        btn.textContent = I18n.t('focus.btn_start');
+                        isRunning = false;
+                        alert(I18n.t('focus.alert_time_complete'));
+                    }
+                }, 1000);
+                btn.textContent = I18n.t('focus.btn_pause');
+                isRunning = true;
+            }
+        }
+
+        window.resetTimer = function() {
+            clearInterval(timerInterval);
+            timeLeft = selectedMinutes * 60;
+            updateDisplay();
+            document.getElementById('startBtn').textContent = I18n.t('focus.btn_start');
+            isRunning = false;
+        }
+
+        window.setTimer = function(event, minutes) {
+            selectedMinutes = minutes;
+            clearInterval(timerInterval);
+            timeLeft = minutes * 60;
+            updateDisplay();
+            document.getElementById('startBtn').textContent = I18n.t('focus.btn_start');
+            isRunning = false;
+
+            // 프리셋 버튼 활성화 상태 변경
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function playTimerEndSound() {
+            if (!audioContext) initAudio();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // 오디오 함수들
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function createRainSound() {
+            const bufferSize = 2 * audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+            
+            const noise = audioContext.createBufferSource();
+            noise.buffer = buffer;
+            noise.loop = true;
+            
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 1000;
+            
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0.5;
+            
+            noise.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            return { source: noise, gain: gainNode };
+        }
+
+        function createWaveSound() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 100;
+            filter.type = 'lowpass';
+            filter.frequency.value = 400;
+            
+            gainNode.gain.value = 0.3;
+            
+            // LFO for wave effect
+            const lfo = audioContext.createOscillator();
+            const lfoGain = audioContext.createGain();
+            lfo.frequency.value = 0.5;
+            lfoGain.gain.value = 50;
+            
+            lfo.connect(lfoGain);
+            lfoGain.connect(oscillator.frequency);
+            
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            return { source: oscillator, gain: gainNode, lfo: lfo };
+        }
+
+        function createCafeSound() {
+            const bufferSize = 2 * audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+            
+            const noise = audioContext.createBufferSource();
+            noise.buffer = buffer;
+            noise.loop = true;
+            
+            const filter = audioContext.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 800;
+            filter.Q.value = 0.5;
+            
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0.4;
+            
+            noise.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            return { source: noise, gain: gainNode };
+        }
+
+        function createWhiteNoise() {
+            const bufferSize = 2 * audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+            const output = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+            
+            const noise = audioContext.createBufferSource();
+            noise.buffer = buffer;
+            noise.loop = true;
+            
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0.3;
+            
+            noise.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            return { source: noise, gain: gainNode };
+        }
+
+        window.toggleSound = function(event, type) {
+            initAudio();
+
+            if (sounds[type]) {
+                // 사운드 중지
+                sounds[type].source.stop();
+                if (sounds[type].lfo) sounds[type].lfo.stop();
+                delete sounds[type];
+                document.getElementById(`status-${type}`).classList.remove('playing');
+                event.currentTarget.classList.remove('active');
+            } else {
+                // 사운드 시작
+                let sound;
+                switch(type) {
+                    case 'rain':
+                        sound = createRainSound();
+                        break;
+                    case 'wave':
+                        sound = createWaveSound();
+                        if (sound.lfo) sound.lfo.start();
+                        break;
+                    case 'cafe':
+                        sound = createCafeSound();
+                        break;
+                    case 'white':
+                        sound = createWhiteNoise();
+                        break;
+                }
+                sound.source.start();
+                sounds[type] = sound;
+                document.getElementById(`status-${type}`).classList.add('playing');
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        window.changeVolume = function(value) {
+            const volume = value / 100;
+            for (let type in sounds) {
+                if (sounds[type].gain) {
+                    sounds[type].gain.gain.value = volume;
+                }
+            }
+        }
+
+        // 페이지 이탈 시 정리
+        window.addEventListener('beforeunload', () => {
+            for (let type in sounds) {
+                if (sounds[type].source) sounds[type].source.stop();
+                if (sounds[type].lfo) sounds[type].lfo.stop();
+            }
+        });
+
+        // 언어 토글
+        window.toggleLanguage = function() {
+            const newLang = I18n.getCurrentLanguage() === 'ko' ? 'en' : 'ko';
+            I18n.changeLanguage(newLang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            I18n.init();
+        });
+    </script>
+
+    <!-- Buy Me a Coffee 플로팅 위젯 (async로 지연 로드) -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
+</body>
+</html>
