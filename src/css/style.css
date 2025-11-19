@@ -206,7 +206,7 @@ body {
 header {
     background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
-    padding: 80px 0;
+    padding: 56px 0;
     text-align: center;
     animation: fadeInUp 0.6s ease-out;
 }
@@ -258,8 +258,8 @@ header .container {
 /* ==================== */
 
 main {
-    padding: 100px 0 80px;
-    min-height: calc(100vh - 300px);
+    padding: 48px 0 64px;
+    min-height: calc(100vh - 280px);
 }
 
 /* ==================== */
@@ -268,9 +268,9 @@ main {
 
 .utils-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-    margin-bottom: 80px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 48px;
     animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
@@ -278,7 +278,7 @@ main {
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 32px 28px;
+    padding: 28px;
     transition: all var(--transition-base);
     cursor: pointer;
     position: relative;
@@ -287,33 +287,33 @@ main {
 
 .util-card:hover {
     border-color: var(--border-color-hover);
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .util-icon {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
+    font-size: 2rem;
+    margin-bottom: 12px;
     display: block;
-    opacity: 0.95;
+    opacity: 0.9;
     transition: transform var(--transition-base);
 }
 
 
 
 .util-card h3 {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: var(--text-primary);
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 600;
     letter-spacing: -0.02em;
 }
 
 .util-card p {
     color: var(--text-secondary);
-    margin-bottom: 20px;
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    margin-bottom: 16px;
+    font-size: 0.875rem;
+    line-height: 1.5;
 }
 
 /* ==================== */
@@ -326,9 +326,9 @@ main {
     background: var(--color-black);
     color: var(--color-white);
     border: none;
-    padding: 11px 24px;
+    padding: 10px 20px;
     border-radius: var(--radius-sm);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-base);
@@ -375,9 +375,9 @@ main {
     background: var(--bg-primary);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-    padding: 11px 24px;
+    padding: 10px 20px;
     border-radius: var(--radius-sm);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-base);
@@ -908,23 +908,24 @@ footer a:hover {
 
 .sponsor-inline {
     text-align: center;
-    margin: 40px 0;
+    margin: 24px 0 0;
 }
 
 .sponsor-inline p {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: var(--text-secondary);
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
 }
 
 .sponsor-img {
-    height: 40px;
-    width: 170px;
-    transition: transform var(--transition-base);
+    height: 36px;
+    width: auto;
+    opacity: 0.85;
+    transition: all var(--transition-base);
 }
 
 .sponsor-img:hover {
-    transform: translateY(-2px);
+    opacity: 1;
 }
 
 /* ==================== */
@@ -949,34 +950,34 @@ footer a:hover {
 
 .share-section {
     text-align: center;
-    margin: 40px 0;
-    padding: 24px;
-    background: var(--bg-secondary);
+    margin: 32px 0;
+    padding: 20px;
+    background: transparent;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
 }
 
 .share-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
 }
 
 .share-buttons {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 .share-btn {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 1px solid var(--border-color);
     background: var(--bg-primary);
-    color: var(--text-primary);
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -985,11 +986,9 @@ footer a:hover {
 }
 
 .share-btn:hover {
-    background: var(--color-gray-900);
-    color: var(--color-white);
-    border-color: var(--color-gray-900);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-color: var(--text-primary);
 }
 
 .share-btn:active {
@@ -997,8 +996,8 @@ footer a:hover {
 }
 
 .share-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
 }
 
 /* ==================== */
