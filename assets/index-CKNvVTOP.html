@@ -230,9 +230,11 @@
             <button class="ask-button" onclick="getAnswer()" data-i18n="answers.btn_answer">Answer</button>
 
             <div class="history-section" id="historySection" style="display: none;">
-                <h3 style="margin-bottom: 16px;" data-i18n="answers.recent_answers">최근 답변</h3>
+                <h3 class="section-title" data-i18n="answers.recent_answers">최근 답변</h3>
                 <div id="historyList"></div>
-                <button class="btn btn-secondary" style="margin-top: 12px; width: 100%;" onclick="clearHistory()" data-i18n="answers.btn_clear_history">히스토리 삭제</button>
+                <div class="button-group-full">
+                    <button class="btn btn-secondary" onclick="clearHistory()" data-i18n="answers.btn_clear_history">히스토리 삭제</button>
+                </div>
             </div>
         </div>
 
@@ -240,7 +242,7 @@
         <div class="sponsor-inline">
             <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
-                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px; width: 170px;">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="sponsor-img">
             </a>
         </div>
     </div>
