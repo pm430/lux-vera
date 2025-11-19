@@ -43,8 +43,6 @@ export default defineConfig({
             return 'utils';
           }
         },
-        // 청크 크기 경고 임계값 (기본 500KB)
-        chunkSizeWarningLimit: 1000,
       },
     },
     // 빌드 최적화
