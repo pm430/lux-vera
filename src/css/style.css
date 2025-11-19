@@ -1005,21 +1005,26 @@ footer a:hover {
 /* ==================== */
 
 .language-toggle {
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    background: transparent;
     border: 1px solid var(--border-color);
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: 0.875rem;
-    font-weight: 500;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all var(--transition-base);
-    margin-right: 12px;
+    font-size: 0.875rem;
+    color: var(--text-primary);
 }
 
 .language-toggle:hover {
-    background: var(--bg-secondary);
     border-color: var(--border-color-hover);
+    transform: scale(1.05);
 }
 
 /* ==================== */
