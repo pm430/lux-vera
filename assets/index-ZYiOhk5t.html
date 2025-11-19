@@ -101,15 +101,23 @@
         }
 
         .answer-text.positive {
-            color: #28a745;
+            color: #16a34a;
         }
 
         .answer-text.negative {
-            color: #dc143c;
+            color: #dc2626;
         }
 
         .answer-text.neutral {
             color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .answer-text.positive {
+            color: #4ade80;
+        }
+
+        [data-theme="dark"] .answer-text.negative {
+            color: #fca5a5;
         }
 
         .answer-translation {
@@ -229,7 +237,7 @@
 
             <button class="ask-button" onclick="getAnswer()" data-i18n="answers.btn_answer">Answer</button>
 
-            <div class="history-section" id="historySection" style="display: none;">
+            <div class="history-section hidden" id="historySection">
                 <h3 class="section-title" data-i18n="answers.recent_answers">최근 답변</h3>
                 <div id="historyList"></div>
                 <div class="button-group-full">
