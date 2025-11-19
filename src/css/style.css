@@ -1007,7 +1007,7 @@ footer a:hover {
 .language-toggle {
     position: absolute;
     top: 24px;
-    left: 32px;
+    right: 84px;
     background: transparent;
     border: 1px solid var(--border-color);
     width: 40px;
