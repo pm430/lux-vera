@@ -1063,3 +1063,161 @@ footer a:hover {
 [data-theme="dark"] .text-negative {
     color: #fca5a5;
 }
+
+/* ==================== */
+/*    Fortune Styles    */
+/* ==================== */
+
+.fortune-date {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.fortune-date p {
+    margin: 4px 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.date-display {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.fortune-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+}
+
+.fortune-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.fortune-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.fortune-score {
+    margin-bottom: 24px;
+}
+
+.stars {
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+}
+
+.fortune-message {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.fortune-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.detail-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    text-align: center;
+}
+
+.detail-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.detail-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.detail-card .stars {
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+}
+
+.detail-message {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.lucky-items {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.lucky-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.lucky-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.lucky-color {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lucky-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.lucky-number {
+    font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+    .fortune-card {
+        padding: 32px 24px;
+    }
+
+    .fortune-title {
+        font-size: 1.25rem;
+    }
+
+    .fortune-message {
+        font-size: 1rem;
+    }
+
+    .fortune-details {
+        grid-template-columns: 1fr;
+    }
+
+    .lucky-items {
+        gap: 32px;
+    }
+}
