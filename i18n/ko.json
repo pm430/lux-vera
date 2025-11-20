@@ -3,7 +3,8 @@
     "home": "홈으로 돌아가기",
     "theme_toggle": "다크모드 토글",
     "sponsor_message": "이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!",
-    "sponsor_widget_message": "감사합니다!"
+    "sponsor_widget_message": "감사합니다!",
+    "footer": "© 2025 Lux Vera. Made with ❤️"
   },
   "home": {
     "page_title": "Lux Vera - 당신의 일상을 위한 유용한 도구들",
