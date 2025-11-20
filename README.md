@@ -1,5 +1,7 @@
 # Lux Vera - 당신의 일상을 위한 유용한 도구들
 
+[![CI](https://github.com/pm430/lux-vera/actions/workflows/ci.yml/badge.svg)](https://github.com/pm430/lux-vera/actions/workflows/ci.yml)
+
 Lux Vera는 일상생활과 개발 작업에 유용한 다양한 웹 기반 도구들을 모아놓은 사이트입니다. 광고 없이 무료로 제공되며, 빠르고 직관적인 사용자 경험을 제공합니다.
 
 ## ✨ 주요 기능
