@@ -4,7 +4,9 @@ import { defineConfig } from 'vite';
 // Use mode-aware configuration so `base` can be `/` in development
 // and `/lux-vera/` (GitHub Pages repo path) in production by default.
 export default defineConfig(({ mode }) => {
-  const base = mode === 'development' ? '/' : '/lux-vera/';
+  // Allow overriding base via env (useful for CI or custom deploy targets)
+  // Example: `BASE=/my-path/ npm run build`
+  const base = process.env.BASE || (mode === 'development' ? '/' : '/lux-vera/');
 
   return {
     base,
