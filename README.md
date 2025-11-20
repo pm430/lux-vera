@@ -19,12 +19,10 @@ Lux Vera는 일상생활과 개발 작업에 유용한 다양한 웹 기반 도�
 
 1.  저장소를 클론합니다:
     ```bash
-    git clone https://github.com/your-username/lux-vera-site.git
     cd lux-vera-site
     ```
 2.  의존성을 설치합니다:
     ```bash
-    npm install
     ```
 3.  개발 서버를 시작합니다:
     ```bash
@@ -35,8 +33,6 @@ Lux Vera는 일상생활과 개발 작업에 유용한 다양한 웹 기반 도�
 ### 프로덕션 빌드
 
 프로젝트를 배포할 준비가 되면 다음 명령어를 사용하여 프로덕션 빌드를 생성합니다:
-```bash
-npm run build
 ```
 빌드된 파일은 `dist/` 디렉토리에 생성됩니다.
 
