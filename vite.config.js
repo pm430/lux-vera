@@ -17,6 +17,7 @@ export default defineConfig({
         dev_timestamp: resolve(__dirname, 'dev/timestamp.html'),
         dev_url_encoder: resolve(__dirname, 'dev/url-encoder.html'),
         focus_timer: resolve(__dirname, 'focus-timer/index.html'),
+        fortune: resolve(__dirname, 'fortune/index.html'),
         lotto: resolve(__dirname, 'lotto/index.html'),
         lunch: resolve(__dirname, 'lunch/index.html'),
       },
