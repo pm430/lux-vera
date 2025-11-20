@@ -114,27 +114,19 @@ async function loadFortune() {
 }
 
 // Share fortune
-window.shareFortune = function() {
+window.shareFortune = async function() {
     const today = new Date();
     const dateString = today.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
-    const text = `${dateString} 오늘의 운세를 확인했어요! 🔮\n\nLux Vera에서 당신의 운세도 확인해보세요!\n`;
-    const url = window.location.href;
+    const text = `${dateString} 오늘의 운세를 확인했어요! 🔮`;
 
-    if (navigator.share) {
-        navigator.share({
-            title: '오늘의 운세',
-            text: text,
-            url: url
-        }).catch(err => console.log('Share cancelled'));
-    } else {
-        // Fallback: copy to clipboard
-        const fullText = text + url;
-        navigator.clipboard.writeText(fullText).then(() => {
-            alert('링크가 클립보드에 복사되었습니다!');
-        }).catch(err => {
-            console.error('Failed to copy:', err);
-        });
-    }
+    // Import ShareUtils dynamically
+    const { default: ShareUtils } = await import('./share-utils.js');
+
+    await ShareUtils.nativeShare({
+        title: '오늘의 운세 - Lux Vera',
+        text: text,
+        url: window.location.href
+    });
 };
 
 // Initialize
