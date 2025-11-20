@@ -20,6 +20,8 @@
     "lunch_card_desc": "오늘 점심 뭐 먹지? 고민하지 말고 선택하세요",
     "answers_card_title": "내 인생의 해답",
     "answers_card_desc": "The Book of Answers - 질문의 답을 찾아보세요",
+    "fortune_card_title": "오늘의 운세",
+    "fortune_card_desc": "매일 새로운 운세로 하루를 시작하세요",
     "focus_card_title": "집중 타이머",
     "focus_card_desc": "광고 없는 무료 타이머와 백색소음",
     "dev_card_title": "개발자 도구",
@@ -131,6 +133,21 @@
     "buy_coffee_btn": "☕ 커피 한잔 사주기",
     "footer_note": "광고 없는 무료 서비스 | 모든 오디오는 Web Audio API로 생성됩니다<br>문의: your@email.com",
     "alert_time_complete": "⏰ 시간이 완료되었습니다!"
+  },
+  "fortune": {
+    "page_title": "오늘의 운세 - Lux Vera",
+    "title": "오늘의 운세",
+    "subtitle": "매일 새로운 운을 만나보세요",
+    "description": "매일 새로운 운세를 확인하세요. 오늘의 총운, 애정운, 금전운, 건강운을 알려드립니다.",
+    "today": "오늘",
+    "overall_title": "오늘의 총운",
+    "love": "애정운",
+    "money": "금전운",
+    "health": "건강운",
+    "work": "업무운",
+    "lucky_color": "행운의 색",
+    "lucky_number": "행운의 숫자",
+    "share": "운세 공유하기"
   },
   "dev": {
     "title": "개발자 도구",
