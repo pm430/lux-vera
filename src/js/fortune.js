@@ -58,7 +58,7 @@ function displayDate() {
 // Load and display fortune
 async function loadFortune() {
     try {
-        const response = await fetch('fortunes.json');
+        const response = await fetch('../fortune-data.json');
         fortuneData = await response.json();
 
         const seed = getDateSeed();
