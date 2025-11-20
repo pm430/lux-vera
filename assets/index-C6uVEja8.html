@@ -21,7 +21,6 @@
     <!-- Resource Hints: Preload critical resources -->
     <link rel="preload" href="../src/js/main.js" as="script" crossorigin>
     <link rel="prefetch" href="../index.html">
-    <link rel="prefetch" href="fortunes.json" as="fetch" crossorigin>
 
     <script>
       (function() {
@@ -53,7 +52,9 @@
         </div>
     </header>
 
-    <main class="container">
+    <div class="tool-container">
+        <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
+
         <!-- 날짜 표시 -->
         <div class="fortune-date">
             <p data-i18n="fortune.today">오늘</p>
@@ -119,11 +120,6 @@
             <button class="btn btn-primary" onclick="shareFortune()" data-i18n="fortune.share">운세 공유하기</button>
         </div>
 
-        <!-- 홈으로 -->
-        <div style="text-align: center; margin-top: 32px;">
-            <a href="../index.html" class="btn btn-secondary" data-i18n="common.back_home">홈으로 돌아가기</a>
-        </div>
-
         <!-- 후원 섹션 -->
         <div class="sponsor-inline">
             <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
@@ -131,7 +127,7 @@
                 <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="sponsor-img">
             </a>
         </div>
-    </main>
+    </div>
 
     <footer>
         <div class="container">
