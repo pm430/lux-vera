@@ -133,6 +133,21 @@
     "footer_note": "Ad-free service | All audio generated with Web Audio API<br>Contact: your@email.com",
     "alert_time_complete": "⏰ Time is complete!"
   },
+  "fortune": {
+    "page_title": "Daily Fortune - Lux Vera",
+    "title": "Daily Fortune",
+    "subtitle": "Check your daily fortune",
+    "description": "Check your daily fortune. We provide overall, love, money, and health luck.",
+    "today": "Today",
+    "overall_title": "Overall Luck",
+    "love": "Love Luck",
+    "money": "Money Luck",
+    "health": "Health Luck",
+    "work": "Work Luck",
+    "lucky_color": "Lucky Color",
+    "lucky_number": "Lucky Number",
+    "share": "Share Fortune"
+  },
   "dev": {
     "title": "Developer Tools",
     "subtitle": "Useful online tools for developers",
