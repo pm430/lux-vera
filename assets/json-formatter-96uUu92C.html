@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,16 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EYC7QS6F"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-41EYC7QS6F');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-41EYC7QS6F');
     </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
     <!-- Resource Hints: Preload critical resources -->
     <link rel="preload" href="../src/js/main.js" as="script" crossorigin>
@@ -20,30 +26,33 @@
     <link rel="prefetch" href="../dev/index.html">
 
     <script>
-      (function() {
-        function setTheme(theme) {
-          document.documentElement.setAttribute('data-theme', theme);
-        }
-        try {
-          var savedTheme = localStorage.getItem('theme');
-          if (savedTheme) {
-            setTheme(savedTheme);
-          } else {
-            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setTheme(prefersDark ? 'dark' : 'light');
-          }
-        } catch (error) {
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          setTheme(prefersDark ? 'dark' : 'light');
-        }
-      })();
+        (function () {
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            try {
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                } else {
+                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    setTheme(prefersDark ? 'dark' : 'light');
+                }
+            } catch (error) {
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark ? 'dark' : 'light');
+            }
+        })();
     </script>
 </head>
+
 <body>
     <header>
         <div class="container">
-            <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label" data-i18n-attr="aria-label" aria-label="언어 전환">KO</button>
-            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label"
+                data-i18n-attr="aria-label" aria-label="언어 전환">KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label"
+                aria-label="다크모드 토글">🌙</button>
             <h1 data-i18n="dev.json.title">JSON 포맷터</h1>
             <p class="subtitle" data-i18n="dev.json.subtitle">JSON 데이터를 포맷팅하고 검증합니다</p>
         </div>
@@ -55,7 +64,8 @@
         <div class="tool-panel">
             <div class="form-group">
                 <label for="jsonInput" data-i18n="dev.json.input_label">JSON 입력</label>
-                <textarea id="jsonInput" data-i18n="dev.json.input_placeholder" data-i18n-attr="placeholder" placeholder='{"name": "홍길동", "age": 30}'></textarea>
+                <textarea id="jsonInput" data-i18n="dev.json.input_placeholder" data-i18n-attr="placeholder"
+                    placeholder='{"name": "홍길동", "age": 30}'></textarea>
             </div>
 
             <div class="button-group">
@@ -70,7 +80,7 @@
                 <label for="jsonOutput" data-i18n="dev.json.output_label">결과</label>
                 <textarea id="jsonOutput" readonly></textarea>
             </div>
-            
+
             <div id="message" class="result-box hidden"></div>
         </div>
 
@@ -78,7 +88,8 @@
         <div class="sponsor-inline">
             <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
-                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="sponsor-img">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
+                    class="sponsor-img">
             </a>
         </div>
     </div>
@@ -94,7 +105,7 @@
         import I18n from '../src/js/i18n.js';
         import Utils from '../src/js/utils.js';
 
-        window.formatJSON = function() {
+        window.formatJSON = function () {
             const input = $('#jsonInput').val().trim();
             const output = $('#jsonOutput');
             const message = $('#message');
@@ -118,7 +129,7 @@
             }
         }
 
-        window.minifyJSON = function() {
+        window.minifyJSON = function () {
             const input = $('#jsonInput').val().trim();
             const output = $('#jsonOutput');
             const message = $('#message');
@@ -142,7 +153,7 @@
             }
         }
 
-        window.validateJSON = function() {
+        window.validateJSON = function () {
             const input = $('#jsonInput').val().trim();
             const message = $('#message');
 
@@ -163,12 +174,15 @@
         }
 
         // 페이지 로드 시 i18n 초기화
-        $(document).ready(function() {
+        $(document).ready(function () {
             I18n.init();
         });
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 (async로 지연 로드) -->
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00"
+        data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
 </body>
+
 </html>

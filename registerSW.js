@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/lux-vera/sw.js', { scope: '/lux-vera/' })})}
