@@ -3,6 +3,7 @@
     "home": "Back to Home",
     "theme_toggle": "Toggle dark mode",
     "sponsor_message": "If you found this service useful, please buy me a coffee!",
+    "sponsor_btn": "Buy me a coffee",
     "sponsor_widget_message": "Thank you!"
   },
   "home": {
@@ -242,25 +243,6 @@
       "alert_no_text": "Please enter text.",
       "alert_error": "Error generating hashes: {error}",
       "alert_no_hash": "No hash to copy."
-    },
-    "json": {
-      "title": "JSON Formatter",
-      "description": "Format and validate JSON data",
-      "page_title": "JSON Formatter - Developer Utilities",
-      "subtitle": "Format and validate JSON data",
-      "input_label": "JSON Input",
-      "input_placeholder": "Enter JSON data",
-      "btn_format": "Format",
-      "btn_minify": "Minify",
-      "btn_validate": "Validate",
-      "btn_clear": "Clear",
-      "btn_copy": "Copy Result",
-      "output_label": "Result",
-      "toast_no_json": "❌ Please enter JSON data.",
-      "toast_format_success": "✅ JSON formatting complete.",
-      "toast_invalid_json": "❌ Invalid JSON format: {error}",
-      "toast_minify_success": "✅ JSON minification complete.",
-      "toast_validate_success": "✅ Valid JSON format!"
     }
   }
 }

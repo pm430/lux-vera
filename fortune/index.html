@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="fortune.page_title">오늘의 운세 - Lux Vera</title>
-    <meta name="description" data-i18n="fortune.description" data-i18n-attr="content" content="매일 새로운 운세를 확인하세요. 오늘의 총운, 애정운, 금전운, 건강운을 알려드립니다.">
+    <meta name="description" data-i18n="fortune.description" data-i18n-attr="content"
+        content="매일 새로운 운세를 확인하세요. 오늘의 총운, 애정운, 금전운, 건강운을 알려드립니다.">
     <meta property="og:title" data-i18n="fortune.page_title" data-i18n-attr="content" content="오늘의 운세 - Lux Vera">
-    <meta property="og:description" data-i18n="fortune.description" data-i18n-attr="content" content="매일 새로운 운세를 확인하세요.">
+    <meta property="og:description" data-i18n="fortune.description" data-i18n-attr="content"
+        content="매일 새로운 운세를 확인하세요.">
     <meta property="og:type" content="website">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EYC7QS6F"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-41EYC7QS6F');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-41EYC7QS6F');
     </script>
 
     <!-- Resource Hints: Preload critical resources -->
     <link rel="preload" href="data:text/javascript;base64,aW1wb3J0ICQgZnJvbSAnanF1ZXJ5JzsKaW1wb3J0ICcuLi9jc3Mvc3R5bGUuY3NzJzsKaW1wb3J0IFRoZW1lTWFuYWdlciBmcm9tICcuL3RoZW1lLmpzJzsKaW1wb3J0IEtleWJvYXJkU2hvcnRjdXRzIGZyb20gJy4vc2hvcnRjdXRzLmpzJzsKaW1wb3J0IEkxOG4gZnJvbSAnLi9pMThuLmpzJzsKaW1wb3J0IFNoYXJlVXRpbHMgZnJvbSAnLi9zaGFyZS5qcyc7CmltcG9ydCBVdGlscyBmcm9tICcuL3V0aWxzLmpzJzsKCi8vIDEuIE1ha2UgalF1ZXJ5IGFuZCBVdGlscyBnbG9iYWxseSBhdmFpbGFibGUgZm9yIGlubGluZSBzY3JpcHRzIGFuZCBsZWdhY3kgY29kZQp3aW5kb3cuJCA9ICQ7CndpbmRvdy5qUXVlcnkgPSAkOwp3aW5kb3cuVXRpbHMgPSBVdGlsczsKd2luZG93LlNoYXJlVXRpbHMgPSBTaGFyZVV0aWxzOwoKLy8gMi4gRGVmaW5lIGdsb2JhbCBmdW5jdGlvbnMKd2luZG93LnRvZ2dsZUxhbmd1YWdlID0gKCkgPT4gewogICAgY29uc3QgY3VycmVudExhbmcgPSBJMThuLmdldEN1cnJlbnRMYW5ndWFnZSgpOwogICAgY29uc3QgbmV3TGFuZyA9IGN1cnJlbnRMYW5nID09PSAna28nID8gJ2VuJyA6ICdrbyc7CiAgICBJMThuLmNoYW5nZUxhbmd1YWdlKG5ld0xhbmcpLnRoZW4oKCkgPT4gewogICAgICAgIGNvbnN0IG1lc3NhZ2UgPSBuZXdMYW5nID09PSAna28nID8gJ+2VnOq1reyWtOuhnCDrs4Dqsr3rkJjsl4jsirXri4jri6QnIDogJ0NoYW5nZWQgdG8gRW5nbGlzaCc7CiAgICAgICAgVXRpbHMudG9hc3QobWVzc2FnZSk7CiAgICB9KTsKfTsKCndpbmRvdy5jbGVhckFsbCA9ICgpID0+IHsKICAgIFV0aWxzLmNsZWFyQWxsSW5wdXRzKCk7Cn07Cgp3aW5kb3cuY29weVJlc3VsdCA9ICgpID0+IHsKICAgIGNvbnN0IG91dHB1dFRleHRhcmVhID0gJCgndGV4dGFyZWFbcmVhZG9ubHldJykuZmlyc3QoKTsKICAgIGlmIChvdXRwdXRUZXh0YXJlYS5sZW5ndGggPiAwICYmIG91dHB1dFRleHRhcmVhLnZhbCgpKSB7CiAgICAgICAgVXRpbHMuY29weVJlc3VsdFRleHQob3V0cHV0VGV4dGFyZWEpOwogICAgfSBlbHNlIHsKICAgICAgICBjb25zdCByZXN1bHRCb3ggPSAkKCcucmVzdWx0LWJveCcpLmZpcnN0KCk7CiAgICAgICAgaWYgKHJlc3VsdEJveC5sZW5ndGggPiAwICYmIHJlc3VsdEJveC50ZXh0KCkpIHsKICAgICAgICAgICAgVXRpbHMuY29weVJlc3VsdFRleHQocmVzdWx0Qm94KTsKICAgICAgICB9IGVsc2UgewogICAgICAgICAgICBVdGlscy50b2FzdCgn67O17IKs7ZWgIOqysOqzvOqwgCDsl4bsirXri4jri6QuJywgJ2Vycm9yJyk7CiAgICAgICAgfQogICAgfQp9OwoKCi8vIDMuIEluaXRpYWxpemUgbW9kdWxlcyBvbiBkb2N1bWVudCByZWFkeQokKGRvY3VtZW50KS5yZWFkeShmdW5jdGlvbigpIHsKICAgIFRoZW1lTWFuYWdlci5pbml0KCk7CiAgICBLZXlib2FyZFNob3J0Y3V0cy5pbml0KCk7CiAgICBJMThuLmluaXQoKTsKfSk7" as="script" crossorigin>
-    <link rel="prefetch" href="/lux-vera/assets/index-BKunEtOy.html">
+    <link rel="prefetch" href="/lux-vera/assets/index-Cafbo-eY.html">
 
     <script>
-      (function() {
-        function setTheme(theme) {
-          document.documentElement.setAttribute('data-theme', theme);
-        }
-        try {
-          var savedTheme = localStorage.getItem('theme');
-          if (savedTheme) {
-            setTheme(savedTheme);
-          } else {
-            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setTheme(prefersDark ? 'dark' : 'light');
-          }
-        } catch (error) {
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          setTheme(prefersDark ? 'dark' : 'light');
-        }
-      })();
+        (function () {
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            try {
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                } else {
+                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    setTheme(prefersDark ? 'dark' : 'light');
+                }
+            } catch (error) {
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark ? 'dark' : 'light');
+            }
+        })();
     </script>
-  <script type="module" crossorigin src="/lux-vera/assets/fortune-sB3omaAX.js"></script>
+  <script type="module" crossorigin src="/lux-vera/assets/fortune-Bo7_kCGl.js"></script>
   <link rel="modulepreload" crossorigin href="/lux-vera/assets/vendor-crypto-DpXOUJby.js">
   <link rel="modulepreload" crossorigin href="/lux-vera/assets/vendor-jquery-DPn9psbx.js">
   <link rel="modulepreload" crossorigin href="/lux-vera/assets/i18n-CTziurBh.js">
-  <link rel="modulepreload" crossorigin href="/lux-vera/assets/main-p0x84Enf.js">
-  <link rel="stylesheet" crossorigin href="/lux-vera/assets/main-DSZHbSPO.css">
+  <link rel="modulepreload" crossorigin href="/lux-vera/assets/main-BuTabSDx.js">
+  <link rel="stylesheet" crossorigin href="/lux-vera/assets/main-CCsSZx4v.css">
 </head>
+
 <body>
     <header>
         <div class="container">
-            <button class="language-toggle" onclick="toggleLanguage()" data-i18n="common.lang_toggle_label" data-i18n-attr="aria-label" aria-label="언어 전환">KO</button>
-            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <button class="language-toggle" onclick="toggleLanguage()" data-i18n="common.lang_toggle_label"
+                data-i18n-attr="aria-label" aria-label="언어 전환">KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label"
+                aria-label="다크모드 토글">🌙</button>
             <h1>🔮 <span data-i18n="fortune.title">오늘의 운세</span></h1>
             <p class="subtitle" data-i18n="fortune.subtitle">매일 새로운 운을 만나보세요</p>
         </div>
@@ -126,11 +132,13 @@
             <button class="btn btn-primary" onclick="shareFortune()" data-i18n="fortune.share">운세 공유하기</button>
         </div>
 
-        <!-- 후원 섹션 -->
-        <div class="sponsor-inline">
+        <!-- Buy Me a Coffee 버튼 -->
+        <div class="sponsor-card">
+            <h3>☕ Buy Me a Coffee</h3>
             <p data-i18n="common.sponsor_message">이 서비스가 유용하셨다면 커피 한 잔 후원해주세요!</p>
-            <a href="https://buymeacoffee.com/pm430" target="_blank">
-                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="sponsor-img">
+            <a href="https://buymeacoffee.com/pm430" target="_blank" class="btn-sponsor">
+                <span>☕</span>
+                <span data-i18n="common.sponsor_btn">커피 한 잔 후원하기</span>
             </a>
         </div>
     </div>
@@ -142,4 +150,5 @@
     </footer>
 
 </body>
+
 </html>
