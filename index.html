@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="home.page_title">Lux Vera - 당신의 일상을 위한 유용한 도구들</title>
-    <meta name="description" data-i18n="home.meta_description" data-i18n-attr="content" content="생활에 도움이 되는 무료 온라인 도구 모음 - 로또 번호 생성기, 하루 한구절 성경, 점심 메뉴 선택기, 내 인생의 해답, 집중 타이머">
-    <meta name="keywords" data-i18n="home.meta_keywords" data-i18n-attr="content" content="로또번호,성경구절,점심메뉴,타이머,백색소음,무료도구">
+    <meta name="description" data-i18n="home.meta_description" data-i18n-attr="content"
+        content="생활에 도움이 되는 무료 온라인 도구 모음 - 로또 번호 생성기, 하루 한구절 성경, 점심 메뉴 선택기, 내 인생의 해답, 집중 타이머">
+    <meta name="keywords" data-i18n="home.meta_keywords" data-i18n-attr="content"
+        content="로또번호,성경구절,점심메뉴,타이머,백색소음,무료도구">
 
     <!-- Open Graph -->
-    <meta property="og:title" data-i18n="home.page_title" data-i18n-attr="content" content="Lux Vera - 당신의 일상을 위한 유용한 도구들">
-    <meta property="og:description" data-i18n="home.meta_description" data-i18n-attr="content" content="생활에 도움이 되는 무료 온라인 도구 모음">
+    <meta property="og:title" data-i18n="home.page_title" data-i18n-attr="content"
+        content="Lux Vera - 당신의 일상을 위한 유용한 도구들">
+    <meta property="og:description" data-i18n="home.meta_description" data-i18n-attr="content"
+        content="생활에 도움이 되는 무료 온라인 도구 모음">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://luxvera.com">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" data-i18n="home.page_title" data-i18n-attr="content" content="Lux Vera - 당신의 일상을 위한 유용한 도구들">
-    <meta name="twitter:description" data-i18n="home.meta_description" data-i18n-attr="content" content="생활에 도움이 되는 무료 온라인 도구 모음">
+    <meta name="twitter:title" data-i18n="home.page_title" data-i18n-attr="content"
+        content="Lux Vera - 당신의 일상을 위한 유용한 도구들">
+    <meta name="twitter:description" data-i18n="home.meta_description" data-i18n-attr="content"
+        content="생활에 도움이 되는 무료 온라인 도구 모음">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EYC7QS6F"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-41EYC7QS6F');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-41EYC7QS6F');
     </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
     <!-- Resource Hints: Preload critical resources -->
     <link rel="preload" href="./src/js/main.js" as="script" crossorigin>
     <link rel="preload" href="./i18n/ko.json" as="fetch" crossorigin>
-    
+
     <!-- Resource Hints: Prefetch likely next page resources -->
     <link rel="prefetch" href="lotto/index.html">
     <link rel="prefetch" href="bible/index.html">
@@ -41,30 +53,33 @@
     <link rel="prefetch" href="dev/index.html">
 
     <script>
-      (function() {
-        function setTheme(theme) {
-          document.documentElement.setAttribute('data-theme', theme);
-        }
-        try {
-          var savedTheme = localStorage.getItem('theme');
-          if (savedTheme) {
-            setTheme(savedTheme);
-          } else {
-            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setTheme(prefersDark ? 'dark' : 'light');
-          }
-        } catch (error) {
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          setTheme(prefersDark ? 'dark' : 'light');
-        }
-      })();
+        (function () {
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            try {
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                } else {
+                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    setTheme(prefersDark ? 'dark' : 'light');
+                }
+            } catch (error) {
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark ? 'dark' : 'light');
+            }
+        })();
     </script>
 </head>
+
 <body>
     <header>
         <div class="container">
-            <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label" data-i18n-attr="aria-label" aria-label="언어 전환">KO</button>
-            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <button class="language-toggle" onclick="toggleLanguage()" data-i18n="home.lang_toggle_label"
+                data-i18n-attr="aria-label" aria-label="언어 전환">KO</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label"
+                aria-label="다크모드 토글">🌙</button>
             <h1>Lux Vera</h1>
             <p class="subtitle" data-i18n="home.subtitle">당신의 일상을 위한 유용한 도구들</p>
         </div>
@@ -77,49 +92,56 @@
                 <div class="util-icon">🎱</div>
                 <h3 data-i18n="home.lotto_card_title">로또 번호 생성기</h3>
                 <p data-i18n="home.lotto_card_desc">행운의 로또 번호를 생성하세요</p>
-                <button class="btn btn-primary" onclick="location.href='lotto/index.html'" data-i18n="home.card_btn">사용하기</button>
+                <button class="btn btn-primary" onclick="location.href='lotto/index.html'"
+                    data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">📖</div>
                 <h3 data-i18n="home.bible_card_title">하루 한구절</h3>
                 <p data-i18n="home.bible_card_desc">매일 새로운 성경 말씀으로 하루를 시작하세요</p>
-                <button class="btn btn-primary" onclick="location.href='bible/index.html'" data-i18n="home.card_btn">사용하기</button>
+                <button class="btn btn-primary" onclick="location.href='bible/index.html'"
+                    data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">🍽️</div>
                 <h3 data-i18n="home.lunch_card_title">점심 메뉴 선택기</h3>
                 <p data-i18n="home.lunch_card_desc">오늘 점심 뭐 먹지? 고민하지 말고 선택하세요</p>
-                <button class="btn btn-primary" onclick="location.href='lunch/index.html'" data-i18n="home.card_btn">사용하기</button>
+                <button class="btn btn-primary" onclick="location.href='lunch/index.html'"
+                    data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">📚</div>
                 <h3 data-i18n="home.answers_card_title">내 인생의 해답</h3>
                 <p data-i18n="home.answers_card_desc">The Book of Answers - 질문의 답을 찾아보세요</p>
-                <button class="btn btn-primary" onclick="location.href='answers/index.html'" data-i18n="home.card_btn">사용하기</button>
+                <button class="btn btn-primary" onclick="location.href='answers/index.html'"
+                    data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">🔮</div>
                 <h3 data-i18n="home.fortune_card_title">오늘의 운세</h3>
                 <p data-i18n="home.fortune_card_desc">매일 새로운 운세로 하루를 시작하세요</p>
-                <button class="btn btn-primary" onclick="location.href='fortune/index.html'" data-i18n="home.card_btn">사용하기</button>
+                <button class="btn btn-primary" onclick="location.href='fortune/index.html'"
+                    data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">⏱️</div>
                 <h3 data-i18n="home.focus_card_title">집중 타이머</h3>
                 <p data-i18n="home.focus_card_desc">광고 없는 무료 타이머와 백색소음</p>
-                <button class="btn btn-primary" onclick="location.href='focus-timer/index.html'" data-i18n="home.card_btn">사용하기</button>
+                <button class="btn btn-primary" onclick="location.href='focus-timer/index.html'"
+                    data-i18n="home.card_btn">사용하기</button>
             </div>
 
             <div class="util-card">
                 <div class="util-icon">⚙️</div>
                 <h3 data-i18n="home.dev_card_title">개발자 도구</h3>
                 <p data-i18n="home.dev_card_desc">JSON 포맷터, Base64 등 개발 유틸리티</p>
-                <button class="btn btn-primary" onclick="location.href='dev/index.html'" data-i18n="home.card_btn">사용하기</button>
+                <button class="btn btn-primary" onclick="location.href='dev/index.html'"
+                    data-i18n="home.card_btn">사용하기</button>
             </div>
         </div>
 
@@ -127,22 +149,29 @@
         <div class="share-section">
             <h3 class="share-title" data-i18n="home.share_title">이 사이트를 공유하세요</h3>
             <div class="share-buttons">
-                <button class="share-btn" onclick="ShareUtils.shareToFacebook()" data-i18n="home.share_facebook" data-i18n-attr="title" title="페이스북 공유">
+                <button class="share-btn" onclick="ShareUtils.shareToFacebook()" data-i18n="home.share_facebook"
+                    data-i18n-attr="title" title="페이스북 공유">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        <path
+                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
                 </button>
-                <button class="share-btn" onclick="ShareUtils.shareToTwitter()" data-i18n="home.share_twitter" data-i18n-attr="title" title="트위터 공유">
+                <button class="share-btn" onclick="ShareUtils.shareToTwitter()" data-i18n="home.share_twitter"
+                    data-i18n-attr="title" title="트위터 공유">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        <path
+                            d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                     </svg>
                 </button>
-                <button class="share-btn" onclick="ShareUtils.shareToKakao()" data-i18n="home.share_kakao" data-i18n-attr="title" title="카카오톡 공유">
+                <button class="share-btn" onclick="ShareUtils.shareToKakao()" data-i18n="home.share_kakao"
+                    data-i18n-attr="title" title="카카오톡 공유">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 3c5.799 0 10.5 3.664 10.5 8.185 0 4.52-4.701 8.184-10.5 8.184a13.5 13.5 0 01-1.727-.11l-4.408 2.883c-.501.265-.678.236-.472-.413l.892-3.678c-2.88-1.46-4.785-3.99-4.785-6.866C1.5 6.665 6.201 3 12 3z"/>
+                        <path
+                            d="M12 3c5.799 0 10.5 3.664 10.5 8.185 0 4.52-4.701 8.184-10.5 8.184a13.5 13.5 0 01-1.727-.11l-4.408 2.883c-.501.265-.678.236-.472-.413l.892-3.678c-2.88-1.46-4.785-3.99-4.785-6.866C1.5 6.665 6.201 3 12 3z" />
                     </svg>
                 </button>
-                <button class="share-btn" onclick="ShareUtils.copyLink()" data-i18n="home.share_link" data-i18n-attr="title" title="링크 복사">
+                <button class="share-btn" onclick="ShareUtils.copyLink()" data-i18n="home.share_link"
+                    data-i18n-attr="title" title="링크 복사">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
@@ -169,8 +198,11 @@
     </footer>
 
     <script type="module" src="./src/js/main.js"></script>
-    
+
     <!-- Buy Me a Coffee 플로팅 위젯 (async로 지연 로드) -->
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00"
+        data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
 </body>
+
 </html>

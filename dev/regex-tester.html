@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="dev.regex.page_title">정규식 테스터 - 개발자 유틸리티</title>
-    <meta name="description" data-i18n="dev.regex.description" data-i18n-attr="content" content="정규 표현식을 테스트하고 매칭 결과를 확인합니다">
+    <meta name="description" data-i18n="dev.regex.description" data-i18n-attr="content"
+        content="정규 표현식을 테스트하고 매칭 결과를 확인합니다">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-41EYC7QS6F"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-41EYC7QS6F');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-41EYC7QS6F');
     </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
     <!-- Resource Hints: Preload critical resources -->
     <link rel="preload" href="../src/js/main.js" as="script" crossorigin>
@@ -21,23 +28,23 @@
     <link rel="prefetch" href="../dev/index.html">
 
     <script>
-      (function() {
-        function setTheme(theme) {
-          document.documentElement.setAttribute('data-theme', theme);
-        }
-        try {
-          var savedTheme = localStorage.getItem('theme');
-          if (savedTheme) {
-            setTheme(savedTheme);
-          } else {
-            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setTheme(prefersDark ? 'dark' : 'light');
-          }
-        } catch (error) {
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          setTheme(prefersDark ? 'dark' : 'light');
-        }
-      })();
+        (function () {
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            try {
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                } else {
+                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    setTheme(prefersDark ? 'dark' : 'light');
+                }
+            } catch (error) {
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark ? 'dark' : 'light');
+            }
+        })();
     </script>
     <style>
         .regex-flags {
@@ -45,6 +52,7 @@
             gap: 15px;
             margin-top: 10px;
         }
+
         .regex-flags label {
             display: flex;
             align-items: center;
@@ -53,11 +61,13 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
             <button class="language-toggle" onclick="toggleLanguage()" aria-label="언어 전환">KO</button>
-            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label" aria-label="다크모드 토글">🌙</button>
+            <button class="theme-toggle" data-i18n="common.theme_toggle" data-i18n-attr="aria-label"
+                aria-label="다크모드 토글">🌙</button>
             <h1 data-i18n="dev.regex.title">정규식 테스터</h1>
             <p class="subtitle" data-i18n="dev.regex.subtitle">정규표현식을 테스트하고 매칭 결과를 확인합니다</p>
         </div>
@@ -65,28 +75,32 @@
 
     <div class="tool-container">
         <a href="../index.html" class="back-button" data-i18n="common.home">← 홈으로 돌아가기</a>
-        
+
         <div class="tool-panel">
             <div class="form-group">
                 <label for="regexInput" data-i18n="dev.regex.regex_label">정규표현식</label>
-                <input type="text" id="regexInput" data-i18n="dev.regex.regex_placeholder" data-i18n-attr="placeholder" placeholder="^\d{3}-\d{4}-\d{4}$">
+                <input type="text" id="regexInput" data-i18n="dev.regex.regex_placeholder" data-i18n-attr="placeholder"
+                    placeholder="^\d{3}-\d{4}-\d{4}$">
                 <div class="regex-flags">
-                    <label><input type="checkbox" id="flagG" checked> <span data-i18n="dev.regex.flag_g">g (전역 검색)</span></label>
-                    <label><input type="checkbox" id="flagI"> <span data-i18n="dev.regex.flag_i">i (대소문자 구분 안함)</span></label>
+                    <label><input type="checkbox" id="flagG" checked> <span data-i18n="dev.regex.flag_g">g (전역
+                            검색)</span></label>
+                    <label><input type="checkbox" id="flagI"> <span data-i18n="dev.regex.flag_i">i (대소문자 구분
+                            안함)</span></label>
                     <label><input type="checkbox" id="flagM"> <span data-i18n="dev.regex.flag_m">m (여러 줄)</span></label>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="testString" data-i18n="dev.regex.test_string_label">테스트 문자열</label>
-                <textarea id="testString" data-i18n="dev.regex.test_string_placeholder" data-i18n-attr="placeholder" placeholder="010-1234-5678"></textarea>
+                <textarea id="testString" data-i18n="dev.regex.test_string_placeholder" data-i18n-attr="placeholder"
+                    placeholder="010-1234-5678"></textarea>
             </div>
-            
+
             <div class="button-group">
                 <button class="btn btn-action" onclick="testRegex()" data-i18n="dev.regex.btn_test">테스트</button>
                 <button class="btn btn-secondary" onclick="clearAll()" data-i18n="dev.regex.btn_clear">초기화</button>
             </div>
-            
+
             <div id="result" class="hidden">
                 <h3 data-i18n="dev.regex.results_title">결과</h3>
                 <div id="matchCount" class="result-box"></div>
@@ -104,9 +118,11 @@
         <div class="tool-panel">
             <h3 data-i18n="dev.regex.common_regex_title">ℹ️ 자주 사용하는 정규식</h3>
             <div class="result-box">
-                <span data-i18n="dev.regex.common_email"><strong>이메일:</strong> ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</span><br>
+                <span data-i18n="dev.regex.common_email"><strong>이메일:</strong>
+                    ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</span><br>
                 <span data-i18n="dev.regex.common_phone"><strong>전화번호:</strong> ^\d{2,3}-\d{3,4}-\d{4}$</span><br>
-                <span data-i18n="dev.regex.common_url"><strong>URL:</strong> ^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b</span><br>
+                <span data-i18n="dev.regex.common_url"><strong>URL:</strong>
+                    ^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b</span><br>
                 <span data-i18n="dev.regex.common_ip"><strong>IP 주소:</strong> ^(\d{1,3}\.){3}\d{1,3}$</span><br>
                 <span data-i18n="dev.regex.common_date"><strong>날짜 (YYYY-MM-DD):</strong> ^\d{4}-\d{2}-\d{2}$</span>
             </div>
@@ -116,7 +132,8 @@
         <div class="sponsor-inline">
             <p data-i18n="common.sponsor_message">이 도구가 유용하셨다면 커피 한 잔 후원해주세요!</p>
             <a href="https://buymeacoffee.com/pm430" target="_blank">
-                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="sponsor-img">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
+                    class="sponsor-img">
             </a>
         </div>
     </div>
@@ -132,42 +149,42 @@
         import I18n from '../src/js/i18n.js';
         import Utils from '../src/js/utils.js';
 
-        window.testRegex = function() {
+        window.testRegex = function () {
             const regexStr = $('#regexInput').val();
             const testStr = $('#testString').val();
             const result = $('#result');
             const matchCount = $('#matchCount');
             const matchResult = $('#matchResult');
             const matchDetails = $('#matchDetails');
-            
+
             if (!regexStr) {
                 alert(I18n.t('dev.regex.alert_no_regex'));
                 return;
             }
-            
+
             if (!testStr) {
                 alert(I18n.t('dev.regex.alert_no_test_string'));
                 return;
             }
-            
+
             try {
                 // 플래그 수집
                 let flags = '';
                 if ($('#flagG').is(':checked')) flags += 'g';
                 if ($('#flagI').is(':checked')) flags += 'i';
                 if ($('#flagM').is(':checked')) flags += 'm';
-                
+
                 const regex = new RegExp(regexStr, flags);
                 const matches = testStr.matchAll(regex);
                 const matchArray = Array.from(matches);
-                
+
                 result.show();
-                
+
                 if (matchArray.length > 0) {
                     // 매칭 개수
                     matchCount.removeClass('error').addClass('success');
                     matchCount.html(I18n.t('dev.regex.match_count_success').replace('{count}', matchArray.length));
-                    
+
                     // 하이라이트된 결과
                     let highlighted = testStr;
                     let offset = 0;
@@ -181,7 +198,7 @@
                         offset += '<span class="match-highlight">'.length + '</span>'.length;
                     });
                     matchResult.html(highlighted);
-                    
+
                     // 매칭 상세 정보
                     let details = '';
                     matchArray.forEach((match, index) => {
@@ -207,8 +224,8 @@
                 matchDetails.text('');
             }
         }
-        
-        window.clearAll = function() {
+
+        window.clearAll = function () {
             $('#regexInput').val('');
             $('#testString').val('');
             $('#result').hide();
@@ -216,6 +233,9 @@
     </script>
 
     <!-- Buy Me a Coffee 플로팅 위젯 (async로 지연 로드) -->
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00"
+        data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
 </body>
+
 </html>

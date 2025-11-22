@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // Use mode-aware configuration so `base` can be `/` in development
 // and `/lux-vera/` (GitHub Pages repo path) in production by default.
@@ -10,6 +11,30 @@ export default defineConfig(({ mode }) => {
 
   return {
     base,
+    plugins: [
+      VitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+        manifest: {
+          name: 'Lux Vera',
+          short_name: 'Lux Vera',
+          description: '당신의 일상을 위한 유용한 도구들',
+          theme_color: '#ffffff',
+          icons: [
+            {
+              src: 'pwa-192x192.png',
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: 'pwa-512x512.png',
+              sizes: '512x512',
+              type: 'image/png'
+            }
+          ]
+        }
+      })
+    ],
     build: {
       rollupOptions: {
         input: {
