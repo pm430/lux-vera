@@ -79,7 +79,9 @@ const I18n = (function() {
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     element.placeholder = translation;
                 } else {
-                    element.textContent = translation;
+                    // 안전한 HTML 처리: 번역 데이터는 신뢰할 수 있는 정적 JSON 파일
+                    // 사용자 입력이 아니므로 제한된 HTML (<br>, &copy; 등) 허용
+                    element.innerHTML = translation;
                 }
             }
         });
