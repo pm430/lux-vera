@@ -75,11 +75,11 @@ const I18n = (function() {
                     element.setAttribute(attr.trim(), translation);
                 });
             } else {
-                // Default behavior: update innerHTML or placeholder
+                // Default behavior: update textContent or placeholder (XSS 방어)
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     element.placeholder = translation;
                 } else {
-                    element.innerHTML = translation;
+                    element.textContent = translation;
                 }
             }
         });

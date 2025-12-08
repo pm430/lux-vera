@@ -4,6 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self';
+                   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net https://cdnjs.buymeacoffee.com;
+                   style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+                   img-src 'self' data: https:;
+                   font-src 'self' https://cdn.jsdelivr.net;
+                   connect-src 'self' https://www.google-analytics.com;
+                   frame-src https://buymeacoffee.com;">
+
     <title data-i18n="home.page_title">Lux Vera - 당신의 일상을 위한 유용한 도구들</title>
     <meta name="description" data-i18n="home.meta_description" data-i18n-attr="content"
         content="생활에 도움이 되는 무료 온라인 도구 모음 - 로또 번호 생성기, 하루 한구절 성경, 점심 메뉴 선택기, 내 인생의 해답, 집중 타이머">
@@ -35,9 +48,10 @@
     </script>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        crossorigin="anonymous">
 
     <!-- Resource Hints: Preload critical resources -->
     <link rel="preload" href="./src/js/main.js" as="script" crossorigin>
@@ -202,7 +216,8 @@
     <!-- Buy Me a Coffee 플로팅 위젯 (async로 지연 로드) -->
     <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
         data-id="pm430" data-description="Support me on Buy me a coffee!" data-message="감사합니다!" data-color="#FFDD00"
-        data-position="Right" data-x_margin="18" data-y_margin="18" async defer></script>
+        data-position="Right" data-x_margin="18" data-y_margin="18"
+        crossorigin="anonymous" async defer></script>
 </body>
 
 </html>

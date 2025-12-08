@@ -21,17 +21,17 @@ function getSeededIndex(seed, length) {
     return Math.floor(seededRandom(seed) * length);
 }
 
-// Generate stars HTML
+// Generate stars as text (XSS 방어)
 function generateStars(rating) {
-    let starsHTML = '';
+    let starsText = '';
     for (let i = 0; i < 5; i++) {
         if (i < rating) {
-            starsHTML += '⭐';
+            starsText += '⭐';
         } else {
-            starsHTML += '☆';
+            starsText += '☆';
         }
     }
-    return starsHTML;
+    return starsText;
 }
 
 // Get fortune rating (1-5 stars)
@@ -67,31 +67,31 @@ async function loadFortune() {
         const overallIndex = getSeededIndex(seed, fortuneData.overall.length);
         const overallRating = getFortuneRating(seed, 0);
         document.getElementById('fortuneMessage').textContent = fortuneData.overall[overallIndex];
-        document.getElementById('overallStars').innerHTML = generateStars(overallRating);
+        document.getElementById('overallStars').textContent = generateStars(overallRating);
 
         // Love fortune
         const loveIndex = getSeededIndex(seed + 1, fortuneData.love.length);
         const loveRating = getFortuneRating(seed, 1);
         document.getElementById('loveMessage').textContent = fortuneData.love[loveIndex];
-        document.getElementById('loveStars').innerHTML = generateStars(loveRating);
+        document.getElementById('loveStars').textContent = generateStars(loveRating);
 
         // Money fortune
         const moneyIndex = getSeededIndex(seed + 2, fortuneData.money.length);
         const moneyRating = getFortuneRating(seed, 2);
         document.getElementById('moneyMessage').textContent = fortuneData.money[moneyIndex];
-        document.getElementById('moneyStars').innerHTML = generateStars(moneyRating);
+        document.getElementById('moneyStars').textContent = generateStars(moneyRating);
 
         // Health fortune
         const healthIndex = getSeededIndex(seed + 3, fortuneData.health.length);
         const healthRating = getFortuneRating(seed, 3);
         document.getElementById('healthMessage').textContent = fortuneData.health[healthIndex];
-        document.getElementById('healthStars').innerHTML = generateStars(healthRating);
+        document.getElementById('healthStars').textContent = generateStars(healthRating);
 
         // Work fortune
         const workIndex = getSeededIndex(seed + 4, fortuneData.work.length);
         const workRating = getFortuneRating(seed, 4);
         document.getElementById('workMessage').textContent = fortuneData.work[workIndex];
-        document.getElementById('workStars').innerHTML = generateStars(workRating);
+        document.getElementById('workStars').textContent = generateStars(workRating);
 
         // Lucky color
         const colorIndex = getSeededIndex(seed + 5, fortuneData.colors.length);

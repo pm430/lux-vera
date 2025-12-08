@@ -20,45 +20,32 @@ function detectLanguage() {
     return 'ko';
 }
 
-// 번역 데이터 로드
+// 번역 데이터 로드 (개선된 버전)
 async function loadTranslations(lang) {
     try {
-        // Get the base path (works both in dev and production)
+        // 단일 경로로 통일 (production 환경 고려)
         const basePath = import.meta.env.BASE_URL || '/';
+        const path = `${basePath}i18n/${lang}.json`;
 
-        // Try multiple paths for i18n files
-        const paths = [
-            `${basePath}i18n/${lang}.json`,
-            `./i18n/${lang}.json`,
-            `../i18n/${lang}.json`
-        ];
+        const response = await fetch(path);
 
-        let response;
-        let lastError;
-
-        for (const path of paths) {
-            try {
-                response = await fetch(path);
-                if (response.ok) break;
-            } catch (e) {
-                lastError = e;
-            }
-        }
-
-        if (!response || !response.ok) {
-            throw lastError || new Error('Failed to load translations');
+        if (!response.ok) {
+            throw new Error(`Failed to load translations: ${response.status} ${response.statusText}`);
         }
 
         translations = await response.json();
         currentLang = lang;
+
+        // localStorage 안전하게 처리
         try {
             localStorage.setItem('language', lang);
         } catch (error) {
             console.warn('localStorage unavailable:', error);
         }
+
         return true;
     } catch (error) {
-        // Failed to load translations, use fallback
+        console.error('Error loading translations:', error);
         return false;
     }
 }
@@ -99,11 +86,11 @@ function updatePageContent() {
                 element.setAttribute(attr.trim(), translation);
             });
         } else {
-            // Default behavior: update innerHTML or placeholder
+            // Default behavior: update textContent or placeholder (XSS 방어)
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 element.placeholder = translation;
             } else {
-                element.innerHTML = translation;
+                element.textContent = translation;
             }
         }
     });

@@ -35,7 +35,10 @@ const Utils = {
         if (!this.loadingOverlay) {
             this.loadingOverlay = document.createElement('div');
             this.loadingOverlay.className = 'loading-overlay';
-            this.loadingOverlay.innerHTML = '<div class="spinner"></div>';
+            // XSS 방어: DOM API 사용
+            const spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            this.loadingOverlay.appendChild(spinner);
             document.body.appendChild(this.loadingOverlay);
         }
         setTimeout(() => this.loadingOverlay.classList.add('active'), 10);
