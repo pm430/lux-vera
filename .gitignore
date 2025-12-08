@@ -27,3 +27,8 @@ mcp/
 
 # Temporary files
 serve_output.log
+
+# Local development & Large files
+.claude/
+focus-timer.zip
+opencode.json
